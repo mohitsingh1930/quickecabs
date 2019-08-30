@@ -1,0 +1,91 @@
+<% title = 'SignUp' %>
+<%- include('../partials/users_header') -%>
+
+    <form action="/users/register" method="post">
+
+            <h4 class="sign">Signup</h4>
+
+            <div id="my-signin2">
+              <a href="#"><img src="/images/googleSignIn.png" alt="sign in" onclick="userArrived()"></a>
+            </div>
+
+            <script>
+              function userArrived() {
+                var googleProvider = new firebase.auth.GoogleAuthProvider();
+                // googleProvider.addScope('phoneNumber')
+                firebase.auth().signInWithPopup(googleProvider).then((result) => {
+                  console.log(result);
+                  var user = {
+                    name: result.user.displayName,
+                    email: result.user.email
+                  }
+                  console.log(user);
+                  userSignIn(user)
+                })
+              }
+
+
+              function userSignIn(user) {
+                var xml = new XMLHttpRequest();
+
+                xml.onreadystatechange = function() {
+                  if(this.readyState == 4 && this.status == 200) {
+                    console.log("hurray");
+                    // document.write(this.responseText)
+                    window.location.href = 'http://127.0.0.1:3000'
+                  }
+                }
+
+                xml.open("POST", "/users/signIn", true);
+                xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xml.send(`name=${user.name}&email=${user.email}`);
+              }
+            </script>
+
+            <hr>
+
+            <h6 class="or">or</h6>
+            <br>
+
+            <% if(error_msg) {%>
+              <%- include('../partials/error_msg') -%>
+            <% } %>
+
+            <div class="form-group row name">
+         <!--    <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>-->
+             <div class="col-lg-8">
+               <input type="name" name="name" class="form-control" id="inputEmail3" placeholder="Name" required>
+             </div>
+           </div>
+
+            <div class="form-group row email">
+         <!--    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>-->
+             <div class="col-lg-8">
+               <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email">
+             </div>
+           </div>
+           <div class="form-group row password">
+         <!--    <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>-->
+             <div class="col-lg-8">
+               <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Password">
+             </div>
+           </div>
+
+
+           <div class="form-group row ">
+             <div class="col-sm-10">
+               <button type="submit" class="btn btn-primary">Sign up</button>
+             </div>
+           </div>
+           <div class="forgot-signup">
+                <a href="/users/login" class="forgot-password">Already have an account?</a>
+            </div>
+         </form>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body></html>

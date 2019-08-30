@@ -1,0 +1,73 @@
+.admin-panel {
+    position: relative;
+    top: 0px
+}
+
+.card {
+    top: 40px;
+    padding: 5px 20px 10px 20px;
+    margin: auto;
+    margin-bottom: 5px;
+    background-color: #FAFAFA
+}
+
+.card .booking-id {
+    padding: 5px 5px 5px 0px;
+    margin: 0px
+}
+
+.card .leftbody {
+    margin-right: 100px;
+}
+
+.card .card-body {
+    display: flex;
+    padding: 10px;
+    font-size: 15.5px;
+    font-weight: 600;
+}
+
+.confirm-btn {
+    width: 80px;
+    font-size: 12px;
+    padding: 5px;
+}
+
+.modal-body p.card-text {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0px;
+
+}
+
+.modal-body .car-container {
+    margin: 10px 0px;
+    padding: 0px;
+}
+
+.modal-body .car-selected {
+    display: flex;
+}
+
+.modal-body .car-selected select {
+    width: 250px;
+    padding: 0px;
+
+}
+
+.modal-footer button.but {
+    width: auto;
+    padding: 10px;
+    font-size: 13px
+}
+
+@media screen and (max-width:1200px) {
+    .admin-panel {
+        top: 75px
+    }
+}
+@media screen and (max-width:400px) {
+    .admin-panel ul li a.nav-link {
+        width: 100px;
+    }
+}

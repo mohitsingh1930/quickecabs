@@ -1,0 +1,132 @@
+body{
+/*    background-color: #F5F5F5;*/
+    background-color: white;
+}
+.images{
+    height: 662px;
+}
+body .hotel-info .hotel-name{
+    font-family: 'Merriweather';
+    color: black;
+    font-size: 2.2rem;
+    opacity: 0.7;
+    font-weight: 500;
+    margin: 0.7% 0 0% 5%;
+}
+.hotel-info .hotel-location{
+    font-family: 'Titillium Web';
+    margin: 0 0 2% 5%;
+    font-size: 1rem;
+    color: black;
+    opacity: 0.6;
+    font-weight: 400;    
+}
+hr{
+    height: 2px;
+    background-color:black;
+    opacity: 0.2;
+}
+.details-form{
+    width: 40%;
+    margin-right: 40px;
+}
+form{
+    margin: 2% 0 2% 3%;
+    background-color: white;
+/*    width: 40%;*/
+    padding: 5px 0 8px 5px;
+    border-radius: 20px;    
+}
+.form-amenities{
+    display: flex;
+}
+.form-blocks{
+    margin: 1.2% 0 1.2% 2%;
+}
+.form-blocks b{
+    color: black;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1.2rem;
+    opacity: 0.7;
+}
+.form-blocks input, select{
+    border-radius: 25px;
+    border: none;
+    padding: 2px 0 4px 11px;
+    background-color: #F1F0EE;
+    width: 60%;
+    margin-top: 0.2%;
+    height: 40px;
+}
+form .book-btn{
+width: 30%;
+    margin: 2% 0 3% 20%;
+    height: 50px;
+    font-size: 1.3rem;
+    text-align: center;
+    font-weight:600;
+}
+.ftrs{
+    width: 40%;
+    background-color: white;
+    margin: 20px 40px 25px 40px;
+    border-left: 1px solid grey;
+/*    height: 700px; */
+}
+.ftrs h2{
+    padding: 10px 0 10px 30px;
+    font-size: 2rem;
+    font-weight: 500;
+     font-family: 'Merriweather';
+}
+.ftrs .all-icons{
+    margin: 15px 5px 10px 30px;
+}
+.ftrs .all-icons .icons{
+    margin: 5px 80px 10px 50px;
+}
+.ftrs .all-icons .icons img{
+    margin: 5px 10px;
+    color: #FFA900;
+}
+.ftrs .all-icons .icons b{
+    font-size: 1rem;
+    font-weight: 600;
+}
+.ftrs h2.all-policies{
+    margin-top: 30px;
+}
+.ftrs .policies li{
+    margin: 5px 0px 10px 120px;
+    color: black;
+    font-weight: 600;
+    opacity: 0.8;
+}
+.ftrs .policies li img{
+    padding-right: 10px;
+}
+@media screen and (max-width: 915px){
+    .details-form{
+        width: 90%;
+    }
+    .form-amenities{
+        display:block;
+    }
+    .ftrs{
+        display: block;
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 387px){
+    .details-form{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 620px){
+    .images{
+        height: 400px;
+        width: 100%;
+    }
+}

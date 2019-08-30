@@ -1,0 +1,853 @@
+<% stylesheets = ['style2', 'bootstrap', 'style.min', 'fonts', 'style1'] %>
+<% title = 'Home' %>
+
+<%- include('partials/header') -%>
+
+
+<% if(typeof msg !== 'undefined') { %>
+  <% if(msg !== '') { %>
+    <% console.log(msg); %>
+    <%- include('partials/popupBox') -%>
+    <% msg = ''  %>
+  <% } %>
+<% } %>
+
+
+<section class="section">
+  <div class="swiper-form-wrap">
+    <!-- Swiper-->
+    <div class="swiper-container swiper-slider swiper-slider_height-1 swiper-align-left swiper-align-left-custom context-dark bg-gray-darker" data-loop="false" data-autoplay="5500" data-simulate-touch="false" data-slide-effect="fade">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" data-slide-bg="images/background11.jpeg">
+          <div class="swiper-slide-caption">
+            <div class="container container-bigger swiper-main-section">
+              <div class="row row-fix justify-content-sm-center justify-content-md-start">
+                <div class="col-md-6 col-lg-5 col-xl-4 col-xxl-5">
+                  <h3>Hundreds of Amazing Destinations</h3>
+                  <div class="divider divider-decorate"></div>
+                  <p class="text-spacing-sm">We offer a variety of destinations to travel to, ranging from exotic to some extreme ones. They include very popular countries and cities like Paris, Rio de Janeiro, Cairo and a lot of others.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide" data-slide-bg="images/background10.jpeg">
+          <div class="swiper-slide-caption">
+            <div class="container container-bigger swiper-main-section">
+              <div class="row row-fix justify-content-sm-center justify-content-md-start">
+                <div class="col-md-6 col-lg-5 col-xl-4 col-xxl-5">
+                  <h3>The Trip of Your Dream</h3>
+                  <div class="divider divider-decorate"></div>
+                  <p class="text-spacing-sm">Our travel agency is ready to offer you an exciting vacation that is designed to fit your own needs and wishes. Whether it’s an exotic cruise or a trip to your favorite resort, you will surely have the
+                    best experience.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide" data-slide-bg="images/background9.jpeg">
+          <div class="swiper-slide-caption">
+            <div class="container container-bigger swiper-main-section">
+              <div class="row row-fix justify-content-sm-center justify-content-md-start">
+                <div class="col-md-6 col-lg-5 col-xl-4 col-xxl-5">
+                  <h3>unique Travel Insights</h3>
+                  <div class="divider divider-decorate"></div>
+                  <p class="text-spacing-sm">Our team is ready to provide you with unique weekly travel insights that include photos, videos, and articles about untravelled tourist paths. We know everything about the places you’ve never been to!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Swiper controls-->
+      <div class="swiper-pagination-wrap">
+        <div class="container container-bigger">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container container-bigger form-request-wrap form-request-wrap-modern formie">
+      <div class="row row-fix justify-content-sm-center justify-content-lg-end">
+        <div class="col-lg-6 col-xxl-5">
+          <div class="form-request form-request-modern bg-gray-lighter novi-background actual-form">
+            <nav>
+              <div class="nav nav-tabs formy" id="nav-tab" role="tablist">
+
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Outstation</a>
+
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">DailyRide</a>
+              </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <!-- <form action="/action_page.php"> -->
+                  <div class="container">
+                    <h1>Let's Travel</h1>
+
+                    <div class="nav nav-tabs formy" id="nav-tab" role="tablist">
+
+                      <a class="nav-item nav-link active way" id="nav-home-twoway-tab " data-toggle="tab" href="#nav-home-oneway" role="tab" aria-controls="nav-home" aria-selected="true">Two way</a>
+
+                      <a class="nav-item nav-link way" id="nav-home-oneway-tab" data-toggle="tab" href="#nav-profile-twoway" role="tab" aria-controls="nav-profile" aria-selected="false">One way</a>
+                    </div>
+                    <div class="tab-content" id="nav-tabContent">
+
+                      <div class="tab-pane fade show active" id="nav-home-oneway" role="tabpanel" aria-labelledby="nav-home-twoway-tab">
+                        <form action="/outstation/round-trip" method="post" >
+                          <div class="form-blocks">
+                            <label for="pickup"><b>Pickup</b></label>
+                            <input type="text" id="search" placeholder="Enter Pickup location" name="destination_from" required value="">
+                          </div>
+
+                          <div class="form-blocks" id="outstation-roundTrip">
+                            <label for="drop"><b>Drop</b></label>
+                            <div class="input-plus" id="div1">
+                              <input type="text" placeholder="Enter Drop Location" name="destination_to" required value="">
+                              <button type="button" name="add" onclick="addInput(event)"><i class="fas fa-plus-circle"></i>  </button>
+                            </div>
+
+                            <script>
+
+                              var inputs_i = {val: 1}
+                              var inputs_j = {val: 1}
+
+                              var iterator;
+
+                              function addInput(e) {
+
+                                //check max 5 drop destinations
+                                if(e.target.parentNode.parentNode.parentNode.id === 'outstation-roundTrip') {
+                                  iterator = inputs_i;
+                                } else {
+                                  iterator = inputs_j;
+                                }
+
+                                //check if all fields are filled
+                                var inputs = document.querySelectorAll(`#${e.target.parentNode.parentNode.parentNode.id} .input-plus input`);
+                                if(inputs.length >= 5) {
+                                  return;
+                                }
+                                for(let input of inputs) {
+                                  console.log(input.value);
+                                  if(input.value == '') {
+                                    input.placeholder = 'fill this field first'
+                                    console.log("empty field:", input.id);
+
+                                    return;
+                                  }
+                                }
+                                console.log(inputs);
+
+                                console.log(inputs[0].parentNode.id, e.target.parentNode.parentNode.id, e.target.parentNode.parentNode.childNodes.length);
+
+                                if(e.target.parentNode.parentNode.id == inputs[0].parentNode.id && inputs.length === 1) {
+                                  let newDeleteButton = document.createElement("button")
+                                  newDeleteButton.id = `${inputs[0].parentNode.id[3]}`
+                                  newDeleteButton.addEventListener("click", deleteInput)
+                                  // newDeleteButton.innerHTML = "Delete"
+                                  newDeleteButton.type = "button"
+                                  newDeleteButton.name = 'delete'
+                                  let deleteIcon = document.createElement("i")
+                                  deleteIcon.className = "fas fa-minus-circle"
+                                  newDeleteButton.appendChild(deleteIcon)
+                                  e.target.parentNode.parentNode.appendChild(newDeleteButton)
+                                  console.log("xyz");
+
+                                }
+
+                                // console.log("value:", e.target.parentNode.parentNode.childNodes[1].value);
+                                // if(e.target.parentNode.childNodes[0].value == '') {
+                                //   console.log("fill that first");
+                                //   return
+                                // }
+
+                                var newDiv = document.createElement("div")
+                                newDiv.id = `div${++iterator.val}`
+                                newDiv.className = "input-plus"
+
+                                // var newh3 = document.createElement("h3")
+                                // newh3.innerHTML = `container number: ${i}`
+
+                                var newElement = document.createElement("input")
+                                newElement.type = "text";
+                                newElement.name = "destination_to"
+
+                                var newAddButton = document.createElement("button")
+                                newAddButton.addEventListener("click", addInput);
+                                // newAddButton.innerHTML = "Add"
+                                newAddButton.type = "button"
+                                newAddButton.name = 'add'
+                                var addIcon = document.createElement("i")
+                                addIcon.className = "fas fa-plus-circle"
+                                newAddButton.appendChild(addIcon)
+
+
+                                var newDeleteButton = document.createElement("button")
+                                newDeleteButton.id = `${iterator.val}`
+                                newDeleteButton.addEventListener("click", deleteInput)
+                                // newDeleteButton.innerHTML = "Delete"
+                                newDeleteButton.type = "button"
+                                newDeleteButton.name = 'delete'
+                                var deleteIcon = document.createElement("i")
+                                deleteIcon.className = "fas fa-minus-circle"
+                                newDeleteButton.appendChild(deleteIcon)
+
+
+                                // newDiv.appendChild(newh3)
+                                newDiv.appendChild(newElement);
+                                newDiv.appendChild(newAddButton);
+                                newDiv.appendChild(newDeleteButton);
+
+                                console.log(document.querySelector(`#${e.target.parentNode.parentNode.parentNode.id}`), document.querySelector(`#${e.target.parentNode.parentNode.parentNode.id}` + ' .ride-dates'));
+
+                                document.querySelector(`#${e.target.parentNode.parentNode.parentNode.id}`).insertBefore(newDiv, document.querySelector(`#${e.target.parentNode.parentNode.parentNode.id}` + ' .ride-dates'))
+
+                                var autocomplete = new google.maps.places.Autocomplete(newElement, {componentRestrictions: {country: 'IN'}})
+
+                              }
+
+                              function deleteInput(e) {
+
+                                console.log(`#div${e.target.parentNode.id}`);
+
+                                var childToRemove = document.querySelector(`#div${e.target.parentNode.id}`)
+
+                                var temp =  `#${e.target.parentNode.parentNode.parentNode.id}`
+
+                                console.log(childToRemove, `#${e.target.parentNode.parentNode.parentNode.id}`);
+
+                                document.querySelector(`#${e.target.parentNode.parentNode.parentNode.id}`).removeChild(childToRemove)
+
+                                iterator.val--;
+
+                                checkLast(temp);
+
+                              }
+
+                              function checkLast(parent) {
+
+                                console.log(parent);
+
+                                var divs = document.querySelectorAll(`${parent}` + ' .input-plus');
+
+                                var isLast = divs.length
+
+                                if(isLast === 1) {
+                                  divs[0].removeChild(document.getElementsByName('delete')[0])
+                                }
+
+                              }
+
+                            </script>
+
+
+                            <div class="ride-dates">
+                              <div class="pickup-ride dates">
+                                <label for="date">Pickup</label>
+                                <!--                                                             <input type="date" placeholder="select starting date of trip" name="date" required>-->
+                                <input id="input" name="start_date"/>
+                                <script>
+                                  $('#input').datetimepicker({
+                                    footer: true,
+                                    modal: true
+                                  });
+                                </script>
+                              </div>
+                              <div class="return-ride dates">
+                                <label for="date">Return</label>
+                                <!--                                                    <input type="date" placeholder="select starting date of trip" name="date" required>-->
+                                <input id="inputdate" name="end_date" />
+                                <script>
+                                  $('#inputdate').datetimepicker({
+                                    footer: true,
+                                    modal: true
+                                  });
+                                </script>
+
+                              </div>
+                            </div>
+                          </div>
+                          <br>
+                          <button type="submit" class="registerbtn">Search Cabs</button>
+                        </form>
+                      </div>
+                      <div class="tab-pane fade" id="nav-profile-twoway" role="tabpanel" aria-labelledby="nav-home-oneway-tab">
+                        <form action="/outstation/one-way" method="post" >
+                          <div class="form-blocks">
+                            <label for="pickup"><b>Pickup</b></label>
+                            <input type="text" id="search" placeholder="Enter Pickup location" name="destination_from" required>
+                          </div>
+
+                          <div class="form-blocks" id="outstation-oneWay">
+                            <label for="drop"><b>Drop</b></label>
+                            <div class="input-plus" id="div1">
+                              <input type="text" placeholder="Enter Drop Location" name="destination_to" required value="">
+                              <button type="button" name="add1" onclick="addInput(event)"><i class="fas fa-plus-circle"></i>  </button>
+                            </div>
+
+                            <!-- <script>
+
+                              var j=1;
+
+                              function addinput(e) {
+
+                                //check max 5 drop destinations
+                                if(j >= 5) {
+                                  return ;
+                                }
+
+                                //check if all fields are filled
+                                var inputs = document.querySelectorAll('#outstation-oneWay .input-plus input');
+                                for(let input of inputs) {
+                                  console.log(input.value);
+                                  if(input.value.trim() == '') {
+                                    input.placeholder = 'fill this field first'
+                                    console.log("empty field:", input.id);
+                                    return;
+                                  }
+                                }
+                                console.log(inputs);
+
+
+                                if(e.target.parentNode.parentNode.id == 'div1' && e.target.parentNode.parentNode.childNodes.length == 5) {
+                                  let newDeleteButton = document.createElement("button")
+                                  newDeleteButton.id = `${j}`
+                                  newDeleteButton.addEventListener("click", deleteinput)
+                                  // newDeleteButton.innerHTML = "Delete"
+                                  newDeleteButton.type = "button"
+                                  newDeleteButton.name = 'delete1'
+                                  let deleteIcon = document.createElement("i")
+                                  deleteIcon.className = "fas fa-minus-circle"
+                                  newDeleteButton.appendChild(deleteIcon)
+                                  e.target.parentNode.parentNode.appendChild(newDeleteButton)
+                                  console.log("first node");
+
+                                }
+
+                                // console.log("value:", e.target.parentNode.parentNode.childNodes[1].value);
+                                // if(e.target.parentNode.childNodes[0].value == '') {
+                                //   console.log("fill that first");
+                                //   return
+                                // }
+
+                                var newDiv = document.createElement("div")
+                                newDiv.id = `div${++j}`
+                                newDiv.className = "input-plus"
+
+                                // var newh3 = document.createElement("h3")
+                                // newh3.innerHTML = `container number: ${i}`
+
+                                var newElement = document.createElement("input")
+                                newElement.type = "text";
+                                newElement.name = "destination_to"
+
+                                var newAddButton = document.createElement("button")
+                                newAddButton.addEventListener("click", addinput);
+                                // newAddButton.innerHTML = "Add"
+                                newAddButton.type = "button"
+                                newAddButton.name = 'add1'
+                                var addIcon = document.createElement("i")
+                                addIcon.className = "fas fa-plus-circle"
+                                newAddButton.appendChild(addIcon)
+
+
+                                var newDeleteButton = document.createElement("button")
+                                newDeleteButton.id = `${j}`
+                                newDeleteButton.addEventListener("click", deleteinput)
+                                // newDeleteButton.innerHTML = "Delete"
+                                newDeleteButton.type = "button"
+                                newDeleteButton.name = 'delete1'
+                                var deleteIcon = document.createElement("i")
+                                deleteIcon.className = "fas fa-minus-circle"
+                                newDeleteButton.appendChild(deleteIcon)
+
+
+                                // newDiv.appendChild(newh3)
+                                newDiv.appendChild(newElement);
+                                newDiv.appendChild(newAddButton);
+                                newDiv.appendChild(newDeleteButton);
+
+                                document.querySelector("#outstation-oneWay").insertBefore(newDiv, document.querySelector('#outstation-oneWay .ride-dates'))
+
+                                var autocomplete = new google.maps.places.Autocomplete(newElement, {componentRestrictions: {country: 'IN'}})
+
+                              }
+
+                              function deleteinput(e) {
+
+                                console.log(`#${e.target.parentNode.parentNode.parentNode.id} #div${e.target.parentNode.id}`);
+
+                                var childToRemove = document.querySelector(`#${e.target.parentNode.parentNode.parentNode.id} #div${e.target.parentNode.id}`)
+
+                                console.log(e.target.id, childToRemove);
+
+                                document.querySelector('#outstation-oneWay').removeChild(childToRemove)
+
+                                j--;
+
+                                checkLast();
+
+                              }
+
+                              function checkLast() {
+
+                                var divs = document.querySelectorAll('#outstation-oneWay .input-plus');
+
+                                var isLast = divs.length
+
+                                if(isLast === 1) {
+                                  divs[0].removeChild(document.getElementsByName('delete1')[0])
+                                }
+
+                              }
+
+                            </script> -->
+
+
+
+                            <div class="ride-dates">
+                              <div class="pickup-ride dates">
+                                <label for="date">Pickup</label>
+                                <!--                                                            <input type="date" placeholder="select starting date of trip" name="date" required>-->
+                                <input id="inputpickups" name="start_date" />
+                                <script>
+                                  $('#inputpickups').datetimepicker({
+                                    footer: true,
+                                    modal: true
+                                  });
+                                </script>
+                              </div>
+                              <div class="return-ride dates">
+                                <label for="date">Return</label>
+                                <!--                                                            <input type="date" placeholder="select starting date of trip" name="date" required>-->
+                                <input id="inputpickups2" name="end_date" />
+                                <script>
+                                  $('#inputpickups2').datetimepicker({
+                                    footer: true,
+                                    modal: true
+                                  });
+                                </script>
+                              </div>
+                            </div>
+                          </div>
+                          <br>
+                          <button type="submit" class="registerbtn">Search Cabs</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                <!-- </form> -->
+              </div>
+              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <form action="/dailyride" method="post" >
+                  <div class="container">
+                    <h1>Let's Travel</h1>
+                    <!--<p>Please fill in this form to book your desired car</p>-->
+                    <hr>
+                    <div class="form-blocks">
+                      <label for="pickup"><b>Pickup</b></label>
+                      <input type="text" id="search" placeholder="Enter Pickup location" name="destination_from"  required>
+                    </div>
+                    <div class="form-blocks">
+                      <label for="drop"><b>Drop</b></label>
+                      <input type="text" id="search" placeholder="Enter Drop Location" name="destination_to" required>
+                      <div class="ride-dates">
+                        <div class="pickup-ride-dates">
+                          <label for="date">Pickup</label>
+                          <!--                                                            <input type="date" placeholder="select starting date of trip" name="date" required>-->
+                          <input id="inputdates" name="start_date" />
+                          <script>
+                            $('#inputdates').datetimepicker({
+                              footer: true,
+                              modal: true
+                            });
+                          </script>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="registerbtn">Search Cabs</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-variant-1 bg-default novi-background bg-cover">
+  <div class="container container-wide">
+    <div class="row row-fix justify-content-xl-end row-30 text-center text-xl-left">
+      <div class="col-xl-8">
+        <div class="parallax-text-wrap">
+          <h3>Our Best Tours</h3><span class="parallax-text">Hot tours</span>
+        </div>
+        <hr class="divider divider-decorate">
+      </div>
+      <div class="col-xl-3 text-xl-right">
+        <!--                    <a class="button button-secondary button-nina" href="#">view all tours</a>-->
+      </div>
+    </div>
+    <div class="row row-50">
+      <div class="col-md-6 col-xl-4">
+        <article class="event-default-wrap">
+          <div class="event-default">
+            <figure class="event-default-image"><img src="/images/manali.jpg" alt="" style="width:570px; height:300px" />
+            </figure>
+            <!--<div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#">learn more</a></div>-->
+          </div>
+          <div class="event-default-inner">
+            <h5><a class="event-default-title" href="#">Manali, India</a></h5><span class="heading-5"></span>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-6 col-xl-4">
+        <article class="event-default-wrap">
+          <div class="event-default">
+            <figure class="event-default-image"><img src="/images/mussoorie.jpg" alt="" style="width:570px; height:300px" />
+            </figure>
+            <!--                                <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#">learn more</a></div>-->
+          </div>
+          <div class="event-default-inner">
+            <h5><a class="event-default-title" href="#">Mussoorie, India</a></h5><span class="heading-5"></span>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-6 col-xl-4">
+        <article class="event-default-wrap">
+          <div class="event-default">
+            <figure class="event-default-image"><img src="/images/goa.jpg" alt="" style="width:570px; height:300px" />
+            </figure>
+            <!--                                <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#">learn more</a></div>-->
+          </div>
+          <div class="event-default-inner">
+            <h5><a class="event-default-title" href="#">Goa, India</a></h5><span class="heading-5"></span>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-6 col-xl-4">
+        <article class="event-default-wrap">
+          <div class="event-default">
+            <figure class="event-default-image"><img src="/images/shimla.jpg" alt="" style="width:570px; height:300px" />
+            </figure>
+            <!--                                <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#">learn more</a></div>-->
+          </div>
+          <div class="event-default-inner">
+            <h5><a class="event-default-title" href="#">Shimla, India</a></h5><span class="heading-5"></span>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-6 col-xl-4">
+        <article class="event-default-wrap">
+          <div class="event-default">
+            <figure class="event-default-image"><img src="/images/rohtangpass.jpg" alt="" style="width:570px; height:300px" />
+            </figure>
+            <!--                                <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#">learn more</a></div>-->
+          </div>
+          <div class="event-default-inner">
+            <h5><a class="event-default-title" href="#">Rohtangpass, India</a></h5><span class="heading-5"></span>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-6 col-xl-4">
+        <article class="event-default-wrap">
+          <div class="event-default">
+            <figure class="event-default-image"><img src="/images/haridwar.jpg" alt="" style="width:570px; height:300px" />
+            </figure>
+            <!--                                <div class="event-default-caption"><a class="button button-xs button-secondary button-nina" href="#">learn more</a></div>-->
+          </div>
+          <div class="event-default-inner">
+            <h5><a class="event-default-title" href="#">Haridwar, India</a></h5><span class="heading-5"></span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- our advantages-->
+<section class="section section-lg bg-gray-lighter novi-background bg-cover text-center">
+  <div class="container container-wide">
+    <h3>our services</h3>
+    <div class="divider divider-decorate"></div>
+    <div class="row row-50 justify-content-sm-center text-left">
+      <div class="col-sm-10 col-md-6 col-xl-3">
+        <article class="box-minimal box-minimal-border">
+          <div class="box-minimal-icon novi-icon mdi mdi-airplane"></div>
+          <p class="big box-minimal-title">Daily Rides</p>
+
+          <div class="box-minimal-text text-spacing-sm">At our travel agency, you can book daily rides to any destination. </div>
+        </article>
+      </div>
+      <div class="col-sm-10 col-md-6 col-xl-3">
+        <article class="box-minimal box-minimal-border">
+          <div class="box-minimal-icon novi-icon mdi mdi-map"></div>
+          <p class="big box-minimal-title">Outstation</p>
+
+          <div class="box-minimal-text text-spacing-sm">Besides regular tours and excursions, we also offer a variety of outstation rides to different cities and states for the people looking for awesome experiences.</div>
+        </article>
+      </div>
+      <div class="col-sm-10 col-md-6 col-xl-3">
+        <article class="box-minimal box-minimal-border">
+          <div class="box-minimal-icon novi-icon mdi mdi-city"></div>
+          <p class="big box-minimal-title">Hotel Bookings</p>
+
+          <div class="box-minimal-text text-spacing-sm">We have collaborated with many hotels across the country ranging from 5-star ones to small hotels located in different states so that you could book a hotel you like.</div>
+        </article>
+      </div>
+      <div class="col-sm-10 col-md-6 col-xl-3">
+        <article class="box-minimal box-minimal-border">
+          <div class="box-minimal-icon novi-icon mdi mdi-beach"></div>
+          <p class="big box-minimal-title">Tailored Summer Tours</p>
+
+          <div class="box-minimal-text text-spacing-sm">Our agency provides varied tours including tailored summer tours for people who are searching for an exclusive and memorable vacation.</div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Hotels -->
+<section class="section section-lg novi-background bg-cover bg-default text-center">
+  <div class="container-wide">
+    <div class="row row-50">
+      <div class="col-sm-12">
+        <h3>Our Hotels</h3>
+        <div class="divider divider-decorate"></div>
+        <!-- Owl Carousel-->
+        <div class="owl-carousel owl-carousel-team owl-carousel-inset" data-items="1" data-md-items="2" data-xl-items="3" data-stage-padding="15" data-loop="true" data-margin="30" data-mouse-drag="false" data-dots="true" data-autoplay="true">
+          <article class="post-blog"><a class="post-blog-image" href="/hotel1"><img src="/images/graceresort.jpg" alt="" width="570" height="415" /></a>
+            <div class="post-blog-caption">
+              <div class="post-blog-caption-header">
+                <ul class="post-blog-tags">
+                  <!--  <li><a class="button-tags" href="#">Grace Resort, Manali</a></li>-->
+                </ul>
+              </div>
+              <div class="post-blog-caption-body">
+                <h5><a class="post-blog-title">Grace Resort, Manali</a></h5>
+              </div>
+              <div class="post-blog-caption-footer">
+                <time datetime="2019">Feb 27, 2019 at 6:53 pm</time>
+
+              </div>
+            </div>
+          </article>
+          <article class="post-blog"><a class="post-blog-image" href="/hotel2"><img src="/images/theRockManali.jpg" alt="" width="570" height="415" /></a>
+            <div class="post-blog-caption">
+              <div class="post-blog-caption-header">
+              </div>
+              <div class="post-blog-caption-body">
+                <h5><a class="post-blog-title">The Rock Manali, Manali</a></h5>
+              </div>
+              <div class="post-blog-caption-footer">
+                <time datetime="2019">Feb 27, 2019 at 6:53 pm</time>
+                <!--                                        <a class="post-comment" href="#"><span class="icon novi-icon icon-md-middle icon-gray-1 mdi mdi-comment"></span><span>12</span></a>-->
+              </div>
+            </div>
+          </article>
+          <article class="post-blog"><a class="post-blog-image" href="/hotel3"><img src="/images/Hotel%20value%20and%20Spa.jpg" alt="" width="570" height="415" /></a>
+            <div class="post-blog-caption">
+              <div class="post-blog-caption-header">
+              </div>
+              <div class="post-blog-caption-body">
+                <h5><a class="post-blog-title">Hotel Value &amp; Spa, Mussoorie</a></h5>
+              </div>
+              <div class="post-blog-caption-footer">
+                <time datetime="2019">Feb 27, 2019 at 6:53 pm</time>
+                <!--                                        <a class="post-comment" href="#"><span class="icon novi-icon icon-md-middle icon-gray-1 mdi mdi-comment"></span><span>12</span></a>-->
+              </div>
+            </div>
+          </article>
+          <article class="post-blog"><a class="post-blog-image" href="/hotel4"><img src="/images/phoenx.jpg" alt="" style="width: 570px; height: 420px" /></a>
+            <div class="post-blog-caption">
+              <div class="post-blog-caption-header">
+                <ul class="post-blog-tags">
+                  <!--                                            <li><a class="button-tags" href="#">Grace Resort, Manali</a></li>-->
+                </ul>
+              </div>
+              <div class="post-blog-caption-body">
+                <h5><a class="post-blog-title">Phoenix Resort, Mussoorie</a></h5>
+              </div>
+              <div class="post-blog-caption-footer">
+                <time datetime="2019">Feb 27, 2019 at 6:53 pm</time>
+                <!--                                        <a class="post-comment" href="#"><span class="icon novi-icon icon-md-middle icon-gray-1 mdi mdi-comment"></span><span>12</span></a>-->
+              </div>
+            </div>
+          </article>
+          <article class="post-blog"><a class="post-blog-image" href="/hotel5"><img src="/images/sky-light.jpg" alt="" width="570" height="415" /></a>
+            <div class="post-blog-caption">
+              <div class="post-blog-caption-header">
+                <ul class="post-blog-tags">
+                  <!--                                            <li><a class="button-tags" href="#">Grace Resort, Manali</a></li>-->
+                </ul>
+              </div>
+              <div class="post-blog-caption-body">
+                <h5><a class="post-blog-title">Hotel Sky Light Royal Stay , Goa</a></h5>
+              </div>
+              <div class="post-blog-caption-footer">
+                <time datetime="2019">Feb 27, 2019 at 6:53 pm</time>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <!--                    <div class="col-12"><a class="button button-secondary button-nina button-offset-lg" href="#">view all blog posts</a></div>-->
+    </div>
+  </div>
+</section>
+
+<section class="section section-lg text-center bg-gray-lighter novi-background bg-cover">
+  <div class="container container-bigger">
+    <h3>testimonials</h3>
+    <div class="divider divider-decorate"></div>
+    <!-- Owl Carousel-->
+    <div class="owl-carousel owl-layout-1" data-items="1" data-dots="true" data-nav="true" data-stage-padding="0" data-loop="true" data-margin="30" data-mouse-drag="false" data-autoplay="true">
+      <article class="quote-boxed">
+        <div class="quote-boxed-aside"><img class="quote-boxed-image" src="/images/rohitprajapati.jpg" alt="" width="210" height="210" />
+        </div>
+        <div class="quote-boxed-main">
+          <div class="quote-boxed-text">
+            <p>I wanted to thank you very much for planning the trip to Manali for my girlfriend and me. It was amazing and exceeded my expectations! We had a wonderful time and were very pleased with the accommodations in the hotels . I
+              appreciate all the effort to get us to the location finally. </p>
+          </div>
+          <div class="quote-boxed-meta">
+            <p class="quote-boxed-cite">Rohit Prajapati</p>
+            <p class="quote-boxed-small">Regular Customer</p>
+          </div>
+        </div>
+      </article>
+      <article class="quote-boxed">
+        <div class="quote-boxed-aside"><img class="quote-boxed-image" src="/images/aman.JPG" alt="" width="210" height="210" />
+        </div>
+        <div class="quote-boxed-main">
+          <div class="quote-boxed-text">
+            <p>I had a marvelous time in our travels to Goa. I had just wonderful experiences.I loved the location of the hotel provided by you as I felt like it was only the time we got to feel the real life. The service was amazing and everyone
+              was very attentive!</p>
+          </div>
+          <div class="quote-boxed-meta">
+            <p class="quote-boxed-cite">Aman Chauhan</p>
+            <p class="quote-boxed-small">Regular Customer</p>
+          </div>
+        </div>
+      </article>
+      <article class="quote-boxed">
+        <div class="quote-boxed-aside"><img class="quote-boxed-image" src="/images/quote-user-3-210x210.jpg" alt="" width="210" height="210" />
+        </div>
+        <div class="quote-boxed-main">
+          <div class="quote-boxed-text">
+            <p>Just wanted to say many, many thanks for helping me set up an amazing trip to Mussoorie! My nephew and I had a blast! All of the accommodations were perfect.We have such fond memories and can't thank you enough!</p>
+          </div>
+          <div class="quote-boxed-meta">
+            <p class="quote-boxed-cite">Mohit Singh</p>
+            <p class="quote-boxed-small">Regular Customer</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-md text-center text-md-left bg-gray-700 novi-background bg-cover">
+  <div class="container container-wide">
+    <div class="row row-fix row-50 justify-content-sm-center">
+      <div class="col-xxl-8">
+        <div class="box-cta box-cta-inline">
+          <div class="box-cta-inner">
+            <h3 class="box-cta-title">Buy a tour without leaving your home</h3>
+            <p>Using our website, you can book any tour just in a couple of clicks.</p>
+          </div>
+          <div class="box-cta-inner"><a class="button button-secondary button-nina" href="#">Book Now</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer Minimal-->
+<footer class="section page-footer page-footer-minimal novi-background bg-cover text-center bg-gray-darker">
+  <div class="container container-wide">
+    <div class="row row-fix justify-content-sm-center align-items-md-center row-30">
+      <div class="col-md-10 col-lg-7 col-xl-4 text-xl-left"><a href="/">
+
+          <!--                    <img class="inverse-logo" src="/images/logo-inverse-208x46.png" alt="" width="208" height="46" />-->
+        </a></div>
+      <div class="col-md-10 col-lg-7 col-xl-4">
+        <p class="right">&#169;&nbsp;<span class="copyright-year">2019s</span> All Rights Reserved. Design <span>&amp; </span>powered&nbsp;by&nbsp;<br><span>
+            < </span> <a href="https://ineptdevs.com">ineptdevs</a><a href=""></a><span> /></span></p>
+      </div>
+      <div class=" list-inline col-md-10 col-lg-7 col-xl-4 text-xl-right">
+        <ul class="group-xs group-middle">
+          <li><a class="icon novi-icon icon-md-middle icon-circle icon-secondary-5-filled mdi mdi-facebook" href="#"></a></li>
+          <li><a class="icon novi-icon icon-md-middle icon-circle icon-secondary-5-filled mdi mdi-twitter" href="#"></a></li>
+          <li><a class="icon novi-icon icon-md-middle icon-circle icon-secondary-5-filled mdi mdi-instagram" href="#"></a></li>
+          <li><a class="icon novi-icon icon-md-middle icon-circle icon-secondary-5-filled mdi mdi-google" href="#"></a></li>
+          <li><a class="icon novi-icon icon-md-middle icon-circle icon-secondary-5-filled mdi mdi-linkedin" href="#"></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+</div>
+<!-- Global Mailform Output-->
+<div class="snackbars" id="form-output-global"> </div>
+<!-- Javascript-->
+<script src="/js/core.min.js"></script>
+<script src="/js/script.js"></script>
+
+
+<!-- gmaps scripts -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= key %>&libraries=places"></script>
+<script type="text/javascript">
+
+  var options = {
+    componentRestrictions: {country: 'IN'}
+  }
+
+  var destination_from_inputs = document.getElementsByName('destination_from')
+
+  var destination_to_inputs = document.getElementsByName('destination_to')
+
+  console.log(destination_from_inputs, destination_to_inputs)
+
+  var autocomplete_first = []
+  var autocomplete_second = []
+
+  for(let i=0; i<destination_from_inputs.length; i++) {
+    autocomplete_first.push(new google.maps.places.Autocomplete(destination_from_inputs[i], options))
+  }
+
+  for(let i=0; i<destination_to_inputs.length; i++) {
+    autocomplete_second.push(new google.maps.places.Autocomplete(destination_to_inputs[i], options))
+  }
+
+  console.log(autocomplete_first, autocomplete_second)
+
+</script>
+
+<script type="text/javascript">
+
+  function assignDistance(e) {
+
+    var form = e.target.parentNode;
+
+    var newInput = document.createElement('input')
+    form.appendChild(newInput)
+    newInput.style.display = 'none';
+
+    var destination_from = document.querySelector(`${form.name} input`)
+
+  }
+
+</script>
+
+</body>
+
+</html>

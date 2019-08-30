@@ -1,0 +1,22 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#myModal").modal('show');
+  });
+</script>
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog" >
+        <div class="modal-content" style="border-radius: 25px;">
+            <div class="modal-header">
+
+                <h4 class="modal-title" style="font-size: 1.5rem; font-weight: 600; opacity: 0.6"><%= msg.title %></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body" style="border-radius: 25px;">
+				       <p><%= msg.body %></p>
+            </div>
+            <div class="">
+              <!-- <button type="button" name="button" onclick="function abc() {if(window.href !== '/')window.href='/'}">OK</button> -->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,218 @@
+<% stylesheets = ['style', 'fonts', 'bootstrap', 'style1', 'style2', 'adminstyle'] %>
+<% title = 'Cars' %>
+
+<%- include('partials/header') -%>
+
+
+    <section class="section">
+      <div class="swiper-form-wrap">
+        <!-- Swiper-->
+        <div class="swiper-container swiper-slider " data-loop="false" data-autoplay="5500" data-simulate-touch="false" data-slide-effect="fade">
+          <div class="swiper-wrapper" style="width: 100%">
+            <video autoplay muted loop width="100%">
+              <source src="/video/travel.mp4" type="video/mp4"></video>
+          </div>
+
+        </div>
+        <div class="container container-bigger form-request-wrap form-request-wrap-modern formie">
+          <div class="row row-fix justify-content-sm-center justify-content-lg-end">
+            <div class="col-lg-6 col-xxl-5">
+              <div class="form-request form-request-modern bg-gray-lighter novi-background actual-form">
+                <nav>
+                  <div class="nav nav-tabs formy" id="nav-tab" role="tablist">
+
+                    <a class="nav-item nav-link <%= (!dailyRide_booking_details.from)?'active':'' %>" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="<%= Boolean(!dailyRide_booking_details.from) %>">Outstation</a>
+
+                    <a class="nav-item nav-link <%= (dailyRide_booking_details.from)?'active':'' %>" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="<%= Boolean(dailyRide_booking_details.from) %>">DailyRide</a>
+                  </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade <%= (!dailyRide_booking_details.from)?'show active':'' %>" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <!-- <form action="/action_page.php"> -->
+                      <div class="container">
+                        <h1>Let's Travel</h1>
+
+                        <div class="nav nav-tabs formy" id="nav-tab" role="tablist">
+
+                          <a class="nav-item nav-link way <%= roundTrip_booking_details.from?'active':'' %> <%= (!roundTrip_booking_details.from && !oneWay_booking_details.from)?'active':'' %>" id="nav-home-twoway-tab " data-toggle="tab" href="#nav-home-oneway" role="tab" aria-controls="nav-home" aria-selected="<%= Boolean(roundTrip_booking_details.from || (!roundTrip_booking_details.from && !oneWay_booking_details.from)) %>">Two way</a>
+
+                          <a class="nav-item nav-link way <%= (oneWay_booking_details.from)?'active':'' %>" id="nav-home-oneway-tab" data-toggle="tab" href="#nav-profile-twoway" role="tab" aria-controls="nav-profile" aria-selected="<%= Boolean(oneWay_booking_details.from) %>">One way</a>
+                        </div>
+                        <div class="tab-content" id="nav-tabContent">
+
+                          <div class="tab-pane fade <%= roundTrip_booking_details.from?'show active':'' %> <%= (!roundTrip_booking_details.from && !oneWay_booking_details.from)?'show active':'' %>" id="nav-home-oneway" role="tabpanel" aria-labelledby="nav-home-twoway-tab">
+                            <form action="/outstation/round-trip" method="post">
+                              <div class="form-blocks">
+                                <label for="pickup"><b>Pickup</b></label>
+                                <input type="text" id="search" placeholder="Enter Pickup location" name="destination_from" required value="<%= roundTrip_booking_details.from %>">
+                              </div>
+
+                              <div class="form-blocks">
+                                <label for="drop"><b>Drop</b></label>
+                                <input type="text" id="search" placeholder="Enter Drop Location" name="destination_to" required value="<%= roundTrip_booking_details.to %>">
+                                <div class="ride-dates">
+                                  <div class="pickup-ride dates">
+                                    <label for="date">Pickup</label>
+                                    <input id="input" name="start_date" value="<%= roundTrip_booking_details.start_date %>"/>
+                                    <script>
+                                      $('#input').datetimepicker({
+                                        footer: true,
+                                        modal: true
+                                      });
+                                    </script>
+                                  </div>
+                                  <div class="return-ride dates">
+                                    <label for="date">Return</label>
+                                    <!--                                                    <input type="date" placeholder="select starting date of trip" name="date" required>-->
+                                    <input id="inputdate" name="end_date" value="<%= roundTrip_booking_details.end_date %>"/>
+                                    <script>
+                                      $('#inputdate').datetimepicker({
+                                        footer: true,
+                                        modal: true
+                                      });
+                                    </script>
+
+                                  </div>
+                                </div>
+                              </div>
+                              <br>
+                              <button type="submit" class="registerbtn">Search Cabs</button>
+                            </form>
+                          </div>
+                          <div class="tab-pane fade <%= oneWay_booking_details.from?'show active':'' %>" id="nav-profile-twoway" role="tabpanel" aria-labelledby="nav-home-oneway-tab">
+                            <form action="/outstation/one-way" method="post">
+                              <div class="form-blocks">
+                                <label for="pickup"><b>Pickup</b></label>
+                                <input type="text" id="search" placeholder="Enter Pickup location" name="destination_from" value="<%= oneWay_booking_details.from %>" required>
+                              </div>
+
+                              <div class="form-blocks">
+                                <label for="drop"><b>Drop</b></label>
+                                <input type="text" id="search" placeholder="Enter Drop Location" name="destination_to" value="<%= oneWay_booking_details.to %>" required>
+                                <div class="ride-dates">
+                                  <div class="pickup-ride dates">
+                                    <label for="date">Pickup</label>
+                                    <!--                                                            <input type="date" placeholder="select starting date of trip" name="date" required>-->
+                                    <input id="inputpickups" name="start_date" value="<%= oneWay_booking_details.start_date %>"/>
+                                    <script>
+                                      $('#inputpickups').datetimepicker({
+                                        footer: true,
+                                        modal: true
+                                      });
+                                    </script>
+                                  </div>
+                                  <div class="return-ride dates">
+                                    <label for="date">Return</label>
+                                    <!--                                                            <input type="date" placeholder="select starting date of trip" name="date" required>-->
+                                    <input id="inputpickups2" name="end_date" value="<%= oneWay_booking_details.end_date %>"/>
+                                    <script>
+                                      $('#inputpickups2').datetimepicker({
+                                        footer: true,
+                                        modal: true
+                                      });
+                                    </script>
+                                  </div>
+                                </div>
+                              </div>
+                              <br>
+                              <button type="submit" class="registerbtn">Search Cabs</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    <!-- </form> -->
+                  </div>
+                  <div class="tab-pane fade <%= (dailyRide_booking_details.from)?'show active':'' %>" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <form action="/dailyride" method="post">
+                      <div class="container">
+                        <h1>Let's Travel</h1>
+                        <!--<p>Please fill in this form to book your desired car</p>-->
+                        <hr>
+                        <div class="form-blocks">
+                          <label for="pickup"><b>Pickup</b></label>
+                          <input type="text" id="search" placeholder="Enter Pickup location" name="destination_from" value="<%= dailyRide_booking_details.from %>" required>
+                        </div>
+                        <div class="form-blocks">
+                          <label for="drop"><b>Drop</b></label>
+                          <input type="text" id="search" placeholder="Enter Drop Location" name="destination_to" value="<%= dailyRide_booking_details.to %>" required>
+                          <div class="ride-dates">
+                            <div class="pickup-ride-dates">
+                              <label for="date">Pickup</label>
+                              <!--                                                            <input type="date" placeholder="select starting date of trip" name="date" required>-->
+                              <input id="inputdates" name="start_date" value="<%= dailyRide_booking_details.start_date %>"/>
+                              <script>
+                                $('#inputdates').datetimepicker({
+                                  footer: true,
+                                  modal: true
+                                });
+                              </script>
+                            </div>
+                          </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="registerbtn">Search Cabs</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="car-display">
+      <% for(let vehicle of vehicles) { %>
+        <div class="rows">
+          <div class="card-cars">
+            <img src="/images/transports/<%= vehicle.img %>" class="cars-image">
+            <div class="car-details">
+              <h4 class="car-name"><%= vehicle.name %></h4>
+              <br>
+              <div class="car-about"><%= vehicle.category %>
+                <br><%= vehicle.seats %>
+
+              </div>
+
+            </div>
+            <div class="pricing">₹ <%= vehicle.totalFare %>
+              <p>Inclusive of all Taxes</p>
+            </div>
+            <div class="aman">
+              <form action="/<%= parentRoute %>/booking/<%= vehicle.name %>/<%= vehicle.totalFare %>" method="post">
+                <button type="submit" class="btn btn-lg btn-primary select-btn ml-auto">Select</button>
+              </form>
+              <br>
+              <a href="#" data-toggle="modal" data-target="#<%= vehicle.name.split(' ').join('_') %>">
+                <p class="extra-details">
+                  Click for Complete Pricing Details
+                </p>
+              </a>
+              <div class="modal fade" id="<%= vehicle.name.split(' ').join('_') %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Pricing</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <%= vehicle.totalFare %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% } %>
+
+    </div>
+  </div>
+  <!-- Javascript-->
+  <script src="/js/core.min.js"></script>
+  <script src="/js/script.js"></script>
+</body>
+
+</html>

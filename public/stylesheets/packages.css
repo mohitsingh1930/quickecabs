@@ -1,0 +1,95 @@
+.section-packages{
+    margin: 20px 70px;
+}
+.package-card{
+    box-shadow: 0px 4px 10px -5px; 
+}
+
+.package-img img{
+    padding: 0px;
+    margin: 0px;
+    min-width: 100px;
+    width: 100%;
+    height: 100%
+}
+button.package-buttons{
+    height: 30px;
+    padding: 7px 20px;
+    font-size: 12px;
+    color: #FFA900;
+    background-color: inherit;
+    border: 2px solid #FFA900;
+}
+button.Book-button{
+    background-color: #ffa900;
+    color: #ffffff;
+}
+button.Details-button{
+    background-color: #ffffff;
+    color: #ffa900;
+}
+.card-body h5.card-title{
+    font-size: 25px;
+    font-weight: 400;
+    font-family: sans-serif;
+    padding: 0px;
+    margin-bottom: 10px;
+}
+.card-body p.card-title{
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    font-weight: 700;
+} 
+.card-body p.card-text strong{
+    font-size: 15px;   
+    padding: 0px;
+    margin: 0px;
+    font-weight: 800;
+}
+.packages-icon a span i{
+    margin-right: 4px;
+    padding: 5px;
+}
+.side-details{
+    background-color: black;
+}
+.carousel-item img{
+    height: 82vh;
+    width: 100vw;
+}
+.carousel-caption h2{
+    color: #ffffff;
+    letter-spacing: 15px;
+    font-size: 80px;
+    line-height: 150px;
+    font-weight: 100;
+} 
+.modal-body form{
+    background-color: ;
+    padding: 10px 20px;
+    margin: 0px;
+    
+}
+.modal-body form ul li{
+    font-size: 18px;
+    
+}
+.modal-body form ul li input{
+    border: none;
+    width: 100%;
+    border-radius: 70px;
+    padding: 10px 20px;
+    font-size: 15px;
+    color: darkslategrey;
+    background-color: #ffffff;
+    
+    
+}
+.modal-body form ul li input.message-input{
+    height: 100px;
+}
+
+.modal-body img.package-terms{
+    margin: auto;
+}

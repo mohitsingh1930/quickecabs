@@ -1,0 +1,460 @@
+<% title='Packages' %>
+
+<% stylesheets= ['style', 'fonts', 'bootstrap', 'style1', 'style2', 'packages'] %>
+
+
+<%- include('partials/header') -%>
+
+<!--    tooltip javascript-->
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip({
+      placement: 'top'
+    });
+  });
+</script>
+
+<section class="section-image">
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active ">
+        <img class="d-block w-100" src="images/wp1846066-hotels-wallpapers.jpg" alt="First slide">
+        <div class="carousel-caption">
+          <h2>Our Packages</h2>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="images/wp3598850-hotel-wallpapers.jpg" alt="Second slide">
+        <div class="carousel-caption ">
+          <h2>Our Packages</h2>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="images/mussoorie.jpg" alt="Third slide">
+        <div class="carousel-caption">
+          <h2>Our Packages</h2>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</section>
+
+
+<section class="section-packages">
+  <div class="package-card">
+    <div class="card mb-3">
+      <div class="row ">
+        <div class="col-md-3 package-img">
+          <img src="/images/mussoorie.jpg" class="card-img">
+        </div>
+        <div class="col-md-9">
+          <div class="card-body">
+            <h5 class="card-title">Delhi – Shimla– Manali Package</h5>
+            <p class="card-title"><strong>05 Nights / 06 Days</strong></p>
+            <p class="card-text"><strong>Places Covered </strong>- Famous Temples » Beautiful Waterfalls and much more</p>
+            <div class="packages-icon">
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="hotel">hotel</i></span></a>
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="commute">commute</i></span></a>
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="food">fastfood</i></span></a>
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="explore">explore</i></span></a>
+            </div>
+            <button type="button" class="btn btn-primary package-buttons Details-button" data-toggle="modal" data-target="#Details1">
+              Details
+            </button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary package-buttons Book-button" data-toggle="modal" data-target="#Book">
+              Book
+            </button>
+          </div>
+          <!-- Button trigger modal -->
+
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="Details1" tabindex="-1" role="dialog" aria-labelledby="details" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="Details">Delhi – Shimla – Manali</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <strong>Day 01: Delhi - Shimla (380 kms)</strong>
+            <p>On Arrival in Delhi we will meet you and transfer by to Shimla (343 kms / 8 hrs).Shimla is capital of himachal former capital of Britishers also set amidst, the snow copper, shaivalik,mountains which offer some of the most beautifull
+              view of himalaya Reach there and check in hotel Dinner and overnight at Simala.</p>
+
+            <strong>Day 02: Shimla</strong>
+            <p>Morning free. Afternoon half day city tour visiting Indian Institute Of Advanced Studies, SankatMochan Temple and Jakhu Temple, and Visit KUFRI a beautiful snow hill station in evening visit The Mall & The Ridge back to hotel have
+              dinner and overnight stay.</p>
+
+            <strong>Day 03: Shimla - Manali</strong>
+            <p>After early breakfast you will proceed to Manali (320 kms/8 hrs) Manali is a perfect hill station covered with snow mountains and beautiful water falls. On arrival check in at hotel.- Dinner and overnight at Manali.</p>
+
+            <strong>Day 04: Manali local</strong>
+            <p>Morning after breakfast go for city tour visiting Hadimba Devi Temple, Manu Temple, Tibetan Monastery and Vashisht Village. Afternoon at leisure . Enjoy your dinner in hotel . Overnight at hotel.</p>
+
+            <strong>Day 05 :Manali – Rohtaang pass – solang valley</strong>
+            <p>Full day excursion visiting Kothi Gorge, Gulaba, Marhi, Rohtang Pass -(tourist spot in himalaya having snow all 12 months) is the most visited tourist spot in Himalaya having snow round the year (Upto Snow Line in case Rohtang is
+              closed due to snow fall) and Sollang Valley evening return to hotel . Diner and Overnight at hotel.</p>
+
+            <strong>Day 06: Manali – Delhi departure</strong>
+            <p>After breakfast check out from the and leave for Delhi enroute have lunch by evening reaches at Delhi and transfer to airport/railway station.</p>
+
+            <img src="images/terms1.png" alt="" class="package-terms">
+            <img src="images/terms2.png" alt="" class="package-terms">
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="package-card">
+    <div class="card mb-3">
+      <div class="row ">
+        <div class="col-md-3 package-img">
+          <img src="images/manali.jpg" class="card-img">
+        </div>
+        <div class="col-md-9">
+          <div class="card-body">
+            <h5 class="card-title">Delhi – Shimla - Manali – Chandigarh Package </h5>
+            <p class="card-title"><strong>06 Nights / 07 Days</strong></p>
+            <p class="card-text"><strong>Places Covered </strong>- Famous Temples » Beautiful Waterfalls, mountains and more</p>
+            <div class="packages-icon">
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="hotel">hotel</i></span></a>
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="commute">commute</i></span></a>
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="food">fastfood</i></span></a>
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="explore">explore</i></span></a>
+            </div>
+            <button type="button" class="btn btn-primary package-buttons Details-button" data-toggle="modal" data-target="#Details2">
+              Details
+            </button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary package-buttons Book-button" data-toggle="modal" data-target="#Book">
+              Book
+            </button>
+          </div>
+          <!-- Button trigger modal -->
+
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="Details2" tabindex="-1" role="dialog" aria-labelledby="details" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="Details">Delhi – Shimla - Manali – Chandigarh</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <strong>Day 01: Delhi - Shimla (380 kms)</strong>
+            <p>On Arrival in Delhi we will meet you and transfer by to Shimla (343 kms / 8 hrs).Shimla is capital of himachal former capital of Britishers also set amidst, the snow copper, shaivalik,mountains which offer some of the most beautifull
+              view of himalaya Reach there and check in hotel Dinner and overnight at Simala.</p>
+
+            <strong>Day 02: Shimla</strong>
+            <p>Morning free. Afternoon half day city tour visiting Indian Institute Of Advanced Studies, SankatMochan Temple and Jakhu Temple, and Visit KUFRI a beautiful snow hill station in evening visit The Mall & The Ridge back to hotel have
+              dinner and overnight stay.The Mall & The Ridge. Dinner and Overnight at hotel.</p>
+
+            <strong>Day 03: Shimla - Manali</strong>
+            <p>After early breakfast you will proceed to Manali (320 kms/8 hrs) Manali is a perfect hill station covered with snow mountains and beautiful water falls. On arrival check in at hotel.- Dinner and overnight at Manali.</p>
+
+            <strong>Day 04: Manali local</strong>
+            <p>Morning after breakfast go for city tour visiting Hadimba Devi Temple, Manu Temple, Tibetan Monastery and Vashisht Village. Afternoon at leisure . Enjoy your dinner in hotel . Overnight at hotel.</p>
+
+            <strong>Day 05 :Manali </strong>
+            <p>Full day excursion visiting Kothi Gorge, Gulaba, Marhi, Rohtang Pass -(tourist spot in himalaya having snow all 12 months) is the most visited tourist spot in Himalaya having snow round the year (Upto Snow Line in case Rohtang is
+              closed due to snow fall) and Sollang Valley evening return to hotel . Diner and Overnight at hotel.</p>
+
+            <strong>Day 06: Manali - Chandigarh</strong>
+            <p>Early morning after having breakfast checkout from the hotel and drive back to Chandigarh by evening reaches at chandigarhRose Garden and overninght stay in hotel.</p>
+            <strong>Day 07: Chandigarh – Delhi departure</strong>
+            <p>Early morning after have breakfast checkout from the hotel and do some sight seeingPinjore garden ,rock garden etc. in afternoon drive back to delhi and transfer to railway station/airport.</p>
+
+            <img src="images/terms1.png" alt="" class="package-terms">
+            <img src="images/terms2.png" alt="" class="package-terms">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="Book" tabindex="-1" role="dialog" aria-labelledby="book" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Booking Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/packages" method='post'>
+              <ul>
+                <li><Strong>Name: </Strong><br><input required type="text" name="name"></li>
+                <li><Strong>No. of people: </Strong> <br><input required type="text" name="people"></li>
+                <li><Strong>children: </Strong> <br><input required type="text" name="children"></li>
+                <li><strong>Mobile number: </strong><br><input required type="tel" name="mobNo"></li>
+                <li><strong>Email ID:</strong><br><input required type="email" name="email"></li>
+                <li><strong>check in:</strong><br><input required type="date" placeholder="DD/MM/YYYY" name="checkInDate"></li>
+                <li><strong>check out:</strong><br><input required type="date" name="checkOutDate"></li>
+                <li><strong>address:</strong><br><input required type="text" name="address"></li>
+                <li><strong>message:</strong><br><input class="message-input" type="Text" height="100px" name="enquiryMsg"></li>
+              </ul>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" data-dismiss="modal">Send Details</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="package-card">
+    <div class="card mb-3">
+      <div class="row ">
+        <div class="col-md-3 package-img">
+          <img src="images/rohtangpass.jpg" class="card-img">
+        </div>
+        <div class="col-md-9">
+          <div class="card-body">
+            <h5 class="card-title">Delhi – Shimla - Manali – Dalhousie Package </h5>
+            <p class="card-title"><strong>07 Nights / 08 Days</strong></p>
+            <p class="card-text"><strong>Places Covered </strong>- Famous Temples » Beautiful Waterfalls, mountains and much more</p>
+            <div class="packages-icon">
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="hotel">hotel</i></span></a>
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="commute">commute</i></span></a>
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="food">fastfood</i></span></a>
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="explore">explore</i></span></a>
+            </div>
+            <button type="button" class="btn btn-primary package-buttons Details-button" data-toggle="modal" data-target="#Details3">
+              Details
+            </button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary package-buttons Book-button" data-toggle="modal" data-target="#Book">
+              Book
+            </button>
+          </div>
+          <!-- Button trigger modal -->
+
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="Details3" tabindex="-1" role="dialog" aria-labelledby="details" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="Details">Delhi – Shimla - Manali – Dalhousie</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <strong>Day 01: Delhi - Shimla (380 kms)</strong>
+            <p>On Arrival in Delhi we will meet you and transfer by to Shimla (343 kms / 8 hrs).Shimla is capital of himachal former capital of Britishers also set amidst, the snow copper, shaivalik,mountains which offer some of the most beautifull
+              view of himalaya Reach there and check in hotel Dinner and overnight at Simala.</p>
+
+            <strong>Day 02: Shimla</strong>
+            <p>Morning free. Afternoon half day city tour visiting Indian Institute Of Advanced Studies, SankatMochan Temple and Jakhu Temple, and Visit KUFRI a beautiful snow hill station in evening visit The Mall & The Ridge back to hotel have
+              dinner and overnight stay.</p>
+
+            <strong>Day 03: Shimla - Manali</strong>
+            <p>After early breakfast you will proceed to Manali (320 kms/8 hrs) Manali is a perfect hill station covered with snow mountains and beautiful water falls. On arrival check in at hotel.- Dinner and overnight at Manali.</p>
+
+            <strong>Day 04: Manali local</strong>
+            <p>Morning after breakfast go for city tour visiting Hadimba Devi Temple, Manu Temple, Tibetan Monastery and Vashisht Village. Afternoon at leisure . Enjoy your dinner in hotel . Overnight at hotel.</p>
+
+            <strong>Day 05 :Manali – Rohtaang pass – solang valley</strong>
+            <p>Full day excursion visiting Kothi Gorge, Gulaba, Marhi, Rohtang Pass -(tourist spot in himalaya having snow all 12 months) is the most visited tourist spot in Himalaya having snow round the year (Upto Snow Line in case Rohtang is
+              closed due to snow fall) and Sollang Valley evening return to hotel . Diner and Overnight at hotel.</p>
+
+            <strong>Day 06: Manali – Dalhousie(370km and 11hrs)</strong>
+            <p>Travel by to Dalhousie 370 Km . Dalhousie has marvelous forests trails overlook vistas of wooded hills, waterfalls, spring and rivulets. Dalhousie still has a touch of the &ldquo;Raj&rdquo; and its colonial style building and houses
+              bring back the flavors of an earlier era. Check in Hotel. Diner and Overnight stay at Hotel.</p>
+
+            <strong>Day 07: Dalhousie</strong>
+            <p>After breakfast we proceed to Khajjiar. Often called India's Switzerland, Along its fringes, thick forests of deodar climb the slopes, the snow-line rests above these woods and in the centre of the glade, is a small lake fed by streams
+              that traverse the green carpet. Khajjiar was probably a glacial bowl formed during the last Himalayan ice age and left with a lake that gradually withered away. Khajjiar is part of the notified Kalatop - Khajjiar sanctuary. And later
+              proceed for proceed to Chamba. stands on the right bank of the river Ravi.. It is well known for its splendid architecture and as the base for numerous excursions. Dinner and overnight at hotel.</p>
+
+            <strong>Day 08: Dalhousie - Delhi departure (590km and 10hrs)</strong>
+            <p>After breakfast check out from the hotel enroute have lunch by evening reaches at Delhi and transfer to you on railway station / airport for your next destinations</p>
+
+            <img src="images/terms1.png" alt="" class="package-terms">
+            <img src="images/terms2.png" alt="" class="package-terms">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="package-card">
+    <div class="card mb-3">
+      <div class="row ">
+        <div class="col-md-3 package-img">
+          <img src="images/haridwar.jpg" class="card-img">
+        </div>
+        <div class="col-md-9">
+          <div class="card-body">
+            <h5 class="card-title">Delhi –Mussoorie - Haridwar Package </h5>
+            <p class="card-title"><strong>03 Nights / 04 Days</strong></p>
+            <p class="card-text"><strong>Places Covered </strong>- Famous Temples » Beautiful Waterfalls, mountains and much more</p>
+            <div class="packages-icon">
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="hotel">hotel</i></span></a>
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="commute">commute</i></span></a>
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="food">fastfood</i></span></a>
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="explore">explore</i></span></a>
+            </div>
+            <button type="button" class="btn btn-primary package-buttons Details-button" data-toggle="modal" data-target="#Details4">
+              Details
+            </button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary package-buttons Book-button" data-toggle="modal" data-target="#Book">
+              Book
+            </button>
+          </div>
+          <!-- Button trigger modal -->
+
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="Details4" tabindex="-1" role="dialog" aria-labelledby="details" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="Details">Delhi – Shimla - Manali – Dalhousie</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <strong>Day 01: Delhi - Missouri (285 kms 8hrs)</strong>
+            <p>Pickup from Delhi Railway Station/Airport, drive to Mussoorie. On arrival check in Hotel. After fresh up visit Mall Road, Rope way. Dinner at hotel. O/N/S.</p>
+
+            <strong>Day 02:Mussoorie</strong>
+            <p>After B/F visit Mussoorie Lake, Mall Road. Dinner at Hotel. O/N/S.</p>
+
+            <strong>Day 03: Mussoorie - Haridwar (85 kms 4 hrs)</strong>
+            <p>After B/F check out Hotel. Depart for Haridwar. On the way visit Dehradoon&Rishkesh Temples, LaxmanZulha, Bharat Mata Mandir, Evening visit Ganga JikiAarti at Har Ki Porhi. Dinner at Hotel O/N/S.</p>
+
+            <strong>Day 04:Haridwar - Delhi (210 kms 5 hrs)</strong>
+            <p>After B/F check out Hotel. Depart for Delhi. On the way visit Swrag Ashram, Ram Zulha. On arrival at Delhi Drop to Railway station</p>
+
+            <img src="images/terms3.png" alt="" class="package-terms">
+            <img src="images/terms4.png" alt="" class="package-terms">
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="package-card">
+    <div class="card mb-3">
+      <div class="row ">
+        <div class="col-md-3 package-img">
+          <img src="images/rohtangpass.jpg" class="card-img">
+        </div>
+        <div class="col-md-9">
+          <div class="card-body">
+            <h5 class="card-title">Delhi - Nainital – Kasouni – Corbett Package </h5>
+            <p class="card-title"><strong>05 Nights / 06 Days</strong></p>
+            <p class="card-text"><strong>Places Covered </strong>- Famous Temples » Beautiful Waterfalls, mountains and much more</p>
+            <div class="packages-icon">
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="hotel">hotel</i></span></a>
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="commute">commute</i></span></a>
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="food">fastfood</i></span></a>
+              <a href="#"><span><i class="material-icons" data-toggle="tooltip" data-original-title="explore">explore</i></span></a>
+            </div>
+            <button type="button" class="btn btn-primary package-buttons Details-button" data-toggle="modal" data-target="#Details5">
+              Details
+            </button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary package-buttons Book-button" data-toggle="modal" data-target="#Book">
+              Book
+            </button>
+          </div>
+          <!-- Button trigger modal -->
+
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="Details5" tabindex="-1" role="dialog" aria-labelledby="details" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="Details">Delhi - Nainital – Kasouni – Corbett </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <strong>Day 01:Delhi - Nainital (330 kms. / Approx. 9 hour drive)</strong>
+            <p>On arrival at the Delhi airport or Delhi railway station meet our representative of Verma Holidays & you will proceed on a picturesque drive to the charming hill station of Nainital. On arrival check into your hotel & overnight stay.
+            </p>
+
+            <strong>Day 02: Nainital</strong>
+            <p>Today, you will have a local tour of Nainital visiting the Hanuman Garhi and Naina Devi Temple. The rest of the day is free to enjoy a boat ride in the Naini Lake (boats can be hired directly) or take the ropeway to visit snow view,
+              from where you will get the most spectacular view of the snow-capped peaks (ticket for Gondolo ride on direct payment). Overnight Stay at hotel.</p>
+
+            <strong>Day 03:Nainital – Almora – Kausani</strong>
+            <p>Morning after Breakfast leave Nainital for Kausanienroute visit Almora Nanda Devi Temple, Bright & Corner. Then after drive to Kausani also called the Switzerland of India. Check into hotel. Overnight stay at Kausani.</p>
+
+            <strong>Day 04:Koousani Full day local sight seeing </strong>
+            <p>Morning after breakfast go for full day sight seeing of Kousani by evening back to hotel have dinner and overnight stay .</p>
+
+            <strong>Day 05 :Kausani– Corbett</strong>
+            <p>Morning after Breakfast leave Kausani for Corbett by afternoon reach at Corbett. Check into Resort. Enjoy recreational facilities at Resort. Guided Nature Walk. Dinner and Over-night stay at Corbett.</p>
+
+            <strong>Day 06: Corbett – delhi</strong>
+            <p>Morning after Breakfast enjoy Jeep safari to the Reserve Forest Core Zones and check out from the hotel and drive to Delhi by evening reach at delhi and transfer to you on station / airport .</p>
+
+            <img src="images/terms3.png" alt="" class="package-terms">
+            <img src="images/terms4.png" alt="" class="package-terms">
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+<!-- Javascript-->
+<script src="js/core.min.js"></script>
+<script src="js/script.js"></script>
+</body>
+
+</html>

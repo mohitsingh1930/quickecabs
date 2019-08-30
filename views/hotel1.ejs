@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Titillium+Web&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/style2.css">
+    <!--    <link rel="stylesheet" href="css/bootstrap.css">-->
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/fonts.css">
+    <link rel="stylesheet" href="/stylesheets/style1.css">
+    <link rel="stylesheet" href="/stylesheets/hotels.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!--<link rel="stylesheet" href="css/style.css">-->
+    <title>Hotels</title>
+
+
+        <style media="screen">
+          .log-sign-button h6, .log-sign-button .logout-button{
+            display: none;
+          }
+        </style>
+
+</head>
+
+<body>
+
+  <!-- Page preloader-->
+  <div class="page-loader">
+      <div class="page-loader-body">
+          <div class="preloader-wrapper big active">
+              <div class="spinner-layer spinner-blue">
+                  <div class="circle-clipper left">
+                      <div class="circle"> </div>
+                  </div>
+                  <div class="gap-patch">
+                      <div class="circle"> </div>
+                  </div>
+                  <div class="circle-clipper right">
+                      <div class="circle"></div>
+                  </div>
+              </div>
+              <div class="spinner-layer spinner-red">
+                  <div class="circle-clipper left">
+                      <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                      <div class="circle"> </div>
+                  </div>
+                  <div class="circle-clipper right">
+                      <div class="circle"></div>
+                  </div>
+              </div>
+              <div class="spinner-layer spinner-yellow">
+                  <div class="circle-clipper left">
+                      <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                      <div class="circle"></div>
+                  </div>
+                  <div class="circle-clipper right">
+                      <div class="circle"> </div>
+                  </div>
+              </div>
+              <div class="spinner-layer spinner-green">
+                  <div class="circle-clipper left">
+                      <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                      <div class="circle"></div>
+                  </div>
+                  <div class="circle-clipper right">
+                      <div class="circle"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- Page
+  <div class="page">
+      <!--     <a class="section section-banner text-center d-none d-xl-block" href="https://www.templatemonster.com/intense-multipurpose-html-template.html" style="background-image: url(images/banner/background-04-1920x60.jpg); background-image: -webkit-image-set( url(images/banner/background-04-1920x60.jpg) 1x, url(images/banner/background-04-3840x120.jpg) 2x )"><img src="images/banner/foreground-04-1600x60.png" srcset="images/banner/foreground-04-1600x60.png 1x, images/banner/foreground-04-3200x120.png 2x" alt="" width="1600" height="310"></a>-->
+      <!-- Page Header-->
+      <header class="section page-header" id="header">
+          <!-- RD Navbar-->
+          <div class="rd-navbar-wrap rd-navbar-corporate">
+              <nav class="rd-navbar" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fullwidth" data-xl-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-fixed" data-xl-device-layout="rd-navbar-static" data-md-stick-up-offset="130px" data-lg-stick-up-offset="100px" data-stick-up="true" data-sm-stick-up="true" data-md-stick-up="true" data-lg-stick-up="true" data-xl-stick-up="true">
+                  <div class="rd-navbar-collapse-toggle" data-rd-navbar-toggle=".rd-navbar-collapse"><span></span></div>
+
+                  <div class="rd-navbar-inner">
+                      <!-- RD Navbar Panel-->
+                      <div class="rd-navbar-panel">
+                          <!-- RD Navbar Toggle-->
+                          <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                          <!-- RD Navbar Brand-->
+                          <div class="rd-navbar-brand">
+                              <a class="brand-name" href="/">
+
+
+                                  <img class="logo-default" src="/images/quickecab-logo.png" alt="" width="200px" height="150px" />
+                                  <!--                            <img class="logo-inverse" src="images/logo-inverse-208x46.png" alt="" width="208" height="46" />-->
+
+                              </a>
+                          </div>
+                      </div>
+                      <div class="rd-navbar-aside-center">
+                          <div class="rd-navbar-nav-wrap">
+                              <!-- RD Navbar Nav-->
+                              <ul class="rd-navbar-nav">
+                                  <li class="active"><a href="/">Home</a>
+                                  </li>
+                                  <li><a href="/AboutUs">About Us</a>
+                                  </li>
+                                  <li><a href="/Contacts">Contacts</a>
+                                  </li>
+                                  <!--
+                                  <li><a href="typography.html">Typography</a>
+                                  </li>
+-->
+                              </ul>
+                          </div>
+                      </div>
+                      <div class="log-sign-button">
+                          <div class="rd-navbar-aside-right login-button"><a class="button button-sm button-nina " href="/users/login">login</a></div>
+                          <div class="rd-navbar-aside-right signup-button"><a class="button button-sm button-secondary button-nina " href="/users/register">signUP</a></div>
+
+                          <h6 class="username" >Howdy, </h6>
+                          <form action="/users/logout" method="post" >
+                            <div class="rd-navbar-aside-right logout-button"><button type="submit" class="button button-sm button-secondary button-nina">logout</button></div>
+                          </form>
+
+                      </div>
+
+                      <script type="text/javascript">
+                          loadDoc()
+
+                          function loadDoc() {
+                              var xhttp = new XMLHttpRequest();
+                              xhttp.onreadystatechange = function() {
+                                  if (this.readyState == 4 && this.status == 200) {
+                                      // console.log("responseText:", this.responseText);
+                                      if (this.responseText != '') {
+                                          var user = JSON.parse(this.responseText)
+                                          var element = document.querySelector(".log-sign-button h6")
+                                          var logout_btn = document.querySelector(".log-sign-button .logout-button")
+                                          console.log(element);
+                                          // element[0].removeAttribute("href")
+                                          element.innerHTML += user.name[0].toUpperCase() + user.name.slice(1)
+                                          console.log(element.innerHTML);
+                                          console.log("displays:", element.style.display, logout_btn.style.display);
+                                          element.style.display = "inline"
+                                          logout_btn.style.display = "inline"
+                                          var login_containers = document.querySelectorAll(".log-sign-button div")
+                                          login_containers[0].style.display = "none";
+                                          login_containers[1].style.display = "none";
+                                          console.log(element.innerHTML, logout_btn.innerHTML);
+                                      }
+
+                                  }
+                              };
+                              xhttp.open("POST", `/users/loggedUser`, true);
+                              xhttp.send();
+                          }
+
+                      </script>
+
+
+                  </div>
+              </nav>
+          </div>
+      </header>
+
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="w-100 images" src="/images/thumb-1920-900368.jpg" alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img class="w-100 images" src="/images/wp1846066-hotels-wallpapers.jpg" alt="Second slide">
+
+            </div>
+            <div class="carousel-item">
+                <img class="w-100 images" src="/images/wp3598850-hotel-wallpapers.jpg" alt="Third slide">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <div class="hotel-info">
+        <div class="hotel-name">Phoneix Restraunt, Manali</div>
+        <div class="hotel-location">B-9882/98 Hanuman Road, Manali-556985</div>
+    </div>
+    <hr>
+    <div class="form-amenities">
+        <div class="details-form">
+            <form action="">
+                <div class="form-blocks"> <b>Name</b><br>
+                    <input type="text" name="name" placeholder="Full Name">
+                </div>
+                <div class="form-blocks">
+                    <b>Contact No.</b><br>
+                    <input type="tel" name="contact" placeholder="Contact No.">
+                </div>
+                <div class="form-blocks">
+                    <b>Chek in</b><br>
+                    <input type="date" name="check-in" placeholder="Check in">
+                </div>
+                <div class="form-blocks">
+                    <b>Chek Out</b><br>
+                    <input type="date" name="check-in" placeholder="Check in">
+                </div>
+                <div class="form-blocks">
+                    <b>Rooms</b><br>
+                    <select name="rooms" id="">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                    </select>
+                </div>
+                <div class="form-blocks">
+                    <b>No. of Persons</b><br>
+                    <select name="rooms" id="">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary book-btn" data-toggle="modal" data-target="#exampleModalLong">Book</button>
+            </form>
+        </div>
+        <div class="ftrs">
+            <h2>Amenities</h2>
+            <div class="all-icons">
+                <div class="icons"> <img src="https://img.icons8.com/windows/25/000000/bed.png"> <b>King Sized Bed</b></div>
+                <div class="icons"> <img src="https://img.icons8.com/material/25/000000/tv.png"> <b>T.V.</b></div>
+                <div class="icons"> <img src="https://img.icons8.com/material/30/000000/parking--v1.png"><b>Parking Facility</b></div>
+                <div class="icons"> <img src="https://img.icons8.com/ios/25/000000/air-conditioner.png"><b>A.C.</b></div>
+<div class="icons"> <img src="https://img.icons8.com/ios-glyphs/30/000000/wall-mount-camera-error.png"><b>CCTV Cameras</b></div>
+               <div class="icons"> <img src="https://img.icons8.com/material/26/000000/hot-springs.png"><b>Geyser</b></div>
+                <div class="icons"><img src="https://img.icons8.com/ios-filled/30/000000/restaurant-table.png"><b>Hotel's Kitchen</b></div>
+                 <div class="icons"><img src="https://img.icons8.com/ios-filled/25/000000/wi-fi-connected.png"><b>Wi-fi</b></div>
+            </div>
+            <h2 class="all-policies">Hotel Policies</h2>
+            <div class="policies">
+                <ul>
+                    <li>
+                       <img src="https://img.icons8.com/material/10/000000/new-moon--v1.png"> Check in after 12:00 PM
+                    </li>
+                    <li>
+                       <img src="https://img.icons8.com/material/10/000000/new-moon--v1.png">
+                        Check out before 11:00 AM
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <div class="snackbars" id="form-output-global"> </div>
+    <!-- Javascript-->
+    <script src="/js/core.min.js"></script>
+    <script src="/js/script.js"></script>
+</body>
+</html>

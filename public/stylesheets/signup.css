@@ -1,0 +1,223 @@
+body {
+    background-color: inherit;
+    display: flex;
+
+}
+
+/*brand-name*/
+.brand-name {
+    width: 45%;
+    background-color: #262626;
+    height: 100vh;
+    min-width: 150px;
+
+}
+
+.brand-name a.navbar-brand {
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    transition: transform 0.7s;
+}
+
+.brand-name a.navbar-brand img {
+    width: 250px;
+    height: 80px;
+}
+
+
+
+
+/*signup */
+.signup-page {
+    padding: 50px 20px 30px 20px;
+    width: 55%;
+    min-width: 300px;
+    color: #7c7c7d;
+
+}
+
+.signup-page a.navbar-brand {
+    width: 100%;
+    text-align: center;
+    display: none;
+}
+
+.signup-page input.form-control {
+    border-radius: 20px;
+    margin: 0px;
+    width: 100%;
+}
+
+.signup-page hr {
+    width: 30%;
+    position: relative;
+    margin-left: 5px;
+
+}
+
+.signup-page h6.or {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 15px;
+    padding: 0px;
+    margin-left: 50px;
+
+}
+
+.signup-page .row {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.signup-page legend.pt-0 {
+    padding-left: 15px;
+    font-size: 1.1em;
+}
+
+.signup-page h4.sign {
+
+    letter-spacing: 2px;
+}
+
+.signup-page .col-sm-10 {
+    padding-left: 30px;
+}
+
+.signup-page .form-check {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.signup-page .form-check input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.signup-page .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.signup-page .form-check input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.form-check input:checked ~ .checkmark {
+    background-color: #ff6600;
+}
+
+.checkmark:after {
+    left: 10px;
+    top: 7px;
+    width: 6px;
+    height: 12px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.col-sm-10 button {
+    position: absolute;
+    height: 35px;
+    left: 16px;
+    padding: 0px 20px;
+    background-color: #ffffff;
+    color: #7c7c7d;
+    font-weight: 500;
+    border: 1px solid #ffa900;
+    border-radius: 20px;
+    transition: background-color 0.5s;
+
+}
+
+.col-sm-10 button:hover {
+    background-color: #ffa900;
+    color: #262626;
+    border: 1px solid #ffa900;
+}
+
+butt#ffa900on.btn {
+    margin-left: auto;
+}
+
+.forgot-signup {
+    position: absolute;
+    margin: 60px 10px;
+}
+
+.forgot-signup a {
+    color: inherit;
+}
+
+.forgot-signup a:hover {
+    text-decoration: none;
+    color: #ffa900;
+}
+
+/*media queries*/
+@media screen and (max-width:1000px) {}
+
+@media screen and (max-width:750px) {
+    .brand-name a.navbar-brand {
+        left: 5%;
+
+    }
+
+    .brand-name a.navbar-brand img {
+        width: 170px;
+        height: 70px;
+    }
+}
+
+@media screen and (max-width:530px) {
+    .signup-page {
+
+        width: 100%;
+
+    }
+
+    .brand-name {
+        display: none;
+    }
+    .signup-page a.navbar-brand {
+        width: ;
+        text-align: center;
+        display: block;
+    }
+
+    .signup-page input.form-control {
+        border-radius: 20px;
+        margin: 0px;
+        width: 100%;
+    }
+
+    .col-sm-10 button {
+        font-size: 0.7;
+    }
+}
+
+@media screen and (max-width:390px) {}

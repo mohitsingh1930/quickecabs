@@ -1,0 +1,139 @@
+.actual-form{
+    padding: 10px;
+    padding-top: 5px;
+    padding-bottom: 50px;
+    margin-bottom: -60px;
+}
+#nav-tabContent form{
+    background-color: #ffffff;
+    padding: 10px;
+    
+}
+#header-log{
+    display: none;
+}
+#nav-tabContent .container{
+    background-color: #ffffff;
+}
+#nav-tabContent .container h1{
+    font-size: 35px;
+    letter-spacing: 10px;
+    opacity: 0.9;
+    margin: auto;
+}
+#nav-tabContent label{
+    display: block;
+    letter-spacing: 2px;
+}
+#nav-tabContent .input-plus{
+    display: flex;
+    margin-bottom: 5px;
+}
+#nav-tabContent .input-plus button{
+/*    padding-top: -20px;*/
+    background-color: inherit;
+    border: none;
+    box-sizing: border-box;width: 25px;
+    height: 25px;
+    border-radius: 100%;
+}
+#nav-tabContent .input-plus i{
+   font-size: 25px;
+    padding-top: 5px;
+}
+#nav-tabContent  label{
+    padding-left: 5px;
+    margin-top: 5px;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+#nav-tabContent input{
+    width: 100%;
+    border-radius: 20px;
+    border: none;
+    background-color: #F1F0EE;
+    height: 30px;
+    padding: 20px;
+    font-size: 13px;
+    position: relative;
+    
+}
+#nav-tabContent button.drop-button{
+    background-color: inherit;
+/*    box-sizing: border-box;*/
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+/*    border: 2px solid grey;*/    
+/*
+    position: relative;
+    top: -35px;
+    right: -330px;
+*/
+}
+#nav-tabContent .ride-dates {
+    display: inline-flex;
+    margin-top: 10px;
+    margin-bottom: -20px;
+    
+}
+#nav-tabContent .ride-dates label{
+    font-weight: 700;
+    width: 80px;
+}
+#nav-tabContent .ride-dates .dates{
+    width: 100%;
+    margin-right: 5px;
+}
+#nav-tabContent .ride-dates input{
+   padding: 10px;
+    width: ;
+    font-size: 15px;
+    padding-left: 20px;
+    margin-right: 20px;
+    font-size: 13px;
+    
+    
+    
+}
+#nav-tabContent button.registerbtn{
+    background-color: #FFA900;
+    margin-top: 10px;
+    color: #ffffff;
+    border-radius: 20px;
+    padding: 5px 30px;
+    border: none;
+    transition: background-color 0.7s;
+}
+#nav-tabContent button.registerbtn:hover{
+    background-color: #000000;
+    
+}
+.formy a{
+    margin-top: 5px;
+    
+    
+}
+.formie{
+    margin-top: -40px;
+    
+}
+.actual-form{
+    width: ;
+}
+
+@media screen and (max-width:991px) {
+    #header-log{
+    display: block;
+    }
+}
+@media screen and (max-width:370px) {
+   #nav-tabContent .container h1{
+    font-size: 23px;
+    letter-spacing: 8px;
+    opacity: 0.9;
+    margin: auto;
+       padding: 10px;
+}
+}

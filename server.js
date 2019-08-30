@@ -1,0 +1,606 @@
+var createError = require('http-errors');
+var express = require('express');
+var dbfunctions = require(__dirname + '/dbFunctions/file.js')
+var logger = require('morgan');
+var ejs = require('ejs')
+var session = require('express-session')
+var dateFns = require('date-fns')
+const cryptoRandomString = require('crypto-random-string');
+const mailer = require('./config/mailer.js')
+
+var usersRouter = require('./routes/users.js');
+
+var app = express();
+
+
+//admin control variables
+var minimumTimeDuration = 5; //->minimum time duration in hours for setting pickup time
+
+
+app.set('view engine', 'ejs');
+
+// app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+// app.use(cookieParser());
+app.use(express.static('public'));
+
+
+//session definition
+const TWO_HOURS = 1000*60*60*2;
+
+const {
+  PORT = 3000,
+  SESS_LIFETIME = TWO_HOURS,
+  NODE_ENV = 'development',
+  SESS_NAME = 'sid',
+  SESS_SECRET = 'sssh!quiet',
+} = process.env
+
+const IN_PROD = NODE_ENV === 'production'
+
+app.use(["/", "/users"],session({
+  name: SESS_NAME,
+  resave: false,
+  saveUninitialized: false,
+  secret: SESS_SECRET,
+  cookie: {
+    maxAge: SESS_LIFETIME,
+    sameSite: true,
+    secure: IN_PROD
+  }
+}))
+
+
+// app.use('/', indexRouter);
+
+const checkAdmin = (req, res, next) => {
+  if(req.session.user === 'admin') {
+    console.log("Admin logged in");
+    next();
+  }
+  else {
+    console.log("admin not in");
+    res.redirect('/')
+  }
+}
+
+
+// app.use('/users/login')
+
+
+app.get('/', (req, res) => {
+
+  if(typeof req.session.msg !== undefined) {
+    res.locals.msg = req.session.msg
+    console.log(res.locals.msg);
+    delete req.session.msg
+  }
+
+  res.render("home", {user_name: req.session.user?req.session.user.name:""})
+})
+
+
+app.use('/users', usersRouter);
+
+
+//middleware to check if start date is acc to minimumTimeDuration
+var checkValidTime = (req, res, next) => {
+
+  var start_day = req.body.start_date;
+  var end_day = req.body.end_date;
+
+  var start_day = dateFormat(start_day)
+
+  console.log(start_day);
+
+  if(checkOldDay(start_day)) {
+
+    msg = {
+      title: `invalid pickup time`,
+      body: `please choose pickup time atleast ${minimumTimeDuration} hours later from now`
+    }
+
+    res.redirect('/')
+
+  }
+  else {
+    next()
+  }
+
+}
+
+
+app.post('/dailyride/', checkValidTime, async (req, res) => {
+
+  const booking_details = {
+    from: req.body.destination_from,
+    to: req.body.destination_to,
+    start_date: req.body.start_date
+    // end_date: req.body.end_date,
+    // journey: req.params.journey_type
+  }
+
+  console.log(booking_details);
+
+  // req.session.booking_details = booking_details;
+  res.locals.dailyRide_booking_details = booking_details;
+  res.locals.oneWay_booking_details = {from: '', to: '', start_date: '', end_date: '', journey: ''};
+  res.locals.roundTrip_booking_details = {from: '', to: '', start_date: '', end_date: '', journey: ''};
+
+
+  var day = dateFormat(booking_details.start_date);
+  booking_details.start_datetime = day.format;
+  req.session.booking_details = booking_details;
+
+
+  //get available vehicles
+  var rides = await dbfunctions.getAvailableVehicles()
+
+  if(rides === 0 || rides === -1) {
+    console.log(rides);
+    return res.send("No rides available")
+  }
+
+  //assigning respective fares
+  for(let ride of rides) {
+    let fare = await dbfunctions.getFaresOf(ride.name)
+    // console.log(ride.name, fare);
+    ride.fare = fare[0];
+
+    //TODO: calculate total fares of each
+    console.log(`fares of ${ride.name}:`, ride.fare.outstation, ride.fare.driver);
+    ride.totalFare = ride.fare.local;
+  }
+
+  // console.log(rides);
+
+  // var parentRoute = req.originalUrl.slice(1, req.originalUrl.slice(1).indexOf('/')+1)
+  res.locals.parentRoute = 'dailyride';
+  req.session.parentRoute = 'dailyride'
+
+  res.render('carselect', {vehicles: rides})
+
+})
+
+
+app.post('/outstation/one-way|round-trip', checkValidTime, async (req, res) => {
+
+  const booking_details = {
+    from: req.body.destination_from,
+    to: req.body.destination_to,
+    start_date: req.body.start_date,
+    end_date: req.body.end_date,
+    journey: req.originalUrl.slice(12)
+  }
+
+  console.log(booking_details);
+
+  req.session.booking_details = booking_details;
+
+
+  var start_day = dateFormat(booking_details.start_date)
+  var end_day = dateFormat(booking_details.end_date)
+
+  req.session.booking_details.start_datetime = start_day.format;
+  req.session.booking_details.end_datetime = end_day.format;
+
+
+  console.log("start and end datetime:", start_day, end_day);
+
+  //calculate total days for fares
+  var days = dateFns.distanceInWordsStrict(
+    new Date(start_day.year, start_day.month, start_day.date),
+    new Date(end_day.year, end_day.month, end_day.date),
+    {unit: 'd'}
+  )
+
+  var extra = dateFns.distanceInWordsStrict(
+    new Date(2019, 08, 09, start_day.hour, start_day.minute),
+    new Date(2019, 08, 09, end_day.hour, end_day.minute)
+  ).split(' ')
+
+  if(!days.slice(days.indexOf(' ')+1).startsWith('day')) {
+    return res.send('Invalid days/time details')
+  }
+
+  days = Number(days.slice(0, days.indexOf(' ')))
+
+  if(extra[1] === 'hours' && Number(extra[0]) > 3) {
+    days++;
+  }
+
+  console.log("days:", days, "extras:", extra);
+
+
+  //get available vehicles
+  var rides = await dbfunctions.getAvailableVehicles()
+
+
+  if(rides === 0 || rides === -1) {
+    console.log(rides);
+    return res.send("No rides available")
+  }
+
+  if(!Array.isArray(booking_details.to)) {
+    booking_details.to = [booking_details.to]
+  }
+
+  //check fare calculation method(days or km)
+  var km = await calculateDistance(booking_details.from, Array.isArray(booking_details.to)?booking_details.to:[booking_details.to]);
+  if(km > days*200) {
+    days = Math.ceil(km/200)
+    console.log("days changed:", days);
+  }
+
+
+  //assigning respective fares
+  for(let ride of rides) {
+    let fare = await dbfunctions.getFaresOf(ride.name)
+    // console.log(ride.name, fare);
+    ride.fare = fare[0];
+
+    // console.log(`fares of ${ride.name}:`, ride.fare.outstation, ride.fare.driver);
+    ride.totalFare = ride.fare.outstation*days + ride.fare.driver*days;
+  }
+
+
+  var parentRoute = req.originalUrl.slice(1, req.originalUrl.slice(1).indexOf('/')+1)
+  // console.log(parentRoute);
+  res.locals.parentRoute = parentRoute;
+  req.session.parentRoute = parentRoute
+
+
+  var emptyObject = {from: '', to: '', start_date: '', end_date: '', journey: ''}
+
+  if(req.originalUrl.slice(12) === 'one-way') {
+    res.locals.oneWay_booking_details = booking_details;
+    res.locals.roundTrip_booking_details = emptyObject;
+  } else if(req.originalUrl.slice(12) === 'round-trip') {
+    res.locals.roundTrip_booking_details = booking_details;
+    res.locals.oneWay_booking_details = emptyObject;
+  }
+  dailyRide_booking_details = emptyObject;
+
+  res.render('carselect', {vehicles: rides})
+
+})
+
+
+// app.get('/outstation/cars', (req, res) => {
+//   res.render('carselect', {vehicles: []})
+// })
+
+
+const redirectLogin = (req, res, next) => {
+  if(!req.session.user) {
+    res.redirect('/users/login')
+  }
+  else {
+    next()
+  }
+}
+
+app.post(['/dailyride/booking/:car_category/:fare','/outstation/booking/:car_category/:fare'], redirectLogin, async (req, res) => {
+
+  //fetch journey details
+  const booking_details = req.session.booking_details;
+
+  var {car_category, fare} = req.params;
+  console.log("url:", req.params, req.query);
+
+  //generate bookingId
+  var bookingId = booking_details.start_datetime.slice(0, booking_details.start_datetime.indexOf(' ')).split('-').join('') + cryptoRandomString({length: 7});
+
+  //check ride is daily or outstation
+  var parentRoute = req.session.parentRoute;
+  console.log("Parent route:", parentRoute);
+
+  //make details object
+  details = {
+    bookingId: bookingId,
+    user_mail: req.session.user.email,
+    user_name: req.session.user.name,
+    category: car_category,
+    fare: fare,
+    from: req.session.booking_details.from,
+    to: Array.isArray(req.session.booking_details.to)?req.session.booking_details.to.join('$ '):req.session.booking_details.to,
+    start_date: req.session.booking_details.start_datetime,
+    end_date: (parentRoute === 'outstation')?req.session.booking_details.end_datetime:"",
+    journey: (parentRoute === 'outstation')?req.session.booking_details.journey:""
+  }
+
+
+  //push into pending_booking table
+  var details_pushed = await dbfunctions.setBookingInQueue(details);
+
+  if(details_pushed != -1) {
+
+    var sent = mailer.sendMail(req.session.user.email, "Booking request received", details, 2);
+
+    if(sent) {
+      req.session.msg = {
+        title: 'Booking request received',
+        body: `Booking request sent, we will inform you when it's confirmed, bookingId: ${details.bookingId}`
+      }
+    } else {
+      req.session.msg = {
+        title: 'Booking request received, Error in sending mail',
+        body: `Booking request sent, we will inform you when it's confirmed, bookingId: ${details.bookingId}`
+      }
+    }
+
+
+  } else {
+
+    req.session.msg = {
+      title: 'Error',
+      body: 'Error in booking please rebook'
+    }
+
+  }
+
+  res.redirect('/')
+
+})
+
+
+app.get('/hotel[1-5]', (req, res) => {
+  console.log(req.originalUrl);
+  res.render(`${req.originalUrl.slice(1)}.ejs`)
+})
+
+
+// app.get('/packages', (req, res) => {
+//   res.render('packages.ejs')
+// })
+//
+//
+// app.post('/packages', async (req, res) => {
+//
+//   var details = req.body;
+//
+//   var subject = 'Packages enquiry'
+//
+//   var sent = await mailer.sendMail('mohitsingh1930@gmail.com', subject, details, 2)
+//
+//   if(sent) {
+//     res.send('your request is successfully sent, we will contact you')
+//   } else {
+//     res.send('Error in sending enquiry try again later or contact admin directly <a href="/contacts">Contact</a>')
+//   }
+//
+// })
+
+
+app.get('/admin', checkAdmin, async (req, res) => {
+
+  //TODO: check if the user is a admin or not
+
+
+  //get pending bookings
+  const pending_bookings = await dbfunctions.getPendingBookings()
+
+  for(let i=0; i<pending_bookings.length; i++) {
+    pending_bookings[i].start_date = dateFns.format(`${pending_bookings[i].start_date}`, 'HH:mm Do MMM, YYYY')
+    pending_bookings[i].end_date = dateFns.format(`${pending_bookings[i].end_date}`, 'HH:mm Do MMM, YYYY')
+  }
+
+  //get active journeys
+  const active_bookings = await dbfunctions.getActiveBookings()
+
+  for(let i=0; i<active_bookings.length; i++) {
+    active_bookings[i].start_date = dateFns.format(`${active_bookings[i].start_date}`, 'HH:mm Do MMM, YYYY')
+    active_bookings[i].end_date = dateFns.format(`${active_bookings[i].end_date}`, 'HH:mm Do MMM, YYYY')
+  }
+
+  //get all list of cars
+  const cars = await dbfunctions.getAllVehicles()
+
+  console.log("pending_bookings:", pending_bookings);
+
+  res.render("admin", {pending_bookings: pending_bookings, bookings: active_bookings, cars: cars})
+
+})
+
+
+app.get('/AboutUs', (req, res) => {
+  res.render('about-us')
+})
+
+
+app.get('/Contacts', (req, res) => {
+  res.render('contacts')
+})
+
+
+//XMLHttpRequest response routes
+app.post('/admin/acceptBooking/', checkAdmin, async (req, res) => {
+  const id = req.body.id;
+  const mail = req.body.mail;
+
+  console.log("booking request received for id:", id);
+
+  var sent = mailer.sendMail(mail, 'Booking Confirmed', {carNumber: carNumber}, 3)
+
+  if(sent) {
+
+    const accepted = await dbfunctions.acceptBooking(id)
+
+    if(!accepted) {
+      console.log(`Booking id: ${id} not exists in pending bookings`);
+      res.send('0')
+    }
+    else if(accepted === -1) {
+      res.send('-1')
+    }
+    else {
+      res.send('1')
+    }
+
+  } else {
+    res.send('Mail Error')
+  }
+
+
+
+})
+
+
+app.post('/admin/endTrip/', checkAdmin, async (req, res) => {
+  const id = req.body.id;
+
+  console.log("ending request received for id:", id);
+
+  const ended = await dbfunctions.endTrip(id)
+
+  if(!ended) {
+    console.log(`Booking id: ${id} not exists in bookings`);
+    res.send('0')
+  }
+  else if(ended === -1) {
+    res.send('-1')
+  }
+  else {
+    res.send('1')
+  }
+
+})
+
+
+app.post('/admin/toggleAvailability/', checkAdmin, async (req, res) => {
+  const name = req.body.name;
+
+  console.log("toggle request received for car name:", name);
+
+  const toggled = await dbfunctions.toggleAvailability(name)
+
+  if(!toggled) {
+    console.log(`car: ${name} not exists in transports`);
+    res.send('0')
+  }
+  else if(toggled === -1) {
+    res.send('-1')
+  }
+  else {
+    res.send('1')
+  }
+
+})
+
+
+
+
+
+
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
+
+app.listen(3000, () => {
+  console.log("server started at 3000")
+  app.locals.key = process.env.GMAPS_KEY
+})
+
+// module.exports = app;
+
+
+
+//Neccesary function definitions
+function dateFormat(datetime) {
+
+  var date = datetime.slice(6)
+
+  const dayObj = {
+    date: Number(date.substr(3, 2)),
+    month: Number(date.substr(0, 2)),
+    year: Number(date.substr(6, 4)),
+    hour: Number(datetime.substr(0, 2)),
+    minute: Number(datetime.substr(3, 2)),
+    format: dateFns.format(new Date(Number(date.substr(6, 4)), Number(date.substr(0, 2))-1, Number(date.substr(3, 2)), Number(datetime.substr(0, 2)), Number(datetime.substr(3, 2)), 00), 'YYYY-MM-DD HH:mm:ss')
+  }
+
+  return dayObj;
+}
+
+
+function checkOldDay(day) {
+
+  var possibleTime = new Date();
+
+  possibleTime.setHours(possibleTime.getHours() + minimumTimeDuration)
+
+  console.log('possible time:', dateFns.format(possibleTime, 'HH:MM DD/MMM/YYYY'));
+
+  return dateFns.isBefore(new Date(day.year, day.month-1, day.date, day.hour, day.minute), new Date(possibleTime))
+}
+
+
+async function distanceMatrixAPI(origins, destinations) {
+
+  const gmapsDistanceMatrix = require('@google/maps')
+
+  const mapsClient = gmapsDistanceMatrix.createClient({
+    key: process.env.GMAPS_KEY,
+    Promise: Promise
+  })
+
+  query = {
+    origins: origins,
+    destinations: destinations,
+    mode: 'driving',
+    units: 'metric'
+  }
+
+  var result = await mapsClient.distanceMatrix(query).asPromise()
+
+  console.log(result.json.rows[0].elements);
+
+  return Promise.resolve(result.json.rows[0].elements);
+
+}
+
+
+async function calculateDistance(origin, destinations) {
+
+  // if(!(Array.isArray(destinations) && typeof origin === 'string')) {
+  //   console.log("Arguments:", origin, destinations);
+  //   return 'Invalid arguments'
+  // }
+
+  var distanceInKms = 0;
+
+  distanceInKms = await distanceMatrixAPI(origin, destinations[0])
+
+  distanceInKms = parseFloat(distanceInKms[0].distance.text.split(' ')[0])
+
+  for(let i=0; i<destinations.length-1; i++) {
+
+    let temp = await distanceMatrixAPI([destinations[i]], [destinations[i+1]])
+    temp = temp[0].distance.text.split(' ')[0]
+
+    // console.log(temp);
+
+    temp = parseFloat(temp)
+
+
+    distanceInKms += temp;
+  }
+
+  console.log("distanceInKms:", distanceInKms);
+
+  return Promise.resolve(distanceInKms);
+}

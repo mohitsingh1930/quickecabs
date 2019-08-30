@@ -1,0 +1,216 @@
+.log-sign-button{
+    display: inline-flex;
+    
+}
+.log-sign-button h6.username{
+    font-size: 17px;
+    margin: 10px 10px 10px 0px;
+}
+.log-sign-button button.logoutbtn{
+    padding: 10px;
+    width: 30px;
+}
+.login-button{
+    display: block;
+    border-width: 0px;
+    padding: 10px;
+}
+.login-button a{
+    padding: 8px;
+    margin: 0px;
+}
+.signup-button{
+    
+    display: block;
+    border-width: 0px;
+}
+.signup-button:hover{
+    background-color: aliceblue;
+    
+    color: black;
+}
+.signup-button a{
+    padding: 8px;
+    margin: 0px;
+}
+* {
+  box-sizing: border-box;
+}
+    .video{
+        height: 600px;
+        width: 100%;
+    }
+    #myVideo {
+  right: 0;
+  min-width: 100%;
+}
+
+#myBtn {
+  width: 200px;
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+#myBtn:hover {
+  background: #ddd;
+  color: black;
+}
+div.card-cars{ 
+    width: 65%;
+    height: 200px;    
+    margin: 90px 4% 0 15%;
+    background-color:white;
+    text-decoration: none;
+    display: inline-flex;
+    padding: 10px 20px 10px 20px;
+}
+
+.cars-image{
+    height: 100%;
+    width: 30%;
+}
+.car-details{
+    padding-left: 30px;
+}
+.car-details .car-name{
+     font-size: 35px;
+    padding-right: 50px;
+    padding-left: 30px;
+/*
+    padding-bottom: -10px;
+    margin-bottom: -10px;
+*/
+}
+.car-link:hover{
+    text-decoration: none;
+}
+.car-about{
+padding-top: -20px;
+    margin-top:-13px; 
+color: gray;
+    font-size: 1rem;
+    display:;
+}
+.pricing{
+/*    padding-top: -50px;*/
+/*    margin-bottom: 5000px;*/
+    padding-left: 20px;
+    padding-top: 12px;
+    font-size: 1.2rem;
+    color: #FFA900;
+    font-weight: bold;
+}
+.pricing p{
+    font-size: 14px;
+    padding-left: 02px;
+    font-weight: 500;
+    color: gray
+}
+.car-display .aman{
+    padding-left: 26px;
+    padding-top: 12px;
+} 
+.car-display .aman .select-btn{
+    border-radius: 40px;
+    height: 60px;
+    width: 180px;
+    padding: 0;
+}
+.car-display .aman .select-btn:hover{
+    background-color: black;
+}
+.car-display .aman .extra-details{
+    font-size: 0.8rem;
+    padding-top: 10px;
+}
+.modal-body{
+    font-size: 20px
+}
+.aman1{
+margin-right: auto;
+    margin-left: auto;
+}
+.aman1 button.book-btn:hover{
+background-color: black;
+}
+hr{
+    width: 350px;
+    border-width: 2px;
+}
+.modal-body{
+    background-color:#F5F5F5;
+}
+.modal-body .md-car{
+    height: 150px;
+}
+.modal-body .md-car .car-name{
+    font-size: 1.2rem;
+    text-align: center;
+}
+.modal-body .md-car .md-pk{
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 0;
+    margin: -30px;
+}
+.modal-body .md-car .md-ef{
+  font-size: 1rem;
+    margin: -40px;
+    text-align: center
+}
+.modal-body .md-car .md-tf{
+    font-size: 1.6rem;
+    text-align: center;
+    color: #FFA900;
+    font-weight: 400;
+}
+.modal-body .md-detail{
+    height: 200px;
+    background-color: white;
+    border-radius: 10px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.modal-body .md-detail ul{
+    list-style-type: circle outside none;
+}
+.modal-body .md-detail li{
+    font-size: 1rem;
+    padding: 4% 0 0 10%;
+}
+@media screen and (max-width:1100px){
+    div.card-cars{
+        width: 100%;
+        margin-left: 0;
+        padding-left: 0;
+        margin-right: 0;
+        padding-right: 0;
+    }
+}
+@media screen and (max-width:856px){
+    .car-details .car-name{
+        font-size: 20px;
+        padding-right: 30px;
+        padding-left: 20px;
+    }
+    .pricing{
+/*    padding-top: -50px;*/
+/*    margin-bottom: 5000px;*/
+    padding-left: 10px;
+    padding-top: 5px;
+    font-size: 0.9rem;
+    color: #FFA900;
+    font-weight: bold;
+}
+    .pricing p{
+    font-size: 7pxpx;
+    padding-left: 02px;
+    font-weight: 500;
+    color: gray;
+}
+}

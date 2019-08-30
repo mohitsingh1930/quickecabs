@@ -1,0 +1,12 @@
+<!--    login error!!!!-->
+    <p>
+      <img src="https://img.icons8.com/bubbles/50/000000/error.png">
+      <% if(!error_msg) { %>
+        News Not Found
+      <% } else { %>
+        <%= error_msg %>
+        <% if(error_msg.startsWith('user is inactive')) { %>
+          <a href="/users/verify">Verify</a>
+        <% } %>
+      <% } %>
+    </p>

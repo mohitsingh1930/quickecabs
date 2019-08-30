@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+
+<head>
+    <!-- Site Title-->
+    <title><%= title %></title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald:200,400%7CLato:300,400,300italic,700%7CMontserrat:900">
+
+    <% for(let i=0; i<stylesheets.length; i++) { %>
+    <link rel="stylesheet" href="/stylesheets/<%= stylesheets[i] %>.css">
+    <!-- <% console.log(stylesheets[i]) %> -->
+    <% } %>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" type="text/css">
+    <!--    material icons-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" href="/stylesheets/master.css"> -->
+
+    <link rel="stylesheet" href="/stylesheets/calender.css">
+    <script src="https://kit.fontawesome.com/fc94777fad.js"></script>
+
+    <!--[if lt IE 10]>
+    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <script src="js/html5shiv.min.js"> </script>
+		<![endif]-->
+
+    <style media="screen">
+        .log-sign-button h6,
+        .log-sign-button .logout-button {
+            display: none;
+        }
+        
+
+    </style>
+
+
+</head>
+
+<body>
+
+
+    <!-- Page preloader-->
+    <div class="page-loader">
+        <div class="page-loader-body">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"> </div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"> </div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"> </div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"> </div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page
+    <div class="page">
+        <!-- Page Header-->
+    <header class="section page-header" id="header">
+        <!-- RD Navbar-->
+        <div class="rd-navbar-wrap rd-navbar-corporate">
+            <nav class="rd-navbar" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fullwidth" data-xl-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-fixed" data-xl-device-layout="rd-navbar-static" data-md-stick-up-offset="130px" data-lg-stick-up-offset="100px" data-stick-up="true" data-sm-stick-up="true" data-md-stick-up="true" data-lg-stick-up="true" data-xl-stick-up="true">
+                <div class="rd-navbar-collapse-toggle" data-rd-navbar-toggle=".rd-navbar-collapse"><span></span></div>
+
+                <div class="rd-navbar-inner">
+                    <!-- RD Navbar Panel-->
+                    <div class="rd-navbar-panel">
+                        <!-- RD Navbar Toggle-->
+                        <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                        <!-- RD Navbar Brand-->
+                        <div class="rd-navbar-brand">
+                            <a class="brand-name" href="/">
+
+
+                                <img class="logo-default" src="/images/quickecab-logo.png" alt="" width="200px" height="150px" />
+                                <!--                            <img class="logo-inverse" src="images/logo-inverse-208x46.png" alt="" width="208" height="46" />-->
+
+                            </a>
+                        </div>
+                    </div>
+                    <div class="rd-navbar-aside-center">
+                        <div class="rd-navbar-nav-wrap">
+                            <!-- RD Navbar Nav-->
+                            <ul class="rd-navbar-nav">
+                                <li class="<%= title=='Home'?'active':'' %>"><a href="/">Home</a>
+                                </li>
+                                <!-- <li class="<%= title=='Packages'?'active':'' %>" ><a href="/packages">Packages</a>
+                                    </li> -->
+                                <li><a href="/AboutUs">About Us</a>
+                                </li>
+                                <li><a href="/Contacts">Contacts</a>
+                                </li>
+                                
+                                
+<!--
+                                <li ><a href="/users/login" class="sidebar-logsign">login</a>
+                                </li>
+                                <li  ><a href="/users/register" class="sidebar-logsign">signup</a>
+                                </li>
+-->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--                        login toggle button option-->
+<!--
+                    <div class="rd-navbar-top-panel rd-navbar-collapse novi-background">
+                        <div class="rd-navbar-top-panel-inner">
+                            <ul class="list-inline">
+                                <li>
+                                    <div class="log-sign-button">
+                                        <div class="rd-navbar-aside-right login-button"><a class="button button-sm button-nina " href="/users/login">login</a></div>
+                                        <div class="rd-navbar-aside-right signup-button"><a class="button button-sm button-secondary button-nina " href="/users/register">signUP</a></div>
+
+                                        <h6 class="username">Howdy, </h6>
+                                        <form action="/users/logout" method="post">
+                                            <div class="rd-navbar-aside-right logout-button"><button type="submit" class="button button-sm button-secondary button-nina logoutbtn">logout</button></div>
+                                        </form>
+
+                                    </div>
+                                </li>
+
+                                
+                                <li class="box-inline list-inline-item">
+                                    <ul class="list-comma log-sign-button">
+                                       
+                                        <a class="button button-sm button-nina signup-button" href="/users/register"><li>signup</li></a>
+                                        <a class="button button-sm button-nina login-button" href="/users/login"><li>login</li></a>    
+                                        <li>
+                                            <h6 class="username">Howdy, </h6>
+                                            <form action="/users/logout" method="post">
+                                                <div class=" logout-button"><button type="submit" class="button button-sm button-secondary button-nina logoutbtn">logout</button></div>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-facebook" href="#"></a></li>
+                                <li class="list-inline-item"><a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-twitter" href="#"></a></li>
+                                <li class="list-inline-item"><a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-instagram" href="#"></a></li>
+                                <li class="list-inline-item"><a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-google-plus" href="#"></a></li>
+                                <li class="list-inline-item"><a class="icon novi-icon icon-sm-bigger icon-gray-1 mdi mdi-linkedin" href="#"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+-->
+
+
+
+
+
+                    <div class="log-sign-button">
+                        <div class="rd-navbar-aside-right login-button"><a class="button button-sm button-nina " href="/users/login">login</a></div>
+                        <div class="rd-navbar-aside-right signup-button"><a class="button button-sm button-secondary button-nina " href="/users/register">signUP</a></div>
+
+                        <h6 class="username">Howdy, </h6>
+                        <form action="/users/logout" method="post">
+                            <div class="rd-navbar-aside-right logout-button"><button type="submit" class="button button-sm button-secondary button-nina logoutbtn">logout</button></div>
+                        </form>
+
+                    </div>
+
+                    <script type="text/javascript">
+                        loadDoc()
+
+                        function loadDoc() {
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    // console.log("responseText:", this.responseText);
+                                    if (this.responseText != '') {
+                                        var user = JSON.parse(this.responseText)
+                                        var element = document.querySelector(".log-sign-button h6")
+                                        var logout_btn = document.querySelector(".log-sign-button .logout-button")
+                                        console.log(element);
+                                        // element[0].removeAttribute("href")
+                                        element.innerHTML += user.name[0].toUpperCase() + user.name.slice(1)
+                                        console.log(element.innerHTML);
+                                        console.log("displays:", element.style.display, logout_btn.style.display);
+                                        element.style.display = "inline"
+                                        logout_btn.style.display = "inline"
+                                        var login_containers = document.querySelectorAll(".log-sign-button div")
+                                        login_containers[0].style.display = "none";
+                                        login_containers[1].style.display = "none";
+                                        console.log(element.innerHTML, logout_btn.innerHTML);
+                                    }
+
+                                }
+                            };
+                            xhttp.open("POST", `/users/loggedUser`, true);
+                            xhttp.send();
+                        }
+
+                    </script>
+
+
+                </div>
+            </nav>
+        </div>
+    </header>

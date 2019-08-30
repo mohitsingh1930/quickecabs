@@ -1,0 +1,51 @@
+<!doctype html>
+ <html lang="en">
+   <head>
+     <!-- Required meta tags -->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+     <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+     <!--    google fonts-->
+     <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+ <!--    font awsome-->
+     <!-- <script src="https://kit.fontawesome.com/fc94777fad.js"></script> -->
+
+     <link rel="stylesheet" href="/stylesheets/signup.css">
+
+     <title><%= title %></title>
+
+     <!-- FIREBASE -->
+     <% if(title.toLowerCase() === 'login') { %>
+       <!-- The core Firebase JS SDK is always required and must be listed first -->
+       <script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-app.js"></script>
+       <script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-auth.js"></script>
+       <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#config-web-app -->
+
+       <script>
+        console.log("firebase defined here");
+         // Your web app's Firebase configuration
+         var firebaseConfig = {
+           apiKey: "AIzaSyA13nIuuKqDwe4Y3AMxZ2m4h7aVUBNtXK4",
+           authDomain: "ecabs-83ab3.firebaseapp.com",
+           databaseURL: "https://ecabs-83ab3.firebaseio.com",
+           projectId: "ecabs-83ab3",
+           storageBucket: "",
+           messagingSenderId: "791359080653",
+           appId: "1:791359080653:web:cd0b2e38463b1e3a"
+         };
+         // Initialize Firebase
+         firebase.initializeApp(firebaseConfig);
+       </script>
+     <% } %>
+
+
+   </head>
+   <body>
+     <div class="brand-name">
+         <a class="navbar-brand" href="/"><img src="/images/quickecab-logo.png" alt="" width="150px" height="90px" ></a>
+     </div>
+    <div class="signup-page login-page">
+    <a class="navbar-brand" href="index.html"><img src="/images/quickecab-logo.png" alt="" width="150px"></a>
