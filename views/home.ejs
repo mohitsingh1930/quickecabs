@@ -107,7 +107,7 @@
                             <label for="drop"><b>Drop</b></label>
                             <div class="input-plus" id="div1">
                               <input type="text" placeholder="Enter Drop Location" name="destination_to" required value="">
-                              <button type="button" name="add" onclick="addInput(event)"><i class="fas fa-plus-circle"></i>  </button>
+                              <button type="button" name="add" onclick="addInput(event)"><i class="fas fa-plus-circle"></i></button>
                             </div>
 
                             <script>
@@ -249,7 +249,7 @@
                               <div class="pickup-ride dates">
                                 <label for="date">Pickup</label>
                                 <!--                                                             <input type="date" placeholder="select starting date of trip" name="date" required>-->
-                                <input id="input" name="start_date"/>
+                                <input id="input" name="start_date" required />
                                 <script>
                                   $('#input').datetimepicker({
                                     footer: true,
@@ -260,7 +260,7 @@
                               <div class="return-ride dates">
                                 <label for="date">Return</label>
                                 <!--                                                    <input type="date" placeholder="select starting date of trip" name="date" required>-->
-                                <input id="inputdate" name="end_date" />
+                                <input id="inputdate" name="end_date" required/>
                                 <script>
                                   $('#inputdate').datetimepicker({
                                     footer: true,
@@ -286,7 +286,7 @@
                             <label for="drop"><b>Drop</b></label>
                             <div class="input-plus" id="div1">
                               <input type="text" placeholder="Enter Drop Location" name="destination_to" required value="">
-                              <button type="button" name="add1" onclick="addInput(event)"><i class="fas fa-plus-circle"></i>  </button>
+                              <button type="button" name="add1" onclick="addInput(event)"><i class="fas fa-plus-circle"></i></button>
                             </div>
 
                             <!-- <script>
@@ -404,8 +404,8 @@
                                 }
 
                               }
-
                             </script> -->
+
 
 
 

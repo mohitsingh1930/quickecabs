@@ -38,7 +38,6 @@ const {
 } = process.env
 
 const IN_PROD = NODE_ENV === 'production'
-console.log(process.env.NODE_ENV)
 
 app.use(["/", "/users"],session({
   name: SESS_NAME,
@@ -92,15 +91,18 @@ var checkValidTime = (req, res, next) => {
   var end_day = req.body.end_date;
 
   var start_day = dateFormat(start_day)
+  var end_day = dateFormat(end_day)
 
-  console.log(start_day);
+  console.log("start day and end day:", start_day, end_day, checkOldDay(start_day), checkOldDay(end_day));
 
-  if(checkOldDay(start_day)) {
+  if(checkOldDay(start_day) || checkOldDay(end_day)) {
 
     msg = {
       title: `invalid pickup time`,
       body: `please choose pickup time atleast ${minimumTimeDuration} hours later from now`
     }
+
+    req.session.msg = msg;
 
     res.redirect('/')
 
@@ -201,8 +203,9 @@ app.post('/outstation/one-way|round-trip', checkValidTime, async (req, res) => {
     new Date(2019, 08, 09, end_day.hour, end_day.minute)
   ).split(' ')
 
-  if(!days.slice(days.indexOf(' ')+1).startsWith('day')) {
-    return res.send('Invalid days/time details')
+  if(days > 15) {
+    req.session.msg = {title: 'Invalid Details', body: 'Invalid nummber of days, rides are available for max 15 days'}
+    return res.redirect('/')
   }
 
   days = Number(days.slice(0, days.indexOf(' ')))
@@ -229,11 +232,23 @@ app.post('/outstation/one-way|round-trip', checkValidTime, async (req, res) => {
 
   //check fare calculation method(days or km)
   var km = await calculateDistance(booking_details.from, Array.isArray(booking_details.to)?booking_details.to:[booking_details.to]);
+
+  if(km == -1) {
+    req.session.msg = {
+      title: 'Invalid Details',
+      body: 'Please choose pickup/drop locations from suggestions, do not worry about actual coordinates'
+    }
+
+    return res.redirect('/')
+  }
+
   if(km > days*200) {
     days = Math.ceil(km/200)
     console.log("days changed:", days);
   }
 
+  req.session.booking_details.distanceInKm = km;
+  req.session.booking_details.duration = days;
 
   //assigning respective fares
   for(let ride of rides) {
@@ -252,18 +267,24 @@ app.post('/outstation/one-way|round-trip', checkValidTime, async (req, res) => {
   req.session.parentRoute = parentRoute
 
 
+  //creating Neccesary objects of booking details for template
   var emptyObject = {from: '', to: '', start_date: '', end_date: '', journey: ''}
 
   if(req.originalUrl.slice(12) === 'one-way') {
+
     res.locals.oneWay_booking_details = booking_details;
     res.locals.roundTrip_booking_details = emptyObject;
+
   } else if(req.originalUrl.slice(12) === 'round-trip') {
+
     res.locals.roundTrip_booking_details = booking_details;
     res.locals.oneWay_booking_details = emptyObject;
+
   }
   dailyRide_booking_details = emptyObject;
 
-  res.render('carselect', {vehicles: rides})
+
+  res.render('carselect', {vehicles: rides, distanceInKm: km, duration: days})
 
 })
 
@@ -418,15 +439,15 @@ app.get('/Contacts', (req, res) => {
 //XMLHttpRequest response routes
 app.post('/admin/acceptBooking/', checkAdmin, async (req, res) => {
   const id = req.body.id;
-  const mail = req.body.mail;
-
+  const mail = req.body.email;
+  const carNumber = req.body.carNumber;
   console.log("booking request received for id:", id);
 
-  var sent = mailer.sendMail(mail, 'Booking Confirmed', {carNumber: carNumber}, 3)
+  var sent = mailer.sendMail(mail, 'Booking Confirmed', {carNumber: carNumber}, 2)
 
   if(sent) {
 
-    const accepted = await dbfunctions.acceptBooking(id)
+    const accepted = await dbfunctions.acceptBooking(id, carNumber)
 
     if(!accepted) {
       console.log(`Booking id: ${id} not exists in pending bookings`);
@@ -490,6 +511,21 @@ app.post('/admin/toggleAvailability/', checkAdmin, async (req, res) => {
 })
 
 
+app.post('/admin/cancelRequest', async (req, res) => {
+
+  const id = req.body.id;
+
+  console.log("booking id:", id);
+
+  var cancelled = await dbfunctions.cancelRequest(id)
+
+  if(cancelled) {
+    res.send('1')
+  } else {
+    res.send('0')
+  }
+})
+
 
 
 
@@ -520,6 +556,9 @@ app.listen(3000, () => {
 
 
 
+
+
+
 //Neccesary function definitions
 function dateFormat(datetime) {
 
@@ -546,9 +585,47 @@ function checkOldDay(day) {
 
   console.log('possible time:', dateFns.format(possibleTime, 'HH:MM DD/MMM/YYYY'));
 
-  return dateFns.isBefore(new Date(day.year, day.month-1, day.date, day.hour, day.minute), new Date(possibleTime))
+  return dateFns.isBefore(new Date(day.year, day.month-1, day.date, day.hour, day.minute), possibleTime)
 }
 
+
+
+
+async function calculateDistance(origin, destinations) {
+
+  // if(!(Array.isArray(destinations) && typeof origin === 'string')) {
+  //   console.log("Arguments:", origin, destinations);
+  //   return 'Invalid arguments'
+  // }
+
+  var distanceInKms = 0;
+
+  distanceInKms = await distanceMatrixAPI(origin, destinations[0])
+
+  if(distanceInKms[0].status == 'NOT_FOUND') {
+    console.log("error in inputs");
+    return await Promise.resolve(-1)
+  }
+
+  distanceInKms = parseFloat(distanceInKms[0].distance.text.split(' ')[0])
+
+  for(let i=0; i<destinations.length-1; i++) {
+
+    let temp = await distanceMatrixAPI([destinations[i]], [destinations[i+1]])
+    temp = temp[0].distance.text.split(' ')[0]
+
+    // console.log(temp)
+
+    temp = parseFloat(temp)
+
+
+    distanceInKms += temp;
+  }
+
+  console.log("distanceInKms:", distanceInKms);
+
+  return Promise.resolve(distanceInKms);
+}
 
 async function distanceMatrixAPI(origins, destinations) {
 
@@ -572,36 +649,4 @@ async function distanceMatrixAPI(origins, destinations) {
 
   return Promise.resolve(result.json.rows[0].elements);
 
-}
-
-
-async function calculateDistance(origin, destinations) {
-
-  // if(!(Array.isArray(destinations) && typeof origin === 'string')) {
-  //   console.log("Arguments:", origin, destinations);
-  //   return 'Invalid arguments'
-  // }
-
-  var distanceInKms = 0;
-
-  distanceInKms = await distanceMatrixAPI(origin, destinations[0])
-
-  distanceInKms = parseFloat(distanceInKms[0].distance.text.split(' ')[0])
-
-  for(let i=0; i<destinations.length-1; i++) {
-
-    let temp = await distanceMatrixAPI([destinations[i]], [destinations[i+1]])
-    temp = temp[0].distance.text.split(' ')[0]
-
-    // console.log(temp);
-
-    temp = parseFloat(temp)
-
-
-    distanceInKms += temp;
-  }
-
-  console.log("distanceInKms:", distanceInKms);
-
-  return Promise.resolve(distanceInKms);
 }

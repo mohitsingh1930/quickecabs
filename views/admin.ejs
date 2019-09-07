@@ -130,7 +130,7 @@
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <% for(let i=0; i<pending_bookings.length; i++) { %>
-          <div class="card w-70 bookings-card" class="<%= pending_bookings[i].Id %>">
+          <div class="card w-70 bookings-card I<%= pending_bookings[i].Id %>" >
             <h6 class="card-title booking-id">Booking ID:&nbsp; <span><%= pending_bookings[i].Id %></span></h6>
             <div class="card-body ">
 
@@ -144,18 +144,18 @@
               <div class="rightbody ">
                 <p class="card-text trip-date">TripDate:&nbsp; From &nbsp;<span> <%= pending_bookings[i].start_date %> </span> &nbsp;to &nbsp;<span> <%= pending_bookings[i].end_date %> </span></p>
                 <p class="card-text car-selected">Car Selected:&nbsp; <span><%= pending_bookings[i].name %></span></p>
-
+                <p class="card-text car-selected">Total Fare:&nbsp; <span>Rs <%= pending_bookings[i].fare %></span></p>
               </div>
 
             </div>
             <!--                    <a href="#" class="btn btn-primary confirm-btn ">confirm</a>-->
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary confirm-btn" data-toggle="modal" data-target="#exampleModalCenter" >
+            <button type="button" class="btn btn-primary confirm-btn" data-toggle="modal" data-target="#I<%= pending_bookings[i].Id %>">
               confirm
             </button>
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal fade" id="I<%= pending_bookings[i].Id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -167,17 +167,18 @@
                   <div class="modal-body">
                     <p class="card-text booking-id">Booking ID:&nbsp; <span><%= pending_bookings[i].Id %></span></p>
                     <p class="card-text username"> UserName:&nbsp; <span><%= pending_bookings[i].user_name %></span></p>
-                    <p class="card-text trip-type">TripType: &nbsp;<%= pending_bookings[i].jouney %></p>
+                    <p class="card-text trip-type">TripType: &nbsp;<%= pending_bookings[i].journey %></p>
                     <p class="card-text trip">Trip:&nbsp; From &nbsp;<span><%= pending_bookings[i].destination_from %></span> &nbsp;to &nbsp;<span> london </span></p>
-                    <p class="card-text trip-date">TripDate:&nbsp; <span>02 jun 2019</span></p>
-                    <p class="card-text car-selected">Car Selected:&nbsp; <span>mc_laren</span></p>
+                    <p class="card-text trip-date">TripDate:&nbsp; <span><%= pending_bookings[i].start_date %></span></p>
+                    <p class="card-text car-selected">Car Selected:&nbsp; <span><%= pending_bookings[i].name %></span></p>
+
 
                     <div class="container car-container">
 
-                      <form method="post" action="/">
+                      <!-- <form method="post" action="/"> -->
                         <div class="form-group car-selected">
                           <p class="card-text car-number">Car number:&nbsp;</p>
-                          <input type="text"s>
+                          <input type="text" id="carNumber" required>
 <!--
                           <select class="form-control" id="sel1">
                             <option>1</option>
@@ -190,7 +191,7 @@
                           <br>
 
                         </div>
-                      </form>
+                      <!-- </form> -->
                     </div>
 
 
@@ -198,7 +199,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary but" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary but" onclick="acceptBooking(<%= pending_bookings[i].id %>, <%= pending_bookings[i].user_mail %>)">Send confirmation</button>
+                    <button type="button" class="btn btn-primary but" onclick="acceptBooking('<%= pending_bookings[i].Id %>', '<%= pending_bookings[i].user_mail %>')">Send confirmation</button>
                   </div>
                 </div>
               </div>
@@ -221,11 +222,14 @@
               <p class="card-text username"> UserName:&nbsp; <span><%= bookings[i].user_name %></span></p>
               <p class="card-text trip-type">TripType: &nbsp;<%= bookings[i].journey %></p>
               <p class="card-text trip">Trip:&nbsp; From &nbsp;<span> <%= bookings[i].destination_from %> </span> &nbsp;to &nbsp;<span> <%= bookings[i].destination_to %> </span></p>
+              <p class="card-text car-selected">Fare:&nbsp; <span><%= bookings[i].fare %></span></p>
 
             </div>
             <div class="rightbody ">
               <p class="card-text trip-date">TripDate:&nbsp; <span><%= bookings[i].start_date %></span></p>
               <p class="card-text car-selected">Car Selected:&nbsp; <span><%= bookings[i].name %></span></p>
+              <p class="card-text trip-type">Car Number: &nbsp;<%= (bookings[i].car_number == 'undefined')?'Not Available':bookings[i].car_number %></p>
+
               <!-- <p class="card-text car-number">Car Number:&nbsp; <span><%= bookings[i].vehicle_number %></span></p> -->
 
             </div>
@@ -272,6 +276,9 @@
 
 
     function acceptBooking(id, user_mail) {
+
+      console.log("acceptBooking called");
+
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -285,10 +292,17 @@
           }
         }
       };
+
+      var carNumber = document.querySelector(`.I${id} input`).value;
+      console.log(carNumber);
+      if(!carNumber) {
+        return;
+      }
+
       xhttp.open("POST", "/admin/acceptBooking", true);
       console.log("post request sent");
       xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhttp.send(`id=${id}&email=${user_mail}`);
+      xhttp.send(`id=${id}&email=${user_mail}&carNumber=${carNumber}`);
     }
 
     function endTrip(id) {

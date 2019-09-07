@@ -9,8 +9,9 @@
         <!-- Swiper-->
         <div class="swiper-container swiper-slider " data-loop="false" data-autoplay="5500" data-simulate-touch="false" data-slide-effect="fade">
           <div class="swiper-wrapper" style="width: 100%">
-            <video autoplay muted loop width="100%">
-              <source src="/video/travel.mp4" type="video/mp4"></video>
+            <img src="/images/carselect.jpg">
+            <!-- <video autoplay muted loop width="100%">
+              <source src="/images/travel.mp4" type="video/mp4"></video> -->
           </div>
 
         </div>
@@ -47,9 +48,149 @@
                                 <input type="text" id="search" placeholder="Enter Pickup location" name="destination_from" required value="<%= roundTrip_booking_details.from %>">
                               </div>
 
-                              <div class="form-blocks">
+                              <div class="form-blocks" id="outstation-roundTrip">
                                 <label for="drop"><b>Drop</b></label>
-                                <input type="text" id="search" placeholder="Enter Drop Location" name="destination_to" required value="<%= roundTrip_booking_details.to %>">
+                                <div class="input-plus" id="div1">
+                                  <input type="text" id="search" placeholder="Enter Drop Location" name="destination_to" required value="<%= roundTrip_booking_details.to %>">
+                                  <button type="button" name="add" onclick="addInput(event)"><i class="fas fa-plus-circle"></i></button>
+                                </div>
+
+
+                                <script>
+
+                                  var inputs_i = {val: 1}
+                                  var inputs_j = {val: 1}
+
+                                  var iterator;
+
+                                  function addInput(e) {
+
+                                    //check max 5 drop destinations
+                                    if(e.target.parentNode.parentNode.parentNode.id === 'outstation-roundTrip') {
+                                      iterator = inputs_i;
+                                    } else {
+                                      iterator = inputs_j;
+                                    }
+
+                                    //check if all fields are filled
+                                    var inputs = document.querySelectorAll(`#${e.target.parentNode.parentNode.parentNode.id} .input-plus input`);
+                                    if(inputs.length >= 5) {
+                                      return;
+                                    }
+                                    for(let input of inputs) {
+                                      console.log(input.value);
+                                      if(input.value == '') {
+                                        input.placeholder = 'fill this field first'
+                                        console.log("empty field:", input.id);
+
+                                        return;
+                                      }
+                                    }
+                                    console.log(inputs);
+
+                                    console.log(inputs[0].parentNode.id, e.target.parentNode.parentNode.id, e.target.parentNode.parentNode.childNodes.length);
+
+                                    if(e.target.parentNode.parentNode.id == inputs[0].parentNode.id && inputs.length === 1) {
+                                      let newDeleteButton = document.createElement("button")
+                                      newDeleteButton.id = `${inputs[0].parentNode.id[3]}`
+                                      newDeleteButton.addEventListener("click", deleteInput)
+                                      // newDeleteButton.innerHTML = "Delete"
+                                      newDeleteButton.type = "button"
+                                      newDeleteButton.name = 'delete'
+                                      let deleteIcon = document.createElement("i")
+                                      deleteIcon.className = "fas fa-minus-circle"
+                                      newDeleteButton.appendChild(deleteIcon)
+                                      e.target.parentNode.parentNode.appendChild(newDeleteButton)
+                                      console.log("xyz");
+
+                                    }
+
+                                    // console.log("value:", e.target.parentNode.parentNode.childNodes[1].value);
+                                    // if(e.target.parentNode.childNodes[0].value == '') {
+                                    //   console.log("fill that first");
+                                    //   return
+                                    // }
+
+                                    var newDiv = document.createElement("div")
+                                    newDiv.id = `div${++iterator.val}`
+                                    newDiv.className = "input-plus"
+
+                                    // var newh3 = document.createElement("h3")
+                                    // newh3.innerHTML = `container number: ${i}`
+
+                                    var newElement = document.createElement("input")
+                                    newElement.type = "text";
+                                    newElement.name = "destination_to"
+
+                                    var newAddButton = document.createElement("button")
+                                    newAddButton.addEventListener("click", addInput);
+                                    // newAddButton.innerHTML = "Add"
+                                    newAddButton.type = "button"
+                                    newAddButton.name = 'add'
+                                    var addIcon = document.createElement("i")
+                                    addIcon.className = "fas fa-plus-circle"
+                                    newAddButton.appendChild(addIcon)
+
+
+                                    var newDeleteButton = document.createElement("button")
+                                    newDeleteButton.id = `${iterator.val}`
+                                    newDeleteButton.addEventListener("click", deleteInput)
+                                    // newDeleteButton.innerHTML = "Delete"
+                                    newDeleteButton.type = "button"
+                                    newDeleteButton.name = 'delete'
+                                    var deleteIcon = document.createElement("i")
+                                    deleteIcon.className = "fas fa-minus-circle"
+                                    newDeleteButton.appendChild(deleteIcon)
+
+
+                                    // newDiv.appendChild(newh3)
+                                    newDiv.appendChild(newElement);
+                                    newDiv.appendChild(newAddButton);
+                                    newDiv.appendChild(newDeleteButton);
+
+                                    console.log(document.querySelector(`#${e.target.parentNode.parentNode.parentNode.id}`), document.querySelector(`#${e.target.parentNode.parentNode.parentNode.id}` + ' .ride-dates'));
+
+                                    document.querySelector(`#${e.target.parentNode.parentNode.parentNode.id}`).insertBefore(newDiv, document.querySelector(`#${e.target.parentNode.parentNode.parentNode.id}` + ' .ride-dates'))
+
+                                    var autocomplete = new google.maps.places.Autocomplete(newElement, {componentRestrictions: {country: 'IN'}})
+
+                                  }
+
+                                  function deleteInput(e) {
+
+                                    console.log(`#div${e.target.parentNode.id}`);
+
+                                    var childToRemove = document.querySelector(`#div${e.target.parentNode.id}`)
+
+                                    var temp =  `#${e.target.parentNode.parentNode.parentNode.id}`
+
+                                    console.log(childToRemove, `#${e.target.parentNode.parentNode.parentNode.id}`);
+
+                                    document.querySelector(`#${e.target.parentNode.parentNode.parentNode.id}`).removeChild(childToRemove)
+
+                                    iterator.val--;
+
+                                    checkLast(temp);
+
+                                  }
+
+                                  function checkLast(parent) {
+
+                                    console.log(parent);
+
+                                    var divs = document.querySelectorAll(`${parent}` + ' .input-plus');
+
+                                    var isLast = divs.length
+
+                                    if(isLast === 1) {
+                                      divs[0].removeChild(document.getElementsByName('delete')[0])
+                                    }
+
+                                  }
+
+                                </script>
+
+
                                 <div class="ride-dates">
                                   <div class="pickup-ride dates">
                                     <label for="date">Pickup</label>
@@ -86,10 +227,13 @@
                                 <input type="text" id="search" placeholder="Enter Pickup location" name="destination_from" value="<%= oneWay_booking_details.from %>" required>
                               </div>
 
-                              <div class="form-blocks">
+                              <div class="form-blocks" id="outstation-oneWay">
                                 <label for="drop"><b>Drop</b></label>
-                                <input type="text" id="search" placeholder="Enter Drop Location" name="destination_to" value="<%= oneWay_booking_details.to %>" required>
-                                <div class="ride-dates">
+                                <div class="input-plus" id="div1">
+                                  <input type="text" id="search" placeholder="Enter Drop Location" name="destination_to" value="<%= oneWay_booking_details.to %>" required>
+                                  <button type="button" name="add1" onclick="addInput(event)"><i class="fas fa-plus-circle"></i></button>
+                                </div>
+                              <div class="ride-dates">
                                   <div class="pickup-ride dates">
                                     <label for="date">Pickup</label>
                                     <!--                                                            <input type="date" placeholder="select starting date of trip" name="date" required>-->
@@ -120,6 +264,24 @@
                           </div>
                         </div>
                       </div>
+
+
+                      <script type="text/javascript">
+
+                        var selectedId = "<%= oneWay_booking_details.from?'outstation-oneWay':'outstation-roundTrip' %>";
+                        // var length = <%= Object.keys(roundTrip_booking_details).length %>
+                        console.log(document.querySelector(`#${selectedId} #div1`));
+
+                        var buttonToClick = document.querySelector(`#${selectedId} #div1`)
+
+                        console.log(selectedId, buttonToClick);
+
+                        for(let i=0; i< <%=Array.isArray(oneWay_booking_details.to)%>; i++) {
+                          console.log(buttonToClick.click())
+                        }
+                      </script>
+
+
                     <!-- </form> -->
                   </div>
                   <div class="tab-pane fade <%= (dailyRide_booking_details.from)?'show active':'' %>" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -165,12 +327,12 @@
       <% for(let vehicle of vehicles) { %>
         <div class="rows">
           <div class="card-cars">
-            <img src="/images/transports/<%= vehicle.img %>" class="cars-image">
+            <img src="/images/transports/<%= vehicle.img.split('.')[0] %>.jpg" class="cars-image">
             <div class="car-details">
               <h4 class="car-name"><%= vehicle.name %></h4>
               <br>
               <div class="car-about"><%= vehicle.category %>
-                <br><%= vehicle.seats %>
+                <br><h6 style="display: inline"><strong>Seats:</strong></h6> <%= vehicle.seats %>
 
               </div>
 
@@ -198,7 +360,11 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      <%= vehicle.totalFare %>
+                      <%= duration %> (days) X <%= vehicle.fare.outstation %>(per day fare) = <%= duration*vehicle.fare.outstation %>
+                      <br>
+                      <%= duration %> (days) X <%= vehicle.fare.driver %>(Driver per day charge) = <%= duration*vehicle.fare.driver %>
+                      <br>
+                      Total Fare: <%= duration*vehicle.fare.outstation %> + <%= duration*vehicle.fare.driver %> = <%= vehicle.totalFare %>
                     </div>
                   </div>
                 </div>
@@ -213,6 +379,37 @@
   <!-- Javascript-->
   <script src="/js/core.min.js"></script>
   <script src="/js/script.js"></script>
+
+
+  <!-- gmaps scripts -->
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= key %>&libraries=places"></script>
+  <script type="text/javascript">
+
+    var options = {
+      componentRestrictions: {country: 'IN'}
+    }
+
+    var destination_from_inputs = document.getElementsByName('destination_from')
+
+    var destination_to_inputs = document.getElementsByName('destination_to')
+
+    console.log(destination_from_inputs, destination_to_inputs)
+
+    var autocomplete_first = []
+    var autocomplete_second = []
+
+    for(let i=0; i<destination_from_inputs.length; i++) {
+      autocomplete_first.push(new google.maps.places.Autocomplete(destination_from_inputs[i], options))
+    }
+
+    for(let i=0; i<destination_to_inputs.length; i++) {
+      autocomplete_second.push(new google.maps.places.Autocomplete(destination_to_inputs[i], options))
+    }
+
+    console.log(autocomplete_first, autocomplete_second)
+
+  </script>
+
 </body>
 
 </html>

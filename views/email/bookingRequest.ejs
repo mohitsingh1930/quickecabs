@@ -5,10 +5,15 @@
     <title></title>
   </head>
   <body>
-    Your booking request sent
+    <% if(!details.carNumber) { %>
+      Your booking request sent
+    <% } else { %>
+      Your booking is confirmed.
+      Our driver will pick you up at your given time, Car Number: <%= details.carNumber %>
+    <% } %>
 
     <% for(let i in details) { %>
-      <h3><%= details[i] %></h3>
+      <h3><%= i %> : <%= details[i] %></h3>
     <% } %>
   </body>
 </html>
