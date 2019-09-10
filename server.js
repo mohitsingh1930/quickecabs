@@ -5,13 +5,13 @@ var logger = require('morgan');
 var ejs = require('ejs')
 var session = require('express-session')
 var dateFns = require('date-fns')
+var lodash = require('lodash')
 const cryptoRandomString = require('crypto-random-string');
 const mailer = require('./config/mailer.js')
 
 var usersRouter = require('./routes/users.js');
 
 var app = express();
-
 
 
 //admin control variables
@@ -161,7 +161,9 @@ app.post('/dailyride/', checkValidTime, async (req, res) => {
 
   // var parentRoute = req.originalUrl.slice(1, req.originalUrl.slice(1).indexOf('/')+1)
   res.locals.parentRoute = 'dailyride';
-  req.session.parentRoute = 'dailyride'
+  req.session.parentRoute = 'dailyride';
+
+  rides = lodash.sortBy(rides, ['totalFare'], ['asc'])
 
   res.render('carselect', {vehicles: rides})
 
@@ -283,6 +285,9 @@ app.post('/outstation/one-way|round-trip', checkValidTime, async (req, res) => {
 
   }
   dailyRide_booking_details = emptyObject;
+
+
+  rides = lodash.sortBy(rides, ['totalFare'], ['asc'])
 
 
   res.render('carselect', {vehicles: rides, distanceInKm: km, duration: days})
@@ -603,7 +608,7 @@ async function calculateDistance(origin, destinations) {
 
   distanceInKms = await distanceMatrixAPI(origin, destinations[0])
 
-  if(distanceInKms[0].status == 'NOT_FOUND') {
+  if(distanceInKms[0].status == 'NOT_FOUND' || distanceInKms[0].status == 'ZERO_RESULTS') {
     console.log("error in inputs");
     return await Promise.resolve(-1)
   }
@@ -649,5 +654,10 @@ async function distanceMatrixAPI(origins, destinations) {
   console.log(result.json.rows[0].elements);
 
   return Promise.resolve(result.json.rows[0].elements);
+
+}
+
+
+function arraySort() {
 
 }

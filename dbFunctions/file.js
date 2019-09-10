@@ -1,10 +1,10 @@
 const mysql = require('mysql')
 
 const dbConnection = mysql.createConnection({
-  host : "quickecabs.c6icae5zhws5.ap-south-1.rds.amazonaws.com",
-  user : "admin",
-  password : "quikecab_rahul",
-  database : "quickecabs"
+  host : process.env.DB_HOST,
+  user : process.env.DB_USER,
+  password : process.env.DB_PASSWORD,
+  database : process.env.DB_NAME
 })
 
 module.exports.getAvailableVehicles = () => {
