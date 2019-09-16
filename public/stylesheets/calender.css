@@ -124,8 +124,8 @@ ul.gj-list-md li [data-role=image] {
 .gj-button-md.gj-button-md-icon .material-icons {
     display: table-cell;
     margin-right: 0;
-    width: 24px;
-    height: 24px
+    width: 20px;
+    height: 20px
 }
 
 .gj-button-md.active {

@@ -15,7 +15,7 @@ var app = express();
 
 
 //admin control variables
-var minimumTimeDuration = 5; //->minimum time duration in hours for setting pickup time
+var minimumTimeDuration = 2; //->minimum time duration in hours for setting pickup time
 
 
 app.set('view engine', 'ejs');
@@ -89,7 +89,7 @@ app.use('/users', usersRouter);
 var checkValidTime = (req, res, next) => {
 
   var start_day = req.body.start_date;
-  var end_day = req.body.end_date;
+  var end_day = (req.body.end_date != undefined)?req.body.end_date:req.body.start_date;
 
   var start_day = dateFormat(start_day)
   var end_day = dateFormat(end_day)
@@ -157,7 +157,7 @@ app.post('/dailyride/', checkValidTime, async (req, res) => {
     ride.totalFare = ride.fare.local;
   }
 
-  // console.log(rides);
+  var km = await calculateDistance(booking_details.from, [booking_details.to])
 
   // var parentRoute = req.originalUrl.slice(1, req.originalUrl.slice(1).indexOf('/')+1)
   res.locals.parentRoute = 'dailyride';
@@ -165,7 +165,7 @@ app.post('/dailyride/', checkValidTime, async (req, res) => {
 
   rides = lodash.sortBy(rides, ['totalFare'], ['asc'])
 
-  res.render('carselect', {vehicles: rides})
+  res.render('carselect', {vehicles: rides, duration: 1, distanceInKm: km})
 
 })
 
@@ -277,11 +277,15 @@ app.post('/outstation/one-way|round-trip', checkValidTime, async (req, res) => {
 
     res.locals.oneWay_booking_details = booking_details;
     res.locals.roundTrip_booking_details = emptyObject;
-
+    res.locals.oneWay_booking_details.to = res.locals.oneWay_booking_details.to.join('$');
+    console.log(res.locals.oneWay_booking_details.to)
+    
   } else if(req.originalUrl.slice(12) === 'round-trip') {
-
+    
     res.locals.roundTrip_booking_details = booking_details;
     res.locals.oneWay_booking_details = emptyObject;
+    res.locals.roundTrip_booking_details.to = res.locals.roundTrip_booking_details.to.join('$');
+    console.log(res.locals.roundTrip_booking_details.to)
 
   }
   dailyRide_booking_details = emptyObject;
@@ -555,7 +559,12 @@ app.use(function(err, req, res, next) {
 
 app.listen(3000, () => {
   console.log("server started at 3000")
+
   app.locals.key = process.env.GMAPS_KEY
+
+  app.locals.url = (process.env.NODE_ENV === 'production')?'www.quikecab.online':'127.0.0.1:3000';
+
+  console.log("NODE_ENV:", app.locals.url)
 })
 
 // module.exports = app;

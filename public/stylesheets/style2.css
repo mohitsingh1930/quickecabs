@@ -1,75 +1,93 @@
-.log-sign-button{
+.log-sign-button {
     display: inline-flex;
-    
+
 }
-.log-sign-button h6.username{
+
+.log-sign-button h6.username {
     font-size: 17px;
     margin: 10px 10px 10px 0px;
 }
-.log-sign-button button.logoutbtn{
+
+.log-sign-button button.logoutbtn {
     padding: 10px;
     width: 30px;
 }
-.login-button{
+
+.login-button {
     display: block;
     border-width: 0px;
     padding: 10px;
 }
-.login-button a{
+
+.login-button a {
     padding: 8px;
     margin: 0px;
 }
-.signup-button{
-    
+
+.signup-button {
+
     display: block;
     border-width: 0px;
 }
-.signup-button:hover{
+
+.signup-button:hover {
     background-color: aliceblue;
-    
+
     color: black;
 }
-.signup-button a{
+
+.signup-button a {
     padding: 8px;
     margin: 0px;
 }
+
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
-    .video{
-        height: 600px;
-        width: 100%;
-    }
-    #myVideo {
-  right: 0;
-  min-width: 100%;
+
+.video {
+    height: 600px;
+    width: 100%;
+}
+
+#myVideo {
+    right: 0;
+    min-width: 100%;
 }
 
 #myBtn {
-  width: 200px;
-  font-size: 18px;
-  padding: 10px;
-  border: none;
-  background: #000;
-  color: #fff;
-  cursor: pointer;
+    width: 200px;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
 }
 
 #myBtn:hover {
-  background: #ddd;
-  color: black;
+    background: #ddd;
+    color: black;
 }
-div.card-cars{ 
+
 /*
+.rows{
+    height: 260px;
+}
+*/
+div.card-cars {
+    /*
     width: 65%;
     height: 200px;    
 */
-    max-width: 800px;    
-    margin: auto;
-    background-color:white;
+    height: 200px;
+    text-align: center;
+    max-width: 900px;
+    margin: 10px auto;
+    background-color: white;
     text-decoration: none;
     display: inline-flex;
-    padding: 10px 20px 10px 20px;
+    padding: 10px 20px;
 }
 
 /*
@@ -78,106 +96,147 @@ div.card-cars{
     width: 30%;
 }
 */
-.car-display .rows{
+.car-display .rows {
     text-align: center;
 }
-.car-details{
-    padding-left: 50px;
+
+.car-details {
+    width: 130px;
+    /*    padding-left: 50px;*/
 }
-.car-details .car-name{
-     font-size: 35px;
+
+.car-details h4.car-name {
+    padding: 10px;
+    font-size: 17px;
+    color: darkslategrey;
+    font-family: sans-serif;
+    /*
     padding-right: 50px;
     padding-left: 30px;
-/*
+*/
+    /*
     padding-bottom: -10px;
     margin-bottom: -10px;
 */
 }
-.car-link:hover{
+.car-details h6.seats {
+        font-size: 9px;
+        color: darkslategrey;
+        font-family: sans-serif;
+        padding: 0px;
+    }
+
+.car-link:hover {
     text-decoration: none;
 }
-.car-about{
-padding-top: -20px;
-    margin-top:-13px; 
-color: gray;
+
+.car-about {
+    padding-top: -20px;
+    margin-top: -13px;
+    color: gray;
     font-size: 1rem;
-    display:inline-flex;
+    display: inline-flex;
     padding-left: 28PX;
 }
-.pricing{
-/*    padding-top: -50px;*/
-/*    margin-bottom: 5000px;*/
+
+.pricing {
+    /*    padding-top: -50px;*/
+    /*    margin-bottom: 5000px;*/
     padding-left: 20px;
     padding-top: 12px;
     font-size: 1.2rem;
     color: #FFA900;
     font-weight: bold;
 }
-.pricing p{
+
+.pricing p {
     font-size: 14px;
     padding-left: 02px;
     font-weight: 500;
     color: gray
 }
-.car-display .aman{
+
+.car-display .aman {
+/*
     padding-left: 26px;
     padding-top: 12px;
-} 
-.car-display .aman .select-btn{
-    border-radius: 40px;
-    height: 60px;
-    width: 180px;
-    padding: 0;
+*/
+    padding: 10px 0px;
 }
-.car-display .aman .select-btn:hover{
+
+.car-display .aman .select-btn {
+    border-radius: 40px;
+    height: 40px;
+    width: 160px;
+    padding: 0;
+    font-size: 20px;
+    font-weight: 400;
+
+}
+
+.car-display .aman .select-btn:hover {
     background-color: black;
 }
-.car-display .aman .extra-details{
+
+.car-display .aman .extra-details {
     font-size: 0.8rem;
-    padding-top: 10px;
+    padding-bottom: 60px;
 }
-.modal-body{
+
+.modal-body {
     font-size: 20px
 }
-.aman1{
-margin-right: auto;
+
+.aman1 {
+    margin-right: auto;
     margin-left: auto;
 }
-.aman1 button.book-btn:hover{
-background-color: black;
+
+.aman1 button.book-btn:hover {
+    background-color: black;
 }
-hr{
+
+/*
+hr {
     width: 350px;
     border-width: 2px;
 }
-.modal-body{
-    background-color:#F5F5F5;
+*/
+
+.modal-body {
+    background-color: #Ffffff;
 }
-.modal-body .md-car{
+
+.modal-body .md-car {
     height: 150px;
 }
-.modal-body .md-car .car-name{
+
+.modal-body .md-car .car-name {
     font-size: 1.2rem;
     text-align: center;
 }
-.modal-body .md-car .md-pk{
+
+.modal-body .md-car .md-pk {
     font-size: 0.9rem;
     text-align: center;
     padding: 0;
     margin: -30px;
 }
-.modal-body .md-car .md-ef{
-  font-size: 1rem;
+
+.modal-body .md-car .md-ef {
+    font-size: 1rem;
     margin: -40px;
     text-align: center
 }
-.modal-body .md-car .md-tf{
+
+.modal-body .md-car .md-tf {
     font-size: 1.6rem;
     text-align: center;
     color: #FFA900;
     font-weight: 400;
 }
-.modal-body .md-detail{
+
+.modal-body .md-detail {
     height: 200px;
     background-color: white;
     border-radius: 10px;
@@ -185,22 +244,27 @@ hr{
     margin-left: auto;
     margin-right: auto;
 }
-.modal-body .md-detail ul{
+
+.modal-body .md-detail ul {
     list-style-type: circle outside none;
 }
-.modal-body .md-detail li{
+
+.modal-body .md-detail li {
     font-size: 1rem;
     padding: 4% 0 0 10%;
 }
 
-img.cars-image{
+img.cars-image {
+    margin: 10px 0px 0px 0px ;
     height: 130px;
     width: 200px;
 
 }
 
-@media screen and (max-width:1100px){
-    div.card-cars{
+/*
+
+@media screen and (max-width:1100px) {
+    div.card-cars {
         width: 100%;
         margin-left: 0;
         padding-left: 0;
@@ -208,92 +272,201 @@ img.cars-image{
         padding-right: 0;
     }
 }
-@media screen and (max-width:856px){
-    .car-details .car-name{
+*/
+
+/*
+@media screen and (max-width:856px) {
+    .car-details .car-name {
         font-size: 20px;
         padding-right: 30px;
         padding-left: 20px;
     }
-    .pricing{
-/*    padding-top: -50px;*/
-/*    margin-bottom: 5000px;*/
-    padding-left: 10px;
-    padding-top: 5px;
-    font-size: 0.9rem;
-    color: #FFA900;
-    font-weight: bold;
-}
-    .pricing p{
-    font-size: 7pxpx;
-    padding-left: 02px;
-    font-weight: 500;
-    color: gray;
-}
-}
-@media screen and (max-width:740px){
-    div.card-cars{ 
-    width: 65%;
-    height: 100px;    
-    margin: 90px 4% 0 15%;
-    background-color:white;
-    text-decoration: none;
-    display: inline-flex;
-    padding: 10px 20px 10px 20px;
-}
 
-    img.cars-image{
-    height: 100px;
-    width: 0%;
+    .pricing {
+        padding-left: 10px;
+        padding-top: 5px;
+        font-size: 0.9rem;
+        color: #FFA900;
+        font-weight: bold;
+    }
 
+    .pricing p {
+        font-size: 7pxpx;
+        padding-left: 02px;
+        font-weight: 500;
+        color: gray;
+    }
 }
+*/
+
+@media screen and (max-width:740px) {
+    div.card-cars {
+        width: 75%;
+        height: 150px;
+/*        height: 100px;*/
+        margin: 0px auto;
+        background-color: white;
+        text-decoration: none;
+        display: inline-flex;
+        padding: 10px 20px 10px 20px;
+    }
+
+    img.cars-image {
+        height: 70px;
+        width: 120px;
+
+    }
+
+    .car-details {
+        width: 100px;
+        font-size: 2px;
+        /*        padding-left: 10px;*/
+    }
+
+    .car-details .car-name {
+        /*
+        font-size: 15px;
+        padding-right: 05px;
+        padding-left: 10px;
+        padding-top: 4px;
+        padding-bottom: 3px;
+*/
+    }
+
+    h4.car-name {
+
+        font-size: 1px;
+
+    }
+
+    .car-details h4.car-name {
+        font-size: 15px;
+        color: darkslategrey;
+        font-family: sans-serif;
+    }
+    .car-details h6.seats {
+        font-size: 9px;
+        color: darkslategrey;
+        font-family: sans-serif;
+        padding: 0px;
+    }
+
+    .pricing {
+        /*    padding-top: -50px;*/
+        /*    margin-bottom: 5000px;*/
+        padding-left: 20px;
+        padding-top: 12px;
+        font-size: 14px;
+        color: #FFA900;
+        font-weight: bold;
+    }
+
+    .pricing p {
+        font-size: 8px;
+        padding-left: 02px;
+        font-weight: 500;
+        color: gray;
+    }
+
+    .car-display .aman {
+        /*
+        padding-left: 15px;
+        padding-top: 12px;
+*/
+    }
+
+    .car-display .aman .select-btn {
+        border-radius: 40px;
+        height: 30px;
+        width: 90px;
+        padding: 0;
+        font-size: 11px;
+    }
+
+    .car-display .aman .select-btn:hover {
+        background-color: black;
+    }
+
+    .car-display .aman .extra-details {
+        /*
+        font-size: 10px;
+        top: -20px;
+        */
+    }
+}
+@media screen and (max-width:560px){
+    div.card-cars {
+        width: 80%;
+        height: 100px;
+        margin: 0px auto;
+        padding: 5px;
+    }
+    img.cars-image {
+        height: 60px;
+        width: 80px;
+
+    }
     .car-details{
-    padding-left: 10px;
-}
-.car-details .car-name{
-     font-size: 15px;
-    padding-right:05px;
-    padding-left: 10px;
-    padding-top: 4px;
-    padding-bottom: 3px;
+        margin: auto;
     }
-.car-about{
-color: gray;
-    font-size: 12px;
-    display:inline-flex;
-    top: 0px;
-    left: 0px;
+    .car-details h4.car-name {
+        margin: auto;
+        padding: 0px;
+        min-width: 80px;
+        font-size: 12px;
+        color: darkslategrey;
+        font-family: sans-serif;
     }
-.pricing{
-/*    padding-top: -50px;*/
-/*    margin-bottom: 5000px;*/
-    padding-left: 20px;
-    padding-top: 12px;
-    font-size: 14px;
-    color: #FFA900;
-    font-weight: bold;
-}
-.pricing p{
-    font-size: 8px;
-    padding-left: 02px;
-    font-weight: 500;
-    color: gray;
-}
-    .car-display .aman{
-    padding-left: 15px;
-    padding-top: 12px;
-} 
-.car-display .aman .select-btn{
-    border-radius: 40px;
-    height: 30px;
-    width: 90px;
-    padding: 0;
-    font-size: 11px;
-}
-.car-display .aman .select-btn:hover{
-    background-color: black;
-}
-.car-display .aman .extra-details{
-    font-size:10px;
-    top: -20px;
+    .car-details h6.seats {
+        font-size: 7px;
+        color: darkslategrey;
+        font-family: sans-serif;
+        padding: 0px;
     }
+    .pricing {
+        min-width: 57px;
+        padding: 10px 5px 10px 0px ;
+        font-size: 12px;
+        margin:0px auto;
+        height: 100%;
+    }
+
+}
+@media screen and (max-width:390px){
+    div.card-cars {
+        width: 98%;
+        height: 100px;
+        margin: 0px auto;
+        padding: 5px;
+    }
+    img.cars-image {
+        height: 60px;
+        width: 80px;
+
+    }
+    .car-details{
+        margin: auto;
+    }
+    .car-details h4.car-name {
+        margin: auto;
+        padding: 0px;
+        min-width: 80px;
+        font-size: 12px;
+        color: darkslategrey;
+        font-family: sans-serif;
+    }
+    .car-details h6.seats {
+        font-size: 7px;
+        color: darkslategrey;
+        font-family: sans-serif;
+        padding: 0px;
+    }
+    .pricing {
+        min-width: 57px;
+        padding: 10px 5px 10px 0px ;
+        font-size: 12px;
+        margin:0px auto;
+        height: 100%;
+    }
+
 }

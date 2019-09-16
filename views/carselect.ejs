@@ -9,7 +9,7 @@
         <!-- Swiper-->
         <div class="swiper-container swiper-slider " data-loop="false" data-autoplay="5500" data-simulate-touch="false" data-slide-effect="fade">
             <div class="swiper-wrapper" style="width: 100%">
-                <img src="/images/carselect.jpg">
+                <img class="carselect-img" src="/images/carselect.jpg">
                 <!-- <video autoplay muted loop width="100%">
               <source src="/images/travel.mp4" type="video/mp4"></video> -->
             </div>
@@ -282,12 +282,49 @@
                                     // var length = <%= Object.keys(roundTrip_booking_details).length %>
                                     console.log(document.querySelector(`#${selectedId} #div1`));
 
-                                    var buttonToClick = document.querySelector(`#${selectedId} #div1`)
+                                    var buttonToClick = document.querySelector(`#${selectedId} #div1 button .fa-plus-circle`)
 
                                     console.log(selectedId, buttonToClick);
 
-                                    for (let i = 0; i < < %= Array.isArray(oneWay_booking_details.to) % > ; i++) {
+                                    var list;
+
+                                    if('<%= oneWay_booking_details.to %>') {
+                                        
+                                        if(<%= oneWay_booking_details.to.indexOf('$') != -1 %>) {
+                                            
+                                            list = '<%= oneWay_booking_details.to %>'
+                                            list = list.split('$')
+
+                                        } else {
+                                            
+                                            list = '<%= oneWay_booking_details.to %>'
+                                            list = list.split('$')
+
+                                        }
+
+                                    } else if('<%= roundTrip_booking_details.to %>') {
+
+                                        if(<%= roundTrip_booking_details.to.indexOf('$') != -1 %>) {
+                                            
+                                            list = '<%= roundTrip_booking_details.to %>'
+                                            list = list.split('$')
+
+                                        } else {
+
+                                            list = '<%= roundTrip_booking_details.to %>'
+                                            list = list.split('$')
+
+                                        }
+
+                                    }
+
+                                    document.querySelector(`#${selectedId} #div1 input`).value = list[0]
+
+                                    for (let i=1; i <list.length; i++) {
+
                                         console.log(buttonToClick.click())
+                                        document.querySelector(`#${selectedId} #div${i+1} input`).value = list[i]
+
                                     }
 
                                 </script>
@@ -342,20 +379,21 @@
             <img src="/images/transports/<%= vehicle.img.split('.')[0] %>.jpg" class="cars-image">
             <div class="car-details">
                 <h4 class="car-name"><%= vehicle.name %>
-                    <br>Seats:<%= vehicle.seats %>
+                    <h6 class="seats"><br>Seats:<%= vehicle.seats %></h6>
                 </h4>
+                
             </div>
-            <div class="pricing ml-auto">₹ <%= vehicle.totalFare %>
+            <div class="pricing">₹ <%= vehicle.totalFare %>
                 <p>Inclusive of all Taxes</p>
             </div>
-            <div class="aman">
+            <div class="aman ml-auto">
                 <form action="/<%= parentRoute %>/booking/<%= vehicle.name %>/<%= vehicle.totalFare %>" method="post">
                     <button type="submit" class="btn btn-lg btn-primary select-btn ml-auto">Select</button>
                 </form>
                 <br>
                 <a href="#" data-toggle="modal" data-target="#<%= vehicle.name.split(' ').join('_') %>">
                     <p class="extra-details">
-                        Click for Complete Pricing Details
+                        Details
                     </p>
                 </a>
                 <div class="modal fade" id="<%= vehicle.name.split(' ').join('_') %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -378,12 +416,13 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div><hr>
     </div>
     <% } %>
 
 </div>
 </div>
+
 <!-- Javascript-->
 <script src="/js/core.min.js"></script>
 <script src="/js/script.js"></script>
