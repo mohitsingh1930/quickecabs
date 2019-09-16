@@ -138,7 +138,7 @@
               <div class="leftbody ">
                 <p class="card-text username"> UserName:&nbsp; <span><%= pending_bookings[i].user_name %></span></p>
                 <p class="card-text trip-type">TripType: &nbsp;<%= pending_bookings[i].journey %></p>
-                <p class="card-text trip">Trip:&nbsp; From &nbsp;<span> <%= pending_bookings[i].destination_from %> </span>&nbsp;to &nbsp;<span> <%= pending_bookings[i].destination_to %> </span></p>
+                <p class="card-text trip">Trip:&nbsp; From &nbsp;<span> <%= pending_bookings[i].destination_from %> </span>&nbsp;to &nbsp;<span> <%= pending_bookings[i].destination_to.split('$').join(' --> TO --> ') %> </span></p>
 
               </div>
               <div class="rightbody ">
