@@ -286,7 +286,7 @@
           if(this.responseText === '1') {
             console.log(`booking of id=${id} accepted and in progress`);
             
-            window.location.href = 'http://'+'<%= url + '/admin' %>'
+            window.location.href = "http://"+"<%= url + '/admin' %>"
           }
           if(this.responseText === 'Mail Error') {
             //alert
@@ -314,7 +314,7 @@
           console.log("post request sent and returned with status:", this.responseText);
           if(this.responseText === '1') {
             console.log(`trip of booking id=${id} ended`);
-            window.location.href = 'http://'+'<%= url + '/admin' %>'
+            window.location.href = "http://"+"<%= url + '/admin' %>"
           }
         }
       };
@@ -335,7 +335,7 @@
 
           if(this.responseText === '1') {
             console.log(`car: ${name} availability toggled`);
-            window.location.href = 'http://'+'<%= url + '/admin' %>'
+            window.location.href = "http://"+"<%= url + '/admin' %>"
           }
         }
       };

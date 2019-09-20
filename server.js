@@ -38,6 +38,7 @@ const {
   SESS_SECRET = 'sssh!quiet',
 } = process.env
 
+const https = 0 //http or https
 const IN_PROD = NODE_ENV === 'production'
 
 app.use(["/", "/users"],session({
@@ -48,7 +49,7 @@ app.use(["/", "/users"],session({
   cookie: {
     maxAge: SESS_LIFETIME,
     sameSite: true,
-    secure: IN_PROD
+    secure: IN_PROD && https
   }
 }))
 
@@ -225,7 +226,6 @@ app.post('/outstation/one-way|round-trip', checkValidTime, async (req, res) => {
 
 
   if(rides === 0 || rides === -1) {
-    console.log(rides);
     return res.send("No rides available")
   }
 
@@ -233,8 +233,20 @@ app.post('/outstation/one-way|round-trip', checkValidTime, async (req, res) => {
     booking_details.to = [booking_details.to]
   }
 
+
   //check fare calculation method(days or km)
+  
+  //towards journey
   var km = await calculateDistance(booking_details.from, Array.isArray(booking_details.to)?booking_details.to:[booking_details.to]);
+
+  //return: calculate return from final given destination to pickup location
+  var returnStraight = await distanceMatrixAPI([booking_details.to[booking_details.to.length-1]], [booking_details.from])
+  console.log("return straight distance:", returnStraight[0].distance.text.split(' ')[0])
+  km += parseFloat(returnStraight[0].distance.text.split(' ')[0])
+
+  km = Number.parseFloat(km).toPrecision(4)
+
+  console.log("Total kilometers:", km, "and total days:", days)
 
   if(km == -1) {
     req.session.msg = {
@@ -559,7 +571,7 @@ app.use(function(err, req, res, next) {
 
 app.listen(3000, () => {
   console.log("server started at 3000")
-
+ 
   app.locals.key = process.env.GMAPS_KEY
 
   app.locals.url = (process.env.NODE_ENV === 'production')?'www.quikecab.online':'127.0.0.1:3000';
