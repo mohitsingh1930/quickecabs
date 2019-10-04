@@ -1829,7 +1829,7 @@ section {
 
 .bg-gray-lighter + .bg-gray-lighter.page-footer-default .rd-mailform-inline .rd-mailform-inline-inner::before,
 .bg-gray-lighter + .bg-gray-lighter.page-footer-default .form-input {
-	background-color: #f7f7f7;
+	background-color: #b1a5a5;
 }
 
 .bg-gray-lighter .box-minimal-border:hover {

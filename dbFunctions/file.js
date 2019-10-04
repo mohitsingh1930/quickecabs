@@ -10,7 +10,7 @@ const dbConnection = mysql.createConnection({
 module.exports.getAvailableVehicles = () => {
 
   return new Promise((resolve, reject) => {
-    dbConnection.query(`select name, seats, img from transports where availability=1`, (err, result) => {
+    dbConnection.query(`select sno, name, seats, img from transports where availability=1`, (err, result) => {
       if(err) {
         console.log(err);
         resolve(-1)
@@ -27,10 +27,10 @@ module.exports.getAvailableVehicles = () => {
   })
 }
 
-module.exports.getFaresOf = (name) => {
+module.exports.getFaresOf = (id) => {
 
   return new Promise((resolve, reject) => {
-    dbConnection.query(`select * from fares where name='${name}'`, (err, result) => {
+    dbConnection.query(`select * from fares where sno=${id}`, (err, result) => {
       if(err) {
         console.log(err);
         resolve(-1)
@@ -51,7 +51,7 @@ module.exports.getFaresOf = (name) => {
 module.exports.setBookingInQueue = (details) => {
 
   return new Promise((resolve, reject) => {
-    let sql = `insert into pending_bookings(Id, user_mail, user_name, name, fare, destination_from, destination_to, start_date, end_date, journey) values('${details.bookingId}', '${details.user_mail}', '${details.user_name}', '${details.category}', '${details.fare}', '${details.from}', '${details.to}', '${details.start_date}' ${details.end_date?`, '${details.end_date}', '${details.journey}'`:`, Null, Null`})`;
+    let sql = `insert into pending_bookings(Id, user_mail, user_name, sno, fare, destination_from, destination_to, start_date, end_date, journey) values('${details.bookingId}', '${details.user_mail}', '${details.user_name}', '${details.car_id}', '${details.fare}', '${details.from}', '${details.to}', '${details.start_date}' ${details.end_date?`, '${details.end_date}', '${details.journey}'`:`, Null, Null`})`;
     console.log(sql);
     dbConnection.query(sql, (err, result) => {
       if(err) {
@@ -69,7 +69,7 @@ module.exports.setBookingInQueue = (details) => {
 module.exports.getPendingBookings = () => {
 
   return new Promise((resolve, reject) => {
-    dbConnection.query(`select * from pending_bookings`, (err, result) => {
+    dbConnection.query(`select pending_bookings.*, transports.name from pending_bookings, transports where transports.sno=pending_bookings.sno`, (err, result) => {
       if(err) {
         console.log(err);
         resolve(-1)
@@ -90,7 +90,7 @@ module.exports.getPendingBookings = () => {
 module.exports.getActiveBookings = () => {
 
   return new Promise((resolve, reject) => {
-    dbConnection.query(`select * from bookings where End=0 order by start_date`, (err, result) => {
+    dbConnection.query(`select bookings.*, transports.name from bookings, transports where transports.sno=bookings.sno and End=0 order by start_date`, (err, result) => {
       if(err) {
         console.log(err);
         resolve(-1)
@@ -131,7 +131,7 @@ module.exports.getAllVehicles = () => {
 
 module.exports.acceptBooking = (bookingId) => {
   return new Promise((resolve, reject) => {
-    dbConnection.query(`insert into bookings (Id, user_mail, user_name, name, fare, destination_from, destination_to, start_date, end_date, journey) select * from pending_bookings where Id='${bookingId}'`, (err, result) => {
+    dbConnection.query(`insert into bookings (Id, user_mail, user_name, sno, fare, destination_from, destination_to, start_date, end_date, journey) select * from pending_bookings where Id='${bookingId}'`, (err, result) => {
       if(err) {
         console.log(err.code);
         //TODO: seperate resolves by different types of errors generated

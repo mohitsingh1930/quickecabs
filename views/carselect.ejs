@@ -372,7 +372,8 @@
         </div>
     </div>
 </section>
-<div class="car-display">
+
+<div class="car-display" id="cars">
     <% for(let vehicle of vehicles) { %>
     <div class="rows">
         <div class="card-cars">
@@ -387,16 +388,16 @@
                 <p>Inclusive of all Taxes</p>
             </div>
             <div class="aman ml-auto">
-                <form action="/<%= parentRoute %>/booking/<%= vehicle.name %>/<%= vehicle.totalFare %>" method="post">
+                <form action="/<%= parentRoute %>/booking/<%= vehicle.sno %>/<%= vehicle.totalFare %>" method="post">
                     <button type="submit" class="btn btn-lg btn-primary select-btn ml-auto">Select</button>
                 </form>
                 <br>
-                <a href="#" data-toggle="modal" data-target="#<%= vehicle.name.split(' ').join('_') %>">
+                <a href="#" data-toggle="modal" data-target="#<%= vehicle.sno %>">
                     <p class="extra-details">
                         Details
                     </p>
                 </a>
-                <div class="modal fade" id="<%= vehicle.name.split(' ').join('_') %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal fade" id="<%= vehicle.sno %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">

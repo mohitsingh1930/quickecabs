@@ -2,7 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var dbfunctions = require(__dirname + '/dbFunctions/file.js')
 var logger = require('morgan');
-var ejs = require('ejs')
+var ejs = require('ejs') 
 var session = require('express-session')
 var dateFns = require('date-fns')
 var lodash = require('lodash')
@@ -149,7 +149,7 @@ app.post('/dailyride/', checkValidTime, async (req, res) => {
 
   //assigning respective fares
   for(let ride of rides) {
-    let fare = await dbfunctions.getFaresOf(ride.name)
+    let fare = await dbfunctions.getFaresOf(ride.sno)
     // console.log(ride.name, fare);
     ride.fare = fare[0];
 
@@ -238,6 +238,16 @@ app.post('/outstation/one-way|round-trip', checkValidTime, async (req, res) => {
   
   //towards journey
   var km = await calculateDistance(booking_details.from, Array.isArray(booking_details.to)?booking_details.to:[booking_details.to]);
+  
+  if(km == -1) {
+    req.session.msg = {
+      title: 'Invalid Details',
+      body: 'Please choose pickup/drop locations from suggestions, do not worry about actual coordinates'
+    }
+
+    return res.redirect('/')
+  }
+
 
   //return: calculate return from final given destination to pickup location
   var returnStraight = await distanceMatrixAPI([booking_details.to[booking_details.to.length-1]], [booking_details.from])
@@ -247,15 +257,6 @@ app.post('/outstation/one-way|round-trip', checkValidTime, async (req, res) => {
   km = Number.parseFloat(km).toPrecision(4)
 
   console.log("Total kilometers:", km, "and total days:", days)
-
-  if(km == -1) {
-    req.session.msg = {
-      title: 'Invalid Details',
-      body: 'Please choose pickup/drop locations from suggestions, do not worry about actual coordinates'
-    }
-
-    return res.redirect('/')
-  }
 
   if(km > days*200) {
     days = Math.ceil(km/200)
@@ -267,7 +268,7 @@ app.post('/outstation/one-way|round-trip', checkValidTime, async (req, res) => {
 
   //assigning respective fares
   for(let ride of rides) {
-    let fare = await dbfunctions.getFaresOf(ride.name)
+    let fare = await dbfunctions.getFaresOf(ride.sno)
     // console.log(ride.name, fare);
     ride.fare = fare[0];
 
@@ -339,13 +340,13 @@ app.post(['/dailyride/booking/:car_category/:fare','/outstation/booking/:car_cat
   //check ride is daily or outstation
   var parentRoute = req.session.parentRoute;
   console.log("Parent route:", parentRoute);
-
+ 
   //make details object
   details = {
     bookingId: bookingId,
     user_mail: req.session.user.email,
     user_name: req.session.user.name,
-    category: car_category,
+    car_id: car_category, 
     fare: fare,
     from: req.session.booking_details.from,
     to: Array.isArray(req.session.booking_details.to)?req.session.booking_details.to.join('$ '):req.session.booking_details.to,
@@ -577,6 +578,9 @@ app.listen(3000, () => {
   app.locals.url = (process.env.NODE_ENV === 'production')?'www.quikecab.online':'127.0.0.1:3000';
 
   console.log("NODE_ENV:", app.locals.url)
+
+
+  console.log("<<<<<<<<<<<<<WELCOME TO QUIKECAB>>>>>>>>>>>>>>>>>")
 })
 
 // module.exports = app;
