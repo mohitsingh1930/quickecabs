@@ -372,6 +372,12 @@
         </div>
     </div>
 </section>
+<script>$(document).ready(function () {
+    // Handler for .ready() called.
+    $('html, body').animate({
+        scrollTop: $('#cars').offset().top
+    }, 'slow');
+});</script>
 
 <div class="car-display" id="cars">
     <% for(let vehicle of vehicles) { %>

@@ -390,6 +390,12 @@ app.post(['/dailyride/booking/:car_category/:fare','/outstation/booking/:car_cat
 })
 
 
+app.get('/HotelList', (req, res)=> {
+
+  res.render('HotelList');
+})
+
+
 app.get('/hotel[1-5]', (req, res) => {
   console.log(req.originalUrl);
   res.render(`${req.originalUrl.slice(1)}.ejs`)

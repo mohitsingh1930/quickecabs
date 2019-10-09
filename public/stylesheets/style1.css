@@ -137,3 +137,21 @@
        padding: 10px;
 }
 }
+
+
+section.happy-customer{
+    width: 100vw;
+    display: flex;
+    text-align: center;
+    margin: auto;
+}
+.blocky{
+    margin: auto;
+    padding: 20px;
+    
+}
+.blocky .h3{
+    color: #ffa900;
+    font-weight: 600;
+    
+}

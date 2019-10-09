@@ -1,0 +1,75 @@
+.section-packages{
+    margin: 20px 80px;
+}
+.package-card{
+    box-shadow: 0px 4px 10px -5px; 
+}
+
+.package-img{
+    padding-left: 16px;
+    margin: 0px;
+    width: auto;
+    
+}
+.package-details{
+    width: auto;
+}
+button.package-buttons{
+    height: 30px;
+    padding: 0px 30px;
+    font-size: 12px;
+    color: #FFA900;
+    background-color: inherit;
+    border: 2px solid #FFA900;
+}
+button.Book-button{
+    margin-top: 10px;
+    background-color: #ffa900;
+    color: #ffffff;
+}
+button a{
+    
+    color: #ffffff;
+}
+button.Details-button{
+    margin-top: 10px;
+    background-color: #ffffff;
+    color: #ffa900;
+}
+button.Details-button a{
+    
+    color: #ffa900;
+}
+.card-body h5.card-title{
+    font-size: 25px;
+    font-weight: 400;
+    font-family: sans-serif;
+    padding: 0px;
+    margin-bottom: 10px;
+}
+.card-body p.card-title{
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    font-weight: 700;
+} 
+.card-body p.card-text strong{
+    font-size: 15px;   
+    padding: 0px;
+    margin: 0px;
+    font-weight: 800;
+}
+.packages-icon a span i{
+    margin-top: 20px;
+    width: 40px;
+    margin-right: 10px;
+    padding: 0px;
+}
+.side-details{ 
+    background-color: black;
+}
+@media screen and (max-width:500px){
+    .section-packages{
+    margin: 10px 10px;
+}
+}
