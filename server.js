@@ -390,8 +390,7 @@ app.post(['/dailyride/booking/:car_category/:fare','/outstation/booking/:car_cat
 })
 
 
-app.get('/HotelList', (req, res)=> {
-
+app.get('/HotelsList', (req, res)=> {
   res.render('HotelList');
 })
 
@@ -448,7 +447,7 @@ app.get('/admin', checkAdmin, async (req, res) => {
   //get all list of cars
   const cars = await dbfunctions.getAllVehicles()
 
-  console.log("pending_bookings:", pending_bookings);
+  console.log("active_bookings:", active_bookings);
 
   res.render("admin", {pending_bookings: pending_bookings, bookings: active_bookings, cars: cars})
 
@@ -553,7 +552,7 @@ app.post('/admin/cancelRequest', async (req, res) => {
   } else {
     res.send('0')
   }
-})
+}) 
 
 
 
