@@ -3,7 +3,7 @@ body{
     background-color: white;
 }
 .images{
-    height: 65vh;
+    height: 77vh;
 }
 body .hotel-info .hotel-name{
     font-family: 'Merriweather';
@@ -51,12 +51,13 @@ form{
     opacity: 0.7;
 }
 .form-blocks input, select{
-    border-radius: 25px;
+    border-radius: 5px;
     border: none;
     padding: 2px 0 4px 11px;
     background-color: #F1F0EE;
-    width: 60%;
+    width: 100%;
     margin-top: 0.2%;
+    margin: auto;
     height: 40px;
 }
 form .book-btn{
@@ -98,7 +99,7 @@ width: 30%;
     margin-top: 30px;
 }
 .ftrs .policies li{
-    margin: 5px 0px 10px 120px;
+    margin: 5px 0px 10px 85px;
     color: black;
     font-weight: 600;
     opacity: 0.8;
@@ -120,9 +121,17 @@ width: 30%;
 }
 
 @media screen and (max-width: 387px){
-    .details-form{
+    /* .details-form{
         width: 100%;
-    }
+    } */
+    form .book-btn{
+        width: 100px;
+            margin: auto;
+            height: 40px;
+            font-size: 17px;
+            text-align: center;
+            font-weight:500;
+        }
 }
 @media screen and (max-width: 620px){
     .images{

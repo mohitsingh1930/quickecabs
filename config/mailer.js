@@ -63,6 +63,8 @@ async function main(to, subject, token, mail)
       break;
   }
 
+  console.log("mail HTML:", mail_html);
+
 
   var msg = {
     from: '<Devs@ineptdevs.com>',
@@ -80,7 +82,7 @@ async function main(to, subject, token, mail)
       resolve(1)
     })
     .catch((err) => {
-      console.log(err.response);
+      console.log(err);
       resolve(0)
     })
 

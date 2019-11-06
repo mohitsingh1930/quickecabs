@@ -112,8 +112,10 @@
                           <div class="rd-navbar-nav-wrap">
                               <!-- RD Navbar Nav-->
                               <ul class="rd-navbar-nav">
-                                  <li class="active"><a href="/">Home</a>
-                                  </li>
+                                <li><a href="/">Home</a>
+                                </li>
+                                <li class="active"><a href="/HotelsList">Hotels</a>
+                                </li>
                                   <li><a href="/AboutUs">About Us</a>
                                   </li>
                                   <li><a href="/Contacts">Contacts</a>
@@ -239,8 +241,8 @@
                     </select>
                 </div>
                 <div class="form-blocks">
-                    <b>No. of Persons</b><br>
-                    <select name="rooms" id="">
+                    <b>No. of adults</b><br>
+                    <select name="adults" id="">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -259,13 +261,37 @@
                     </select>
                 </div>
                 <div class="form-blocks">
+                    <b>No. of children(age 06 to 12)</b><br>
+                    <select name="children" id="">
+                        <option value="1">0</option>
+                        <option value="2">1</option>
+                        <option value="3">2</option>
+                        <option value="4">3</option>
+                        <option value="5">4</option>
+                        <option value="6">5</option>
+                        <option value="7">6</option>
+                        <option value="8">7</option>
+                        <option value="9">8</option>
+                        <option value="10">9</option>
+                        <option value="11">10</option>
+                        <option value="12">11</option>
+                        <option value="13">12</option>
+                        <option value="14">13</option>
+                        <option value="15">14</option>
+                    </select>
+                </div>
+                <div class="form-blocks">
                     <b>Meals</b><br>
-                    <select name="rooms" id="">
-                        <option value="1">None</option>
+                    <select name="meals" id="">
+                        <option value="1">EP</option>
                         <option value="2">CP (Only Breakfast)</option>
                         <option value="3">MAP(Breakfast and Dinner)</option>
-                        <option value="4">APAI (Breakfast, Lunch and Dinner)</option>
+                        <!-- <option value="4">APAI (Breakfast, Lunch and Dinner)</option> -->
                         </select>
+                </div>
+                <hr>
+                <div class="form-blocks">
+                    <b>Total Price- ₹2000</b><br>
                 </div>
                 <button type="button" class="btn btn-primary book-btn" data-toggle="modal" data-target="#exampleModalLong">Book</button>
             </form>

@@ -18041,3 +18041,10 @@ html[dir='rtl'] .lg-css3.lg-slide.lg-use-css3 .lg-item.lg-current {
 * Fonts
 * ==================================================
 */
+
+
+
+
+.rd-navbar-collapse-toggle span{
+	display: none;
+} 

@@ -112,8 +112,10 @@
                           <div class="rd-navbar-nav-wrap">
                               <!-- RD Navbar Nav-->
                               <ul class="rd-navbar-nav">
-                                  <li class="active"><a href="/">Home</a>
-                                  </li>
+                                <li><a href="/">Home</a>
+                                </li>
+                                <li class="active"><a href="/HotelsList">Hotels</a>
+                                </li>
                                   <li><a href="/AboutUs">About Us</a>
                                   </li>
                                   <li><a href="/Contacts">Contacts</a>
@@ -219,7 +221,7 @@
     <hr>
     <div class="form-amenities">
         <div class="details-form">
-            <form action="">
+            <form action="/hotels/booking/3" method="post">
                 <div class="form-blocks"> <b>Name</b><br>
                     <input type="text" name="name" placeholder="Full Name">
                 </div>
@@ -233,11 +235,11 @@
                 </div>
                 <div class="form-blocks">
                     <b>Check Out</b><br>
-                    <input type="date" name="check-in" placeholder="Check in">
+                    <input type="date" name="check-out" placeholder="Check in">
                 </div>
                 <div class="form-blocks">
                     <b>Rooms</b><br>
-                    <select name="rooms" id="">
+                    <select name="rooms" id="rooms" onchange="computePrice()">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -248,8 +250,8 @@
                     </select>
                 </div>
                 <div class="form-blocks">
-                    <b>No. of Persons</b><br>
-                    <select name="rooms" id="">
+                    <b>No. of adults</b><br>
+                    <select name="adults" id="adults" onchange="computePrice()">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -268,16 +270,105 @@
                     </select>
                 </div>
                 <div class="form-blocks">
+                    <b>No. of children(age 06 to 12)</b><br>
+                    <select name="children" id="children" onchange="computePrice()">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                    </select>
+                </div>
+                <div class="form-blocks">
                     <b>Meals</b><br>
-                    <select name="rooms" id="">
-                        <option value="1">None</option>
+                    <select name="meals" id="meals" onchange="computePrice()">
                         <option value="2">CP (Only Breakfast)</option>
                         <option value="3">MAP(Breakfast and Dinner)</option>
-                        <option value="4">APAI (Breakfast, Lunch and Dinner)</option>
+                        <!-- <option value="4">APAI (Breakfast, Lunch and Dinner)</option> -->
                         </select>
                 </div>
-                <button type="button" class="btn btn-primary book-btn" data-toggle="modal" data-target="#exampleModalLong">Book</button>
+                <hr>
+                <div class="form-blocks" id="price">
+                    <b>Total Price- Enter details in above form to compute price</b><br>
+                </div>
+                <button type="submit" class="btn btn-primary book-btn" data-toggle="modal" data-target="#exampleModalLong">Book</button>
             </form>
+
+            <script>
+
+                function loadPrice() {
+                    return new Promise((resolve, reject) => {
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function() {
+                            if(this.readyState === 4 && this.status === 200) {
+                                if(this.responseText != 'error') {
+                                    console.log("prices are:", this.responseText);
+                                    var roomPrice = JSON.parse(this.responseText);
+                                    resolve(roomPrice);
+                                } else {
+                                    resolve('');
+                                }
+                            }
+                        }
+                        xhttp.open('POST', '/hotels/3/getPrice', false);
+                        xhttp.send();
+                    }) 
+                }
+                
+                async function computePrice()
+                {
+
+                    var roomPrice = await loadPrice();
+                    if(!roomPrice) {
+                        alert("Error!! please reload this page, or contact to the site owner");
+                    } else {
+                        // console.log("Room prices:", roomPrice)
+                    }
+
+
+                    var rooms = document.querySelector('#rooms').value;
+                    var adults = document.querySelector('#adults').value;
+                    var children = document.querySelector('#children').value;
+                    var meal = document.querySelector('#meals').value;
+
+                    // console.log('rooms=', rooms, 'adults=', adults, 'children=', children, 'meal=', meal);
+
+                    var maxPersonsAllowed = rooms*2;
+                    var totalPrice = rooms*roomPrice[meal];
+
+                    if(maxPersonsAllowed < adults+children) {
+                        var temp = maxPersonsAllowed-adults;
+                        if(temp>0) {
+                            if(temp-children < 0){
+                                temp = temp - children;
+                                var totalPrice = totalPrice + (-1)*temp*roomPrice[meal]*0.3;
+                            }
+                        }
+                        else {
+                            totalPrice = totalPrice + ((-1)*temp*0.35 + children*0.3)*roomPrice[meal];
+                        }
+                    }   
+
+                    document.querySelector('#price b').innerHTML = `Total Price- ${totalPrice}`;
+
+                }
+
+                        
+                
+                window.onload = computePrice;
+            </script>
+
+
         </div>
         <div class="ftrs">
             <h2>Amenities</h2>

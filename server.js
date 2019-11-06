@@ -15,8 +15,32 @@ var app = express();
 
 
 //admin control variables
-var minimumTimeDuration = 2; //->minimum time duration in hours for setting pickup time
-
+const minimumTimeDuration = 2; //->minimum time duration in hours for setting pickup time
+const Price = {                //->price list for hotel rooms
+  1: {
+    name: 'Grace Resort, Manali',
+    2: 2400,
+    3: 2800
+  },
+  2: {
+    name: 'The Rock Manali, Manali',
+    1: 3200,
+    2: 2500,
+    3: 4000
+  },
+  3: {
+    name: 'Phoenix Resort, Mussoorie',
+    1: 2700,
+    2: 3200,
+    3: 3900
+  },
+  4: {
+    name: 'Value and Spa, Mussoorie',
+    1: 1600,
+    2: 2100,
+    3: 2800
+  }
+}
 
 app.set('view engine', 'ejs');
 
@@ -401,6 +425,45 @@ app.get('/hotel[1-5]', (req, res) => {
 })
 
 
+app.post('/hotels/booking/:id', redirectLogin,  async (req, res) => {
+
+  var hotel_details = req.body;
+  hotel_details.id = req.params.id;
+
+  hotel_details.totalPrice = computePrice(hotel_details);
+  
+  
+  hotel_details.meal = {1: 'EP(Only Rooms)', 2: 'CP(Breakfast Included)', 3: 'MAP(Breakfast with lunch or dinner'}[hotel_details.meals];
+  delete hotel_details.meals;
+  
+  console.log("hotel Booking Details:", hotel_details);
+
+  var sent = await mailer.sendMail(req.session.user.email, 'Hotel Booking Request', hotel_details, 3);
+
+  var mailToAdmin = await mailer.sendMail(process.env.TEAM_MAIL, 'Hotel Booking Request', hotel_details, 3);
+
+  if(sent && mailToAdmin) {
+    var msg = {
+      title: "Booking Request Sent",
+      body: "Your request for booking "+ hotel_details.rooms +" rooms in Hotel "+Price[hotel_details.id].name+"successfully sent"
+    }
+  } else {
+      var msg = {
+      title: "Error in Booking",
+      body: "Due to some fault booking request not sent, please rebook or contact admin"
+    }
+  }
+    req.session.msg = msg;
+  
+    
+    
+  
+  res.redirect(`/`);
+
+
+})
+
+
 // app.get('/packages', (req, res) => {
 //   res.render('packages.ejs')
 // })
@@ -555,6 +618,12 @@ app.post('/admin/cancelRequest', async (req, res) => {
 }) 
 
 
+app.post('/hotels/:id/getPrice', (req, res) => {
+
+  var id = req.params.id;
+  console.log("hotel", id,"price demanded by client:", Price[id]);
+  res.send(Price[id]);
+})
 
 
 
@@ -625,6 +694,38 @@ function checkOldDay(day) {
 }
 
 
+function computePrice(details) {
+
+  var roomPrice = Price[details.id];
+
+  var rooms = Number(details.rooms);
+  var adults = Number(details.adults);
+  var children = Number(details.children);
+  var meal = Number(details.meals);
+
+  console.log("pricing compute details:", roomPrice, rooms, adults, children, meal);
+
+  // console.log('rooms=', rooms, 'adults=', adults, 'children=', children, 'meal=', meal);
+
+  var maxPersonsAllowed = rooms*2;
+  var totalPrice = rooms*roomPrice[meal];
+
+  if(maxPersonsAllowed < adults+children) {
+      var temp = maxPersonsAllowed-adults;
+      if(temp>0) {
+          if(temp-children < 0){
+              temp = temp - children;
+              var totalPrice = totalPrice + (-1)*temp*roomPrice[meal]*0.3;
+          }
+      }
+      else {
+        totalPrice = totalPrice + ((-1)*temp*0.35 + children*0.3)*roomPrice[meal];
+    }
+  }
+    return totalPrice;
+}
+
+
 
 
 async function calculateDistance(origin, destinations) {
@@ -684,10 +785,5 @@ async function distanceMatrixAPI(origins, destinations) {
   console.log(result.json.rows[0].elements);
 
   return Promise.resolve(result.json.rows[0].elements);
-
-}
-
-
-function arraySort() {
 
 }

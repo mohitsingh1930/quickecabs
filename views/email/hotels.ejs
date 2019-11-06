@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    Your hotel booking request received and we will let you know when it will be completed on this number: <%= details.contact %>.
+    If the contact is not present above or you want to change above number then please reply on this mail with your mobile updated number on which we will contact you or call us here: 
+    <h3><a href="www.quikecab.online/Contacts">Quikecab</a></h3>
+
+    <% for(let i in details) { %>
+      <h3><%= i %> : <%= details[i] %></h3>
+    <% } %>
+  </body>
+</html>
