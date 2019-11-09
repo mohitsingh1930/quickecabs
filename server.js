@@ -430,6 +430,8 @@ app.post('/hotels/booking/:id', redirectLogin,  async (req, res) => {
   var hotel_details = req.body;
   hotel_details.id = req.params.id;
 
+
+  console.log("hotel Booking Details:", hotel_details);
   hotel_details.totalPrice = computePrice(hotel_details);
   
   
@@ -438,6 +440,11 @@ app.post('/hotels/booking/:id', redirectLogin,  async (req, res) => {
   
   console.log("hotel Booking Details:", hotel_details);
 
+  if(hotel_details.computePrice == -1) {
+    return res.redirect('/hotel' + req.params.id);
+  }
+
+  
   var sent = await mailer.sendMail(req.session.user.email, 'Hotel Booking Request', hotel_details, 3);
 
   var mailToAdmin = await mailer.sendMail(process.env.TEAM_MAIL, 'Hotel Booking Request', hotel_details, 3);
@@ -702,8 +709,28 @@ function computePrice(details) {
   var adults = Number(details.adults);
   var children = Number(details.children);
   var meal = Number(details.meals);
+  var checkInDate = new Date(details['checkIn'])
+  var checkOutDate = new Date(details['checkOut'])
 
-  console.log("pricing compute details:", roomPrice, rooms, adults, children, meal);
+
+  //calculating totaldays
+  var totalDays = 0;
+  if(details['checkIn'] && details['checkOut']) {
+
+    let diff = checkOutDate - checkInDate;
+    if(diff < 0) {
+        return -1;
+    } else {
+        totalDays = diff/(1000*60*60*24);
+    }
+
+  } else {
+      console.log("date inputs not filled")
+      return -1;
+  }
+  
+
+  console.log("pricing compute details:", roomPrice, rooms, adults, children, meal, totalDays);
 
   // console.log('rooms=', rooms, 'adults=', adults, 'children=', children, 'meal=', meal);
 
@@ -722,6 +749,9 @@ function computePrice(details) {
         totalPrice = totalPrice + ((-1)*temp*0.35 + children*0.3)*roomPrice[meal];
     }
   }
+
+    totalDays++;
+    totalPrice = totalPrice*totalDays;
     return totalPrice;
 }
 
