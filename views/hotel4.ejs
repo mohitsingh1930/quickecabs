@@ -221,86 +221,87 @@
     <hr>
     <div class="form-amenities">
         <div class="details-form">
-            <div class="form-blocks"> <b>Name</b><br>
-                <input type="text" name="name" placeholder="Full Name" required>
-            </div>
-            <div class="form-blocks">
-                <b>Contact No.</b><br>
-                <input type="tel" name="contact" placeholder="Contact No." required>
-            </div>
-            <div class="form-blocks">
-                <b>Check in</b><br>
-                <input type="date" id="check-in" name="checkIn" placeholder="Check in" onchange="computePrice()" required>
-            </div>
-            <div class="form-blocks">
-                <b>Check Out</b><br>
-                <input type="date" id="check-out" name="checkOut" placeholder="Check in" onchange="computePrice()" required>
-            </div>
-            <div class="form-blocks">
-                <b>Rooms</b><br>
-                <select name="rooms" id="rooms" onchange="computePrice()" required>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                </select>
-            </div>
-            <div class="form-blocks">
-                <b>No. of adults</b><br>
-                <select name="adults" id="adults" onchange="computePrice()" required>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
-                    <option value="15">15</option>
-                </select>
-            </div>
-            <div class="form-blocks">
-                <b>No. of children(age 06 to 12)</b><br>
-                <select name="children" id="children" onchange="computePrice()" required>
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
-                </select>
-            </div>
-            <div class="form-blocks">
-                <b>Meals</b><br>
-                <select name="meals" id="meals" onchange="computePrice()" required>
-                    <option value="2">CP (Only Breakfast)</option>
-                    <option value="3">MAP(Breakfast and Dinner)</option>
-                    <!-- <option value="4">APAI (Breakfast, Lunch and Dinner)</option> -->
+            <form action="/hotels/booking/3" method="post">
+                <div class="form-blocks"> <b>Name</b><br>
+                    <input type="text" name="name" placeholder="Full Name" required>
+                </div>
+                <div class="form-blocks">
+                    <b>Contact No.</b><br>
+                    <input type="tel" name="contact" placeholder="Contact No." required>
+                </div>
+                <div class="form-blocks">
+                    <b>Check in</b><br>
+                    <input type="date" id="check-in" name="checkIn" placeholder="Check in" onchange="computePrice()" required>
+                </div>
+                <div class="form-blocks">
+                    <b>Check Out</b><br>
+                    <input type="date" id="check-out" name="checkOut" placeholder="Check in" onchange="computePrice()" required>
+                </div>
+                <div class="form-blocks">
+                    <b>Rooms</b><br>
+                    <select name="rooms" id="rooms" onchange="computePrice()" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
                     </select>
-            </div>
-            <hr>
-            <div class="form-blocks" id="price">
-                <b>Total Price- Enter details in above form to compute price</b><br>
-            </div>
-            <button type="submit" id="submit-button" class="btn btn-primary book-btn" data-toggle="modal" data-target="#exampleModalLong">Book</button>
+                </div>
+                <div class="form-blocks">
+                    <b>No. of adults</b><br>
+                    <select name="adults" id="adults" onchange="computePrice()" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                    </select>
+                </div>
+                <div class="form-blocks">
+                    <b>No. of children(age 06 to 12)</b><br>
+                    <select name="children" id="children" onchange="computePrice()" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                    </select>
+                </div>
+                <div class="form-blocks">
+                    <b>Meals</b><br>
+                    <select name="meals" id="meals" onchange="computePrice()" required>
+                        <option value="2">CP (Only Breakfast)</option>
+                        <option value="3">MAP(Breakfast and Dinner)</option>
+                        <!-- <option value="4">APAI (Breakfast, Lunch and Dinner)</option> -->
+                        </select>
+                </div>
+                <hr>
+                <div class="form-blocks" id="price">
+                    <b>Total Price- Enter details in above form to compute price</b><br>
+                </div>
+                <button type="submit" id="submit-button" class="btn btn-primary book-btn" data-toggle="modal" data-target="#exampleModalLong">Book</button>
             </form>
 
             <script>

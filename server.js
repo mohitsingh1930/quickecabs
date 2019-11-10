@@ -16,29 +16,30 @@ var app = express();
 
 //admin control variables
 const minimumTimeDuration = 2; //->minimum time duration in hours for setting pickup time
+const hotelPriceIncrement = 200;
 const Price = {                //->price list for hotel rooms
   1: {
     name: 'Grace Resort, Manali',
-    2: 2400,
-    3: 2800
+    2: 2400+hotelPriceIncrement,
+    3: 2800+hotelPriceIncrement
   },
   2: {
     name: 'The Rock Manali, Manali',
-    1: 3200,
-    2: 2500,
-    3: 4000
+    1: 3200+hotelPriceIncrement,
+    2: 2500+hotelPriceIncrement,
+    3: 4000+hotelPriceIncrement
   },
   3: {
     name: 'Phoenix Resort, Mussoorie',
-    1: 2700,
-    2: 3200,
-    3: 3900
+    1: 2700+hotelPriceIncrement,
+    2: 3200+hotelPriceIncrement,
+    3: 3900+hotelPriceIncrement
   },
   4: {
     name: 'Value and Spa, Mussoorie',
-    1: 1600,
-    2: 2100,
-    3: 2800
+    1: 1600+hotelPriceIncrement,
+    2: 2100+hotelPriceIncrement,
+    3: 2800+hotelPriceIncrement
   }
 }
 
