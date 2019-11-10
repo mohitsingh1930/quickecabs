@@ -316,7 +316,7 @@
 
                                         }
 
-                                    }
+                                    } 
 
                                     document.querySelector(`#${selectedId} #div1 input`).value = list[0]
 
@@ -413,11 +413,11 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <%= duration %> (days) X <%= vehicle.fare.outstation %>(per day fare) = <%= duration*vehicle.fare.outstation %>
+                                <%= vehicle.days %> (days) X <%= vehicle.fare.outstation %>(per day fare) = <%= vehicle.days*vehicle.fare.outstation %>
                                 <br>
-                                <%= duration %> (days) X <%= vehicle.fare.driver %>(Driver per day charge) = <%= duration*vehicle.fare.driver %>
+                                <%= vehicle.days %> (days) X <%= vehicle.fare.driver %>(Driver per day charge) = <%= vehicle.days*vehicle.fare.driver %>
                                 <br>
-                                Total Fare: <%= duration*vehicle.fare.outstation %> + <%= duration*vehicle.fare.driver %> = <%= vehicle.totalFare %>
+                                Total Fare: <%= vehicle.days*vehicle.fare.outstation %> + <%= vehicle.days*vehicle.fare.driver %> = <%= vehicle.totalFare %>
                             </div>
                         </div>
                     </div>

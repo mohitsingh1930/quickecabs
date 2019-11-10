@@ -282,22 +282,33 @@ app.post('/outstation/one-way|round-trip', checkValidTime, async (req, res) => {
 
   console.log("Total kilometers:", km, "and total days:", days)
 
-  if(km > days*200) {
-    days = Math.ceil(km/200)
-    console.log("days changed:", days);
-  }
-
   req.session.booking_details.distanceInKm = km;
   req.session.booking_details.duration = days;
 
+  
   //assigning respective fares
   for(let ride of rides) {
+
+    var temp=days;
+    if(ride.sno == 1) {
+      if(km > days*200) {
+        temp = Math.ceil(km/200)
+        console.log("days changed (200):", temp);
+      }
+    } else {
+      if(km > days*250) {
+        temp = Math.ceil(km/250)
+        console.log("days changed (250):", temp);
+      }
+    }
+    ride.days=temp;
+
     let fare = await dbfunctions.getFaresOf(ride.sno)
     // console.log(ride.name, fare);
     ride.fare = fare[0];
 
     // console.log(`fares of ${ride.name}:`, ride.fare.outstation, ride.fare.driver);
-    ride.totalFare = ride.fare.outstation*days + ride.fare.driver*days;
+    ride.totalFare = ride.fare.outstation*temp + ride.fare.driver*temp;
   }
 
 
