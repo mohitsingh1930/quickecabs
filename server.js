@@ -114,8 +114,8 @@ app.use('/users', usersRouter);
 //middleware to check if start date is acc to minimumTimeDuration
 var checkValidTime = (req, res, next) => {
 
-  var start_day = req.body.start_date;
-  var end_day = (req.body.end_date != undefined)?req.body.end_date:req.body.start_date;
+  var start_day = req.query.start_date;
+  var end_day = (req.query.end_date != undefined)?req.query.end_date:req.query.start_date;
 
   var start_day = dateFormat(start_day)
   var end_day = dateFormat(end_day)
@@ -141,15 +141,15 @@ var checkValidTime = (req, res, next) => {
 }
 
 
-app.post('/dailyride/', checkValidTime, async (req, res) => {
+app.get('/dailyride/', checkValidTime, async (req, res) => {
 
   const booking_details = {
-    from: req.body.destination_from,
-    to: req.body.destination_to,
-    start_date: req.body.start_date
-    // end_date: req.body.end_date,
+    from: req.query.destination_from,
+    to: req.query.destination_to,
+    start_date: req.query.start_date
+    // end_date: req.query.end_date,
     // journey: req.params.journey_type
-  }
+  } || req.session.booking_details;
 
   console.log(booking_details);
 
@@ -188,6 +188,7 @@ app.post('/dailyride/', checkValidTime, async (req, res) => {
   // var parentRoute = req.originalUrl.slice(1, req.originalUrl.slice(1).indexOf('/')+1)
   res.locals.parentRoute = 'dailyride';
   req.session.parentRoute = 'dailyride';
+  req.session.lastUrl = req.originalUrl;
 
   rides = lodash.sortBy(rides, ['totalFare'], ['asc'])
 
@@ -196,15 +197,15 @@ app.post('/dailyride/', checkValidTime, async (req, res) => {
 })
 
 
-app.post('/outstation/one-way|round-trip', checkValidTime, async (req, res) => {
+app.get('/outstation/one-way|round-trip', checkValidTime, async (req, res) => {
 
-  const booking_details = {
-    from: req.body.destination_from,
-    to: req.body.destination_to,
-    start_date: req.body.start_date,
-    end_date: req.body.end_date,
-    journey: req.originalUrl.slice(12)
-  }
+  const booking_details = (req.session.booking_details)?req.session.booking_details:({
+    from: req.query.destination_from,
+    to: req.query.destination_to,
+    start_date: req.query.start_date,
+    end_date: req.query.end_date,
+    journey: req.originalUrl.slice(12, req.originalUrl.indexOf('?'))
+  }) 
 
   console.log(booking_details);
 
@@ -316,20 +317,21 @@ app.post('/outstation/one-way|round-trip', checkValidTime, async (req, res) => {
   var parentRoute = req.originalUrl.slice(1, req.originalUrl.slice(1).indexOf('/')+1)
   // console.log(parentRoute);
   res.locals.parentRoute = parentRoute;
-  req.session.parentRoute = parentRoute
+  req.session.parentRoute = parentRoute;
+  req.session.lastUrl = req.originalUrl;
 
 
   //creating Neccesary objects of booking details for template
   var emptyObject = {from: '', to: '', start_date: '', end_date: '', journey: ''}
 
-  if(req.originalUrl.slice(12) === 'one-way') {
+  if(booking_details.journey === 'one-way') {
 
     res.locals.oneWay_booking_details = booking_details;
     res.locals.roundTrip_booking_details = emptyObject;
     res.locals.oneWay_booking_details.to = res.locals.oneWay_booking_details.to.join('$');
     console.log(res.locals.oneWay_booking_details.to)
     
-  } else if(req.originalUrl.slice(12) === 'round-trip') {
+  } else if(booking_details.journey === 'round-trip') {
     
     res.locals.roundTrip_booking_details = booking_details;
     res.locals.oneWay_booking_details = emptyObject;
@@ -543,6 +545,15 @@ app.get('/AboutUs', (req, res) => {
 
 app.get('/Contacts', (req, res) => {
   res.render('contacts')
+})
+
+
+app.get('/practice', (req, res) => {
+
+  console.log("request properties:", Object.keys(req))
+
+  console.log("request object:", req)
+
 })
 
 

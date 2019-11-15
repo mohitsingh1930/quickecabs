@@ -25,15 +25,39 @@
            })
          }
 
+         var lastUrl = '';
+         
+         function getLastUrl() {
 
-         function userSignIn(user) {
+          return new Promise((resolve, reject) => {
+            console.log('Inside lastUrl')
+             
+            var xhttp = new XMLHttpRequest();
+  
+            xhttp.onreadystatechange = function() {
+              if(this.readyState == 4 && this.status == 200) {
+                console.log("response: ", this.responseText)
+                // resolve(this.responseText)
+                lastUrl = this.responseText
+              }
+            }
+            
+            xhttp.open('POST', '/users/lastUrl', true);
+            xhttp.send();
+          })
+
+         }
+         
+         async function userSignIn(user) {
            var xml = new XMLHttpRequest();
 
            xml.onreadystatechange = function() {
              if(this.readyState == 4 && this.status == 200) {
                console.log("hurray");
                // document.write(this.responseText)
-               window.location.href = 'http://' + '<%= url %>'
+              //  var lastUrl = lastUrl
+               console.log(lastUrl)
+               window.location.href = 'http://<%= url %>' + lastUrl
              }
            }
 
@@ -41,6 +65,9 @@
            xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
            xml.send(`name=${user.name}&email=${user.email}`);
          }
+
+         window.onload = getLastUrl()
+
        </script>
 
 

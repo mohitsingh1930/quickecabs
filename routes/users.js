@@ -71,7 +71,8 @@ app.post('/login', adminIn, redirectHome, async (req, res) => {
       req.session.user = {user_id: userExists.user_id, name: userExists.name, email: userExists.email}
       console.log(`user ${userExists.email} successfully logged in`);
       req.session.msg= {title: "Logged In", body: 'successfully logged in now you can book'}
-      res.redirect(`/`)
+      res.redirect(req.session.lastUrl)
+
     }
     else {
       res.render("users/login", {error_msg: "user is inactive if new then verify your email first "})
@@ -252,7 +253,7 @@ app.post("/loggedUser", (req, res) => {
 
   if(req.session.user) {
     res.send(req.session.user)
-  } else {
+  } else { 
     res.send("")
   }
 })
@@ -266,6 +267,14 @@ app.post("/signIn", (req, res) => {
   res.render("home", {user: req.session.user})
 
   console.log(`User ${req.session.user.email} successfully loggedIn`);
+})
+
+app.post('/lastUrl', (req, res) => {
+
+  console.log('client requested lastUrl:', req.session.lastUrl);
+
+  res.status(200).send(req.session.lastUrl?req.session.lastUrl:'')
+
 })
 
 module.exports = app;

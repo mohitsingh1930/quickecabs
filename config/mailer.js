@@ -63,7 +63,7 @@ async function main(to, subject, token, mail)
       break;
   }
 
-  console.log("mail HTML:", mail_html);
+  // console.log("mail HTML:", mail_html);
 
 
   var msg = {
