@@ -104,6 +104,7 @@ app.get('/', (req, res) => {
     delete req.session.msg
   }
 
+  // res.send('The site has been temporary disabled.')
   res.render("home", {user_name: req.session.user?req.session.user.name:""})
 })
 
