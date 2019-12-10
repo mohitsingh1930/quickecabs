@@ -563,15 +563,16 @@ app.post('/admin/acceptBooking/', checkAdmin, async (req, res) => {
   const id = req.body.id;
   const mail = req.body.email;
   const carNumber = req.body.carNumber;
-  console.log("booking request received for id:", id);
+  console.log("booking request received for id:", id, "carNumber", carNumber);
 
   var sent = mailer.sendMail(mail, 'Booking Confirmed', {carNumber: carNumber}, 2)
 
   if(sent) {
 
-    const accepted = await dbfunctions.acceptBooking(id, carNumber)
+    const accepted = await dbfunctions.acceptBooking(id);
+    const carAssigned = await dbfunctions.assignCarNumber(id, carNumber);
 
-    if(!accepted) {
+    if(!accepted || !carAssigned) {
       console.log(`Booking id: ${id} not exists in pending bookings`);
       res.send('0')
     }

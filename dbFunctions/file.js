@@ -157,6 +157,19 @@ module.exports.acceptBooking = (bookingId) => {
 }
 
 
+module.exports.assignCarNumber = (bookingId, carNumber) => {
+  return new Promise((resolve, reject) => {
+    dbConnection.query(`update bookings set car_number='${carNumber}' where id='${bookingId}'`, (err, result) => {
+      if(err) {
+        console.log(err);
+        resolve(0);
+      } else {
+        resolve(result);
+      }
+    })
+  })
+}
+
 module.exports.endTrip = (bookingId) => {
   return new Promise((resolve, reject) => {
     dbConnection.query(`update bookings set end=1 where id='${bookingId}'`, (err, result) => {
